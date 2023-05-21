@@ -1,0 +1,74 @@
+sub_id;date/time;user_id;user_rating;fire_verified;smoke_verified;lat;lon;text_district;text_loc;text_keywords
+0;28/03/2023 10:15;1;17;1;0;40.151;-8.855;Coimbra;Figueira da Foz;Gasolina-Casas
+1;31/03/2023 09:00;5;18;1;0;40.152;-8.856;Coimbra;;Gasolina-Urbanizacao-Casas
+2;31/03/2023 10:30;3;17;0;1;40.153;-8.857;Coimbra;;Fumo-Bairro
+3;31/03/2023 12:15;2;16;1;0;40.154;-8.858;Coimbra;Figueira da Foz;Gasolina-Urbanizacao-Apartamentos
+4;01/04/2023 08:45;1;17;0;0;40.155;-8.859;;Figueira da Foz;
+5;01/04/2023 10:00;4;16;1;1;40.156;-8.860;Coimbra;;Gasolina-Urbanizacao-Casas
+6;01/04/2023 12:30;2;16;1;1;40.157;-8.861;;Figueira da Foz;Fumo-Bairro
+7;02/04/2023 09:15;1;17;0;1;40.158;-8.862;Coimbra;Figueira da Foz;Gasolina-Urbanizacao-Apartamentos
+8;02/04/2023 11:00;5;18;1;0;40.159;-8.863;Coimbra;;Bairro-Casas
+9;02/04/2023 12:45;4;16;0;0;40.160;-8.864;Coimbra;Figueira da Foz;Gasolina-Explosivo
+10;03/04/2023 08:30;3;17;1;1;40.161;-8.865;Coimbra;Figueira da Foz;Fumo-Quimicos
+11;03/04/2023 10:15;5;18;0;1;40.144;-8.850;;;Gasolina-Fogo-Explosivo
+12;03/04/2023 11:45;4;16;1;0;40.145;-8.851;;Figueira da Foz;Fogo-Bairro-Casas
+13;03/04/2023 14:30;2;16;1;0;40.146;-8.852;Coimbra;Figueira da Foz;Gasolina-Urbanizacao
+14;04/04/2023 09:00;1;17;0;1;40.147;-8.853;;Figueira da Foz;Fumo-Bairro-Casas
+15;04/04/2023 10:30;3;17;1;1;40.148;-8.854;Coimbra;;Gasolina-Gas-Explosivo
+16;04/04/2023 12:15;4;16;0;0;40.149;-8.855;;;Gasolina-Urbanizacao-Apartamentos
+17;05/04/2023 08:45;2;16;1;1;40.150;-8.856;Coimbra;Figueira da Foz;
+18;05/04/2023 10:00;1;17;0;1;40.122;-8.857;Coimbra;Figueira da Foz;Fogo-Urbanizacao-Casas
+19;05/04/2023 12:30;5;18;1;0;40.152;-8.858;;Figueira da Foz;Fogo-Bairro-Apartamentos
+20;06/04/2023 09:15;3;17;0;0;40.153;-8.859;Coimbra;;Fumo-Bairro-Casas
+21;28/03/2023 10:15;6;18;1;0;38.712;-9.148;Lisbon;Almada;Gasolina-Casas
+22;31/03/2023 09:00;7;17;0;1;38.716;-9.142;Lisbon;;Gasolina-Urbanizacao-Casas
+23;31/03/2023 10:30;8;16;1;1;38.719;-9.134;Lisbon;;Fumo-Bairro
+24;31/03/2023 12:15;9;18;1;0;38.725;-9.132;Lisbon;Almada;Gasolina-Urbanizacao-Apartamentos
+25;01/04/2023 08:45;10;17;0;0;38.729;-9.123;;Almada;Fogo-Urbanizacao
+26;01/04/2023 10:00;11;16;0;1;38.734;-9.115;Lisbon;;Gasolina-Urbanizacao-Casas
+27;01/04/2023 12:30;12;16;1;0;38.740;-9.108;Lisbon;Almada;Gasolina-Bairro-Casas
+28;02/04/2023 09:15;13;17;0;0;38.744;-9.102;Lisbon;Almada;Fogo-Urbanizacao-Casas
+29;02/04/2023 11:00;14;18;1;1;38.750;-9.099;;Almada;Gasolina-Urbanizacao-Apartamentos
+30;02/04/2023 12:45;15;16;0;1;38.755;-9.094;Lisbon;;Fogo-Bairro-Apartamentos
+31;03/04/2023 08:30;16;17;1;0;38.760;-9.088;Lisbon;;Fumo-Urbanizacao-Casas
+32;03/04/2023 10:15;17;18;0;1;38.765;-9.082;Lisbon;Almada;Gasolina-Bairro-Casas
+33;03/04/2023 11:45;18;16;1;0;38.770;-9.076;Lisbon;;Fogo-Bairro-Apartamentos
+34;03/04/2023 14:30;19;17;1;1;38.776;-9.070;Lisbon;Almada;Gasolina-Urbanizacao-Apartamentos
+35;04/04/2023 09:00;20;18;0;0;38.780;-9.065;Lisbon;;Fumo-Bairro-Casas
+36;04/04/2023 10:30;21;16;1;0;38.785;-9.060;Lisbon;Almada;Gasolina-Urbanizacao
+37;04/04/2023 12:15;22;17;0;1;38.790;-9.055;Lisbon;;Fumo-Urbanizacao-Apartamentos
+38;05/04/2023 08:45;23;18;1;1;38.794;-9.049;Lisbon;Almada;Gasolina-Bairro-Casas
+39;31/03/2023 09:00;5;18;1;0;38.727;-9.144;Lisbon;;Gasolina-Urbanizacao-Casas
+40;31/03/2023 10:30;3;17;0;1;38.715;-9.124;Lisbon;;Fumo-Bairro
+41;31/03/2023 12:15;2;16;1;0;38.735;-9.153;Lisbon;Almada;Gasolina-Urbanizacao-Apartamentos
+42;28/03/2023 10:15;1;17;1;0;41.166;-8.687;Porto;Maia;Gasolina-Casas
+43;31/03/2023 09:00;5;18;1;0;41.168;-8.685;Porto;;Gasolina-Urbanizacao-Casas
+44;31/03/2023 10:30;3;17;0;1;41.170;-8.684;Porto;;Fumo-Bairro
+45;31/03/2023 12:15;2;16;1;0;41.172;-8.682;Porto;Matosinhos;Gasolina-Urbanizacao-Apartamentos
+46;01/04/2023 08:45;1;17;0;0;41.174;-8.680;;Matosinhos;
+47;01/04/2023 10:00;4;16;1;1;41.176;-8.678;Porto;;Gasolina-Urbanizacao-Casas
+48;01/04/2023 12:30;2;16;1;1;41.178;-8.676;;Matosinhos;Fumo-Bairro
+49;02/04/2023 09:15;1;17;0;1;41.180;-8.674;Porto;Matosinhos;Gasolina-Urbanizacao-Apartamentos
+50;02/04/2023 11:00;5;18;1;0;41.182;-8.672;Porto;;Bairro-Casas
+51;02/04/2023 12:45;4;16;0;0;41.184;-8.670;Porto;Matosinhos;Gasolina-Explosivo
+52;03/04/2023 08:30;3;17;1;1;41.186;-8.668;Porto;Matosinhos;Fumo-Quimicos
+53;03/04/2023 10:15;5;18;0;1;41.188;-8.666;;;Gasolina-Fogo-Explosivo
+54;03/04/2023 11:45;4;16;1;0;41.190;-8.664;;Matosinhos;Fogo-Bairro-Casas
+55;03/04/2023 14:30;2;16;1;0;41.192;-8.662;Porto;Matosinhos;Gasolina-Urbanizacao
+56;04/04/2023 09:00;1;17;0;1;41.194;-8.660;;Matosinhos;Fumo-Bairro-Casas
+57;04/04/2023 10:30;3;17;1;1;41.196;-8.658;Porto;;Gasolina-Gas-Explosivo
+57;04/04/2023 10:30;3;17;1;1;41.196;-8.658;Porto;;Gasolina-Gas-Explosivo
+58;04/04/2023 12:15;4;16;0;0;41.198;-8.656;;;Gasolina-Urbanizacao-Apartamentos
+59;10/04/2023 11:45;4;16;1;0;41.163;-8.676;;Matosinhos;Fumo-Bairro-Casas
+60;10/04/2023 14:30;2;16;1;0;41.164;-8.677;Porto;Matosinhos;Gasolina-Urbanizacao
+61;11/04/2023 09:00;1;17;0;1;41.165;-8.678;;Vila Nova de Gaia;Fumo-Bairro-Casas
+62;11/04/2023 10:30;3;17;1;1;41.166;-8.679;Porto;;Gasolina-Gas-Explosivo
+63;11/04/2023 12:15;4;16;0;0;41.167;-8.680;;;Gasolina-Urbanizacao-Apartamentos
+64;12/04/2023 09:00;2;18;0;1;41.168;-8.681;;Vila Nova de Gaia;Fumo-Bairro-Casas
+65;12/04/2023 10:30;3;17;1;1;41.169;-8.682;Porto;;Gasolina-Gas-Explosivo
+66;12/04/2023 12:15;4;16;0;0;41.170;-8.683;;;Gasolina-Urbanizacao-Apartamentos
+67;13/04/2023 09:00;5;18;1;0;41.171;-8.684;;Matosinhos;Gasolina-Bairro-Casas
+68;13/04/2023 10:30;3;17;0;1;41.172;-8.685;Porto;;Fumo-Bairro
+69;13/04/2023 12:15;2;16;1;0;41.173;-8.686;;Matosinhos;Gasolina-Urbanizacao-Apartamentos
+70;14/04/2023 09:00;1;17;0;1;41.174;-8.687;;Vila Nova de Gaia;Fumo-Bairro-Casas
+71;14/04/2023 19:00;1;17;0;1;41.174;-8.687;;Vila Nova de Gaia;Fumo-Urbanizacao

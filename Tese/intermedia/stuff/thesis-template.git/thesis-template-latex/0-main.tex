@@ -1,0 +1,145 @@
+% *****************************************************************************
+%                             CONFIGURATION
+% If you are writing a Phd Thesis, change *msc* to *phd* in the following line
+\def\thesistype{msc}                                                     
+%    
+% Contact Nuno Laranjeiro cnl@dei.uc.pt for any suggestions/corrections                                                                          
+% ******************************************************************************
+
+
+\documentclass[twoside, 12pt, a4paper]{book}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3.5cm,right=2.5cm,headsep=12pt]{geometry}
+\usepackage[final]{pdfpages}
+
+\usepackage{ifthen}
+%\usepackage[table,xcdraw]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage{graphicx}
+\usepackage{glossaries}
+\usepackage{tabularx}
+\usepackage{mathpazo}
+\usepackage{color}
+\usepackage{emptypage}
+
+\usepackage[disable]{todonotes}
+
+\definecolor{blueFCTUC}{RGB}{0 150 215}
+
+
+\usepackage[page,titletoc,title]{appendix} 
+
+\usepackage{subcaption}
+
+\usepackage[sort&compress,square]{natbib}
+\renewcommand{\cite}[1]{\citep{#1}}
+
+\usepackage{notoccite}
+\usepackage{titlesec}
+
+%Remove all paragraph indentation
+\setlength\parindent{0pt}
+
+
+% --------------- headers and footers control ----------------------
+\usepackage{fancyhdr}
+ \pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+\fancyhead[LE]{\sl{\nouppercase{\chaptertitlename~\thechapter}}}
+\fancyhead[RE]{}
+\fancyhead[LO]{}
+\fancyhead[RO]{\sl{\nouppercase{\leftmark}}}
+
+%\fancyhead[RE,LO]{\rightmark}
+\renewcommand{\headrulewidth}{0.4pt}
+%---------------------------------------------------------------------
+
+\makenoidxglossaries
+\usepackage[hidelinks,bookmarks=true]{hyperref}
+
+\input{frontmatter/6-acronyms}
+
+\begin{document}
+\setlength{\parskip}{0.7em}
+
+%---------------------------------- FRONTMATTER ---------------------------------- 
+\frontmatter
+\ifthenelse{\equal{\thesistype}{msc}}
+{
+	\includepdf[pages=1,fitpaper]{frontmatter/MSC_EN_COVER_A4.pdf}
+	\cleardoublepage
+	\input{frontmatter/1-msc-titlepage-EN}
+	\cleardoublepage
+	\input{frontmatter/1-msc-titlepage-PT}
+}
+{
+	\includepdf[pages=1,fitpaper]{frontmatter/PHD_COVER_A4.pdf}
+	\cleardoublepage
+	\input{frontmatter/1-phd-titlepage-EN}
+	\cleardoublepage
+	\input{frontmatter/1-phd-titlepage-PT}
+}
+\cleardoublepage
+
+\ifthenelse{\equal{\thesistype}{phd}}
+{ 
+	\input{frontmatter/2-funding}
+	\cleardoublepage
+}{}
+
+\input{frontmatter/3-acknowledgements}
+\cleardoublepage
+\input{frontmatter/4-abstract-EN.tex}
+\cleardoublepage
+\input{frontmatter/4-abstract-PT.tex}
+\cleardoublepage
+\ifthenelse{\equal{\thesistype}{phd}}
+{ 
+	\input{frontmatter/5-publications.tex}
+	\cleardoublepage
+}{}
+%-----------------------------------------------------------------------------------
+
+% Set paragraph spacing to use in ToC and other lists
+\setlength{\parskip}{0em}
+
+% Make sure acronyms don't appear in the ToC
+\glsunsetall
+\tableofcontents
+\glsresetall
+
+\cleardoublepage
+
+
+% List of acronyms
+\glsnogroupskiptrue
+\printnoidxglossary[type=\acronymtype,style=list,title={Acronyms}, nonumberlist]
+\cleardoublepage
+
+\listoffigures
+\cleardoublepage
+
+\listoftables
+\cleardoublepage
+
+%------------------------------
+\mainmatter
+\setlength{\parskip}{0.7em}
+\input{text/1-introduction}
+\input{text/2-conclusion}
+%\input{texfiles/2-state-of-the-art}
+%\input{texfiles/3-methodology}
+%...
+\bibliographystyle{plainnat}
+\renewcommand{\bibname}{References}
+\bibliography{references}
+\begin{appendices}
+\input{text/9-appendices}
+\end{appendices}
+%------------------------------
+
+
+\end{document}
+%Document end
