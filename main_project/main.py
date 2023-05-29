@@ -675,13 +675,13 @@ def plot_folium2(data, map_name):
         age_string = f"{days} days, {hours} hours, {minutes} minutes"
 
         # Create the popup message with the updated event data
-        popup_text = f"Incident ID: {event.get('event_id')}<br>Latest Update: {event.get('date_latest')}<br>Incident Span: {age_string}<br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
+        popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Incident Span: {age_string}<br><br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
 
         # Display "Has Fire" and "Has Smoke"
         has_fire = "Confirmed" if event.get('fire_verified') else "Unknown"
         has_smoke = "Confirmed" if event.get('smoke_verified') else "Unknown"
 
-        popup_text += f"<br>Fire: {has_fire}<br>Smoke: {has_smoke}"
+        popup_text += f"<br><br>Fire: {has_fire}<br>Smoke: {has_smoke}"
 
         # Add district to the popup message
         districts = event.get('districts')
@@ -690,6 +690,8 @@ def plot_folium2(data, map_name):
             for district, data in districts:
                 weight = data["weight"]
                 popup_text += f'<br>{district}: {weight}'
+        else:
+            popup_text += '<br><br>Incident District Probability: <br>Unknown'
 
         # Add parish to the popup message
         parishes = event.get('parishes')
@@ -698,6 +700,8 @@ def plot_folium2(data, map_name):
             for parish, data in parishes:
                 weight = data["weight"]
                 popup_text += f'<br>{parish}: {weight}'
+        else:
+            popup_text += '<br><br>Incident Parish Probability: <br>Unknown'
 
         # Add keywords to the popup message
         keywords = event.get('keywords')
@@ -705,9 +709,12 @@ def plot_folium2(data, map_name):
             popup_text += '<br><br>Possible Hazards:'
             for keyword, data in keywords:
                 popup_text += f'<br>{keyword}: {data}'
+        else:
+            popup_text += '<br><br>Possible Hazards: <br>Unknown'
 
         # set event icon colours
         if event.get('event_id') < 0:
+            popup_text += '<br><br>WARNING: <br>Isolated Incident - May be inaccurate'
             color = 'black'
         else:
             color = 'red'
