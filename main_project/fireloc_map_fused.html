@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_c8664dc6509a77dc049864478cc48f03 {
+                #map_fd11d3bfb6e0c0611b388d72360a865f {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -42,14 +42,14 @@
 <body>
     
     
-            <div class="folium-map" id="map_c8664dc6509a77dc049864478cc48f03" ></div>
+            <div class="folium-map" id="map_fd11d3bfb6e0c0611b388d72360a865f" ></div>
         
 </body>
 <script>
     
     
-            var map_c8664dc6509a77dc049864478cc48f03 = L.map(
-                "map_c8664dc6509a77dc049864478cc48f03",
+            var map_fd11d3bfb6e0c0611b388d72360a865f = L.map(
+                "map_fd11d3bfb6e0c0611b388d72360a865f",
                 {
                     center: [40.22000006023737, -8.48499992620011],
                     crs: L.CRS.EPSG3857,
@@ -63,181 +63,256 @@
 
         
     
-            var tile_layer_08d3b68a3358268118949df0d7de711f = L.tileLayer(
+            var tile_layer_291796bc55a7aff8ce2c09f101af03f7 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_c8664dc6509a77dc049864478cc48f03);
+            ).addTo(map_fd11d3bfb6e0c0611b388d72360a865f);
         
     
-            var marker_cluster_ebde667b42eb1d817b4c209443dfff20 = L.markerClusterGroup(
+            var marker_cluster_fbd1768054f4f2aa107875bee87ab691 = L.markerClusterGroup(
                 {"disableClusteringAtZoom": 10}
             );
-            map_c8664dc6509a77dc049864478cc48f03.addLayer(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            map_fd11d3bfb6e0c0611b388d72360a865f.addLayer(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-            var marker_2f66e357dccc666f10d023b4d092ebfb = L.marker(
+            var marker_0937df7d3cfb285a5bad11b3cf192bda = L.marker(
                 [40.22000006023737, -8.48499992620011],
                 {}
-            ).addTo(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-        var popup_1a0e679b75a641466ae60d33f03dfa48 = L.popup({"maxWidth": "100%"});
+            var icon_4ca7147bd88adbff4422967d052c6cba = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_0937df7d3cfb285a5bad11b3cf192bda.setIcon(icon_4ca7147bd88adbff4422967d052c6cba);
+        
+    
+        var popup_cbc954329262e23d4a39c2570c5db570 = L.popup({"maxWidth": "100%"});
 
         
             
-                var html_fc058afeee3b699d766848f7cfa03126 = $(`<div id="html_fc058afeee3b699d766848f7cfa03126" style="width: 100.0%; height: 100.0%;">Event ID: 1Date/Time: 2023-05-09 20:00:00<br>User IDs: [1, 10, 20]<br>Submission IDs: [0, 11, 23]<br>Avg rating: 17.333333333333332<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 2)]<br>Parish: []<br><br>Keywords:<br>Fumo: {'counter': 1, 'weight': 1}</div>`)[0];
-                popup_1a0e679b75a641466ae60d33f03dfa48.setContent(html_fc058afeee3b699d766848f7cfa03126);
+                var html_5ea063cdb55e3192209395b4e4e54b43 = $(`<div id="html_5ea063cdb55e3192209395b4e4e54b43" style="width: 100.0%; height: 100.0%;">Event ID: 1<br>Date/Time: 2023-05-09 20:00:00<br>User IDs: [1, 10, 20]<br>Submission IDs: [0, 11, 23]<br>Avg rating: 17.333333333333332<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 2)]<br>Parish: []<br><br>Keywords:<br>Fumo: {'counter': 1, 'weight': 1}</div>`)[0];
+                popup_cbc954329262e23d4a39c2570c5db570.setContent(html_5ea063cdb55e3192209395b4e4e54b43);
             
         
 
-        marker_2f66e357dccc666f10d023b4d092ebfb.bindPopup(popup_1a0e679b75a641466ae60d33f03dfa48)
+        marker_0937df7d3cfb285a5bad11b3cf192bda.bindPopup(popup_cbc954329262e23d4a39c2570c5db570)
         ;
 
         
     
     
-            var marker_78e5b16f8dcf0ea05b7f5553bd5a567c = L.marker(
+            var marker_b53adae8cb958336b1f60e367c6ebfaa = L.marker(
                 [40.20525005243729, -8.458249912413956],
                 {}
-            ).addTo(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-        var popup_066c5c70e805c1e07ba364a2453cbf3d = L.popup({"maxWidth": "100%"});
+            var icon_b6f08c5281589b651b0a62d80fc6168f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_b53adae8cb958336b1f60e367c6ebfaa.setIcon(icon_b6f08c5281589b651b0a62d80fc6168f);
+        
+    
+        var popup_fc1eb6758acf57e9d743d0215e2dd342 = L.popup({"maxWidth": "100%"});
 
         
             
-                var html_4f90563fe0a3a4f665598396d38d15ea = $(`<div id="html_4f90563fe0a3a4f665598396d38d15ea" style="width: 100.0%; height: 100.0%;">Event ID: 5Date/Time: 2023-05-09 19:00:00<br>User IDs: [2, 2, 9, 1]<br>Submission IDs: [1, 6, 10, 21]<br>Avg rating: 17.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []<br><br>Keywords:<br>Casas: {'counter': 2, 'weight': 2}</div>`)[0];
-                popup_066c5c70e805c1e07ba364a2453cbf3d.setContent(html_4f90563fe0a3a4f665598396d38d15ea);
+                var html_ee238e2f36e4a9832bf2336bee9c74f2 = $(`<div id="html_ee238e2f36e4a9832bf2336bee9c74f2" style="width: 100.0%; height: 100.0%;">Event ID: 5<br>Date/Time: 2023-05-09 19:00:00<br>User IDs: [2, 2, 9, 1]<br>Submission IDs: [1, 6, 10, 21]<br>Avg rating: 17.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []<br><br>Keywords:<br>Casas: {'counter': 2, 'weight': 2}</div>`)[0];
+                popup_fc1eb6758acf57e9d743d0215e2dd342.setContent(html_ee238e2f36e4a9832bf2336bee9c74f2);
             
         
 
-        marker_78e5b16f8dcf0ea05b7f5553bd5a567c.bindPopup(popup_066c5c70e805c1e07ba364a2453cbf3d)
+        marker_b53adae8cb958336b1f60e367c6ebfaa.bindPopup(popup_fc1eb6758acf57e9d743d0215e2dd342)
         ;
 
         
     
     
-            var marker_9a581bb0fe29a028845667db5847ddf8 = L.marker(
+            var marker_3b03037a8045beb1a543c1079dce4790 = L.marker(
                 [40.2192500892771, -8.457500241691024],
                 {}
-            ).addTo(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-        var popup_8cdf4b4c8861ed8e39f35ee2182a09d7 = L.popup({"maxWidth": "100%"});
+            var icon_fcfd39c73fdfab72e12f40f0a533ee00 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_3b03037a8045beb1a543c1079dce4790.setIcon(icon_fcfd39c73fdfab72e12f40f0a533ee00);
+        
+    
+        var popup_1891e8cadadd7cc67e876d685bdf7b5c = L.popup({"maxWidth": "100%"});
 
         
             
-                var html_170a9a74c554214a62b0fa4a2495052a = $(`<div id="html_170a9a74c554214a62b0fa4a2495052a" style="width: 100.0%; height: 100.0%;">Event ID: 6Date/Time: 2023-05-09 18:00:00<br>User IDs: [3, 8, 15, 17]<br>Submission IDs: [2, 9, 16, 19]<br>Avg rating: 18.0<br>Fire verified: 0<br>Smoke verified: 1<br>District: [('Coimbra', 2)]<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Gasolina: {'counter': 2, 'weight': 2}<br>Explosivo: {'counter': 1, 'weight': 1}</div>`)[0];
-                popup_8cdf4b4c8861ed8e39f35ee2182a09d7.setContent(html_170a9a74c554214a62b0fa4a2495052a);
+                var html_4512b57d5ee88103fc3c74d5268a785c = $(`<div id="html_4512b57d5ee88103fc3c74d5268a785c" style="width: 100.0%; height: 100.0%;">Event ID: 6<br>Date/Time: 2023-05-09 18:00:00<br>User IDs: [3, 8, 15, 17]<br>Submission IDs: [2, 9, 16, 19]<br>Avg rating: 18.0<br>Fire verified: 0<br>Smoke verified: 1<br>District: [('Coimbra', 2)]<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Gasolina: {'counter': 2, 'weight': 2}<br>Explosivo: {'counter': 1, 'weight': 1}</div>`)[0];
+                popup_1891e8cadadd7cc67e876d685bdf7b5c.setContent(html_4512b57d5ee88103fc3c74d5268a785c);
             
         
 
-        marker_9a581bb0fe29a028845667db5847ddf8.bindPopup(popup_8cdf4b4c8861ed8e39f35ee2182a09d7)
+        marker_3b03037a8045beb1a543c1079dce4790.bindPopup(popup_1891e8cadadd7cc67e876d685bdf7b5c)
         ;
 
         
     
     
-            var marker_d2ebe035e197743950bd84d45d1270b7 = L.marker(
+            var marker_efd9b835776b01e54a87e2cb9aba2a5b = L.marker(
                 [40.23166675989601, -8.474000073820061],
                 {}
-            ).addTo(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-        var popup_00620d9332c7b20e61c39f19ae062f41 = L.popup({"maxWidth": "100%"});
+            var icon_26f8430e42ec8e1510e7f83383729cee = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_efd9b835776b01e54a87e2cb9aba2a5b.setIcon(icon_26f8430e42ec8e1510e7f83383729cee);
+        
+    
+        var popup_dce17f85ea14772af34fb4e9834e476d = L.popup({"maxWidth": "100%"});
 
         
             
-                var html_04661dd23ab64356b47a81e41f58ac3f = $(`<div id="html_04661dd23ab64356b47a81e41f58ac3f" style="width: 100.0%; height: 100.0%;">Event ID: 2Date/Time: 2023-05-09 18:30:00<br>User IDs: [1, 5, 7, 11, 16, 18]<br>Submission IDs: [3, 5, 8, 12, 18, 20]<br>Avg rating: 18.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Casas: {'counter': 2, 'weight': 2}<br>Fumo: {'counter': 2, 'weight': 2}</div>`)[0];
-                popup_00620d9332c7b20e61c39f19ae062f41.setContent(html_04661dd23ab64356b47a81e41f58ac3f);
+                var html_a67462f071fc7684263904c4bd8b9ffd = $(`<div id="html_a67462f071fc7684263904c4bd8b9ffd" style="width: 100.0%; height: 100.0%;">Event ID: 2<br>Date/Time: 2023-05-09 18:30:00<br>User IDs: [1, 5, 7, 11, 16, 18]<br>Submission IDs: [3, 5, 8, 12, 18, 20]<br>Avg rating: 18.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Casas: {'counter': 2, 'weight': 2}<br>Fumo: {'counter': 2, 'weight': 2}</div>`)[0];
+                popup_dce17f85ea14772af34fb4e9834e476d.setContent(html_a67462f071fc7684263904c4bd8b9ffd);
             
         
 
-        marker_d2ebe035e197743950bd84d45d1270b7.bindPopup(popup_00620d9332c7b20e61c39f19ae062f41)
+        marker_efd9b835776b01e54a87e2cb9aba2a5b.bindPopup(popup_dce17f85ea14772af34fb4e9834e476d)
         ;
 
         
     
     
-            var marker_24c268b4b79c7ed06da69277f4ee5cfb = L.marker(
+            var marker_f118236bf830fae77bec25270ff3bcbf = L.marker(
                 [40.197500000000005, -8.467000000000002],
                 {}
-            ).addTo(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-        var popup_5bd9ba1eb8663cb874563c99f756a520 = L.popup({"maxWidth": "100%"});
+            var icon_2cf168a8322b540e56c090c0844e98d8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_f118236bf830fae77bec25270ff3bcbf.setIcon(icon_2cf168a8322b540e56c090c0844e98d8);
+        
+    
+        var popup_4df3a2df17d39ed5b8b65a0c4d92d799 = L.popup({"maxWidth": "100%"});
 
         
             
-                var html_7b8c5bd36485033e97aeef779252771b = $(`<div id="html_7b8c5bd36485033e97aeef779252771b" style="width: 100.0%; height: 100.0%;">Event ID: 4Date/Time: 2023-05-09 19:30:00<br>User IDs: [6, 19]<br>Submission IDs: [7, 22]<br>Avg rating: 17.0<br>Fire verified: 1<br>Smoke verified: 1<br>District: []<br>Parish: [('Coimbra', 1)]</div>`)[0];
-                popup_5bd9ba1eb8663cb874563c99f756a520.setContent(html_7b8c5bd36485033e97aeef779252771b);
+                var html_4346cb3ad8a7d21114cd9a0cba92b163 = $(`<div id="html_4346cb3ad8a7d21114cd9a0cba92b163" style="width: 100.0%; height: 100.0%;">Event ID: 4<br>Date/Time: 2023-05-09 19:30:00<br>User IDs: [6, 19]<br>Submission IDs: [7, 22]<br>Avg rating: 17.0<br>Fire verified: 1<br>Smoke verified: 1<br>District: []<br>Parish: [('Coimbra', 1)]</div>`)[0];
+                popup_4df3a2df17d39ed5b8b65a0c4d92d799.setContent(html_4346cb3ad8a7d21114cd9a0cba92b163);
             
         
 
-        marker_24c268b4b79c7ed06da69277f4ee5cfb.bindPopup(popup_5bd9ba1eb8663cb874563c99f756a520)
+        marker_f118236bf830fae77bec25270ff3bcbf.bindPopup(popup_4df3a2df17d39ed5b8b65a0c4d92d799)
         ;
 
         
     
     
-            var marker_095167581a013459ed5808106ed99c6b = L.marker(
+            var marker_50c54032e5e1abd792c31ed2282b5a98 = L.marker(
                 [40.23600005271335, -8.447500051687944],
                 {}
-            ).addTo(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-        var popup_c4088da59e1b8762bcc1bb5d58244b6e = L.popup({"maxWidth": "100%"});
+            var icon_a4a6390f7b2b756ad73def6cc7d9a1a0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_50c54032e5e1abd792c31ed2282b5a98.setIcon(icon_a4a6390f7b2b756ad73def6cc7d9a1a0);
+        
+    
+        var popup_21d65d77328b690304de80166a6d85e8 = L.popup({"maxWidth": "100%"});
 
         
             
-                var html_b8fdd5cd12435e310776e00189df80a5 = $(`<div id="html_b8fdd5cd12435e310776e00189df80a5" style="width: 100.0%; height: 100.0%;">Event ID: 0Date/Time: 2023-05-09 16:00:00<br>User IDs: [12, 14]<br>Submission IDs: [13, 15]<br>Avg rating: 19.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []</div>`)[0];
-                popup_c4088da59e1b8762bcc1bb5d58244b6e.setContent(html_b8fdd5cd12435e310776e00189df80a5);
+                var html_02bde6d4ee9cd4e73cb766a8544c45dd = $(`<div id="html_02bde6d4ee9cd4e73cb766a8544c45dd" style="width: 100.0%; height: 100.0%;">Event ID: 0<br>Date/Time: 2023-05-09 16:00:00<br>User IDs: [12, 14]<br>Submission IDs: [13, 15]<br>Avg rating: 19.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []</div>`)[0];
+                popup_21d65d77328b690304de80166a6d85e8.setContent(html_02bde6d4ee9cd4e73cb766a8544c45dd);
             
         
 
-        marker_095167581a013459ed5808106ed99c6b.bindPopup(popup_c4088da59e1b8762bcc1bb5d58244b6e)
+        marker_50c54032e5e1abd792c31ed2282b5a98.bindPopup(popup_21d65d77328b690304de80166a6d85e8)
         ;
 
         
     
     
-            var marker_ef6143625718000f73e16cf084b1aa2a = L.marker(
+            var marker_3fa991ae12b197a4c88cfc8dba73bdb2 = L.marker(
                 [40.20466674219791, -8.480333267772627],
                 {}
-            ).addTo(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-        var popup_7027997289a3b3cb25e5ac2c63ed1426 = L.popup({"maxWidth": "100%"});
+            var icon_0c7683f7689822c666f255d449c060a3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_3fa991ae12b197a4c88cfc8dba73bdb2.setIcon(icon_0c7683f7689822c666f255d449c060a3);
+        
+    
+        var popup_7e70ea2a63508264ac856c72f3ce2a98 = L.popup({"maxWidth": "100%"});
 
         
             
-                var html_791357438f435d813bd3cab7359b6e1b = $(`<div id="html_791357438f435d813bd3cab7359b6e1b" style="width: 100.0%; height: 100.0%;">Event ID: 3Date/Time: 2023-05-09 20:30:00<br>User IDs: [13, 2, 21]<br>Submission IDs: [14, 17, 24]<br>Avg rating: 16.0<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []</div>`)[0];
-                popup_7027997289a3b3cb25e5ac2c63ed1426.setContent(html_791357438f435d813bd3cab7359b6e1b);
+                var html_76927d2d6c2485a50f69bcec3e753498 = $(`<div id="html_76927d2d6c2485a50f69bcec3e753498" style="width: 100.0%; height: 100.0%;">Event ID: 3<br>Date/Time: 2023-05-09 20:30:00<br>User IDs: [13, 2, 21]<br>Submission IDs: [14, 17, 24]<br>Avg rating: 16.0<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []</div>`)[0];
+                popup_7e70ea2a63508264ac856c72f3ce2a98.setContent(html_76927d2d6c2485a50f69bcec3e753498);
             
         
 
-        marker_ef6143625718000f73e16cf084b1aa2a.bindPopup(popup_7027997289a3b3cb25e5ac2c63ed1426)
+        marker_3fa991ae12b197a4c88cfc8dba73bdb2.bindPopup(popup_7e70ea2a63508264ac856c72f3ce2a98)
         ;
 
         
     
     
-            var marker_7f6d431d343977a2642f0992fd9c537d = L.marker(
-                [40.198005421808055, -8.476507329822406],
+            var marker_891494c1bebf95ec5145a96d945d4747 = L.marker(
+                [40.212, -8.441],
                 {}
-            ).addTo(marker_cluster_ebde667b42eb1d817b4c209443dfff20);
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
         
     
-        var popup_9e13ef277b3c3406369e69047a0bf8c7 = L.popup({"maxWidth": "100%"});
+            var icon_5bb9506beb7ec6e7b76026c7029caf20 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_891494c1bebf95ec5145a96d945d4747.setIcon(icon_5bb9506beb7ec6e7b76026c7029caf20);
+        
+    
+        var popup_b6b2e533ed6e3cc7e9edbbfdbb0bee46 = L.popup({"maxWidth": "100%"});
 
         
             
-                var html_70ad9cb2d436cfec45a382779afcac08 = $(`<div id="html_70ad9cb2d436cfec45a382779afcac08" style="width: 100.0%; height: 100.0%;">Event ID: -1Date/Time: 2023-06-09 10:00:00<br>User IDs: [4, 22]<br>Submission IDs: [4, 25]<br>Avg rating: 16.0<br>Fire verified: 1<br>Smoke verified: 1<br>District: []<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Fumo: {'counter': 1, 'weight': 1}<br>Casas: {'counter': 1, 'weight': 1}</div>`)[0];
-                popup_9e13ef277b3c3406369e69047a0bf8c7.setContent(html_70ad9cb2d436cfec45a382779afcac08);
+                var html_33eb34aab2cc679c7ca7d86f01f50f39 = $(`<div id="html_33eb34aab2cc679c7ca7d86f01f50f39" style="width: 100.0%; height: 100.0%;">Event ID: -1<br>Date/Time: 2023-05-09 10:30:00<br>User IDs: 4<br>Submission IDs: 4<br>Avg rating: 15<br>Fire verified: 1<br>Smoke verified: 1<br>District: []<br>Parish: []</div>`)[0];
+                popup_b6b2e533ed6e3cc7e9edbbfdbb0bee46.setContent(html_33eb34aab2cc679c7ca7d86f01f50f39);
             
         
 
-        marker_7f6d431d343977a2642f0992fd9c537d.bindPopup(popup_9e13ef277b3c3406369e69047a0bf8c7)
+        marker_891494c1bebf95ec5145a96d945d4747.bindPopup(popup_b6b2e533ed6e3cc7e9edbbfdbb0bee46)
+        ;
+
+        
+    
+    
+            var marker_b9341b1962ebf7a28515851f93cafa90 = L.marker(
+                [40.184, -8.512],
+                {}
+            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+        
+    
+            var icon_e6f615d4c88c541ac6aa540a5bf39844 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_b9341b1962ebf7a28515851f93cafa90.setIcon(icon_e6f615d4c88c541ac6aa540a5bf39844);
+        
+    
+        var popup_8f67b4ce43f6e2396009b3cbda2c1365 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_25dc1292a91ac664dbde19606c2c112c = $(`<div id="html_25dc1292a91ac664dbde19606c2c112c" style="width: 100.0%; height: 100.0%;">Event ID: -2<br>Date/Time: 2023-06-09 10:00:00<br>User IDs: 22<br>Submission IDs: 25<br>Avg rating: 17<br>Fire verified: 0<br>Smoke verified: 1<br>District: []<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Fumo: 1<br>Casas: 1</div>`)[0];
+                popup_8f67b4ce43f6e2396009b3cbda2c1365.setContent(html_25dc1292a91ac664dbde19606c2c112c);
+            
+        
+
+        marker_b9341b1962ebf7a28515851f93cafa90.bindPopup(popup_8f67b4ce43f6e2396009b3cbda2c1365)
         ;
 
         
