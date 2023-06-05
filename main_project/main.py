@@ -1,6 +1,9 @@
 """
 #### Import Libs
 """
+import os
+import time
+
 import folium
 from folium.plugins import MarkerCluster
 
@@ -15,13 +18,19 @@ import hdbscan
 """
 
 FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file2.txt"
+ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\it_data_file_"
 
 NOISE_DISTANCE_THRESHOLD = 1.5
+
+DECAY_FACTOR = 0.7
+MAXIMUM_DECAY = 0.2
 
 KEYWORD_WEIGHTS = {
     # SIGNS
     "Fumo": 1,
     "Fogo": 2,
+    "Incendio": 2,
+    "Chamas": 2,
     # FUELS
     "Explosivo": 5,
     "Fertilizante": 4,
@@ -34,8 +43,14 @@ KEYWORD_WEIGHTS = {
     "Urbananizaçao": 2,
     "Casa": 2,
     "Populacao": 2,
-    "Hospital": 3,
+    "Hospital": 5,
 }
+
+PRIORITY_HAZARDS = []
+
+for key, value in KEYWORD_WEIGHTS.items():
+    if value > 3:
+        PRIORITY_HAZARDS.append(key)
 
 """
 #### Read input txt file. 
@@ -148,9 +163,9 @@ def apply_clustering_algorithm(data):
     coordinates = np.array([(d[6], d[7]) for d in data])
 
     # perform HDBSCAN clustering
-    clusterer_instance = hdbscan.HDBSCAN(min_samples=1, min_cluster_size=2,
-                                         metric='haversine', prediction_data=True, allow_single_cluster=True)
-    clustering_results = clusterer_instance.fit(coordinates)
+    c_instance = hdbscan.HDBSCAN(min_samples=1, min_cluster_size=2,
+                                 metric='haversine', prediction_data=True, allow_single_cluster=True)
+    clustering_results = c_instance.fit(coordinates)
 
     # get the labels assigned to each event by the clustering algorithm and
     # create a dictionary to store the data of each cluster along with their respective label
@@ -192,7 +207,7 @@ def apply_clustering_algorithm(data):
         noise_label = -1
         clusters[noise_label] = noise_points
 
-    return clusters, clusterer_instance
+    return clusters, c_instance
 
 
 """
@@ -202,13 +217,13 @@ any points that dont belong to existing clusters will be labeled noise.
 """
 
 
-def update_hdbscan_approximate_predict(data_point, clusterer_instance, clusters):
+def update_hdbscan_approximate_predict(data_point, c_instance, clusters):
     label = -1
     # get the x and y coordinates of the new data point
     coordinates = np.array([(data_point[6], data_point[7])])
 
     # get the predicted labels for the new data point using approximate_predict method
-    new_labels, strengths = hdbscan.approximate_predict(clusterer_instance, coordinates)
+    new_labels, strengths = hdbscan.approximate_predict(c_instance, coordinates)
 
     # update the existing clusters' dictionary with the new labels and data
     for i, label in enumerate(new_labels):
@@ -222,55 +237,6 @@ def update_hdbscan_approximate_predict(data_point, clusterer_instance, clusters)
             clusters[label].append(data_point)
 
     return clusters, label, True
-
-
-"""
-update_hdbscan_fit_predict will check if any new points belong AND OR create new clusters. 
-this is an heavier operation. 
-caution was needed when updating labels because fit_predict() will always start labels at 0 and these will conflict with
-the old labels in clusters if not mapped properly
-"""
-
-
-def update_hdbscan_fit_predict(data, clusterer_instance, clusters):
-    # include all existing noise points in the data to be clustered
-    data = data + clusters.pop(-1, [])
-
-    # get the x and y coordinates of the events, including the noise points
-    coordinates = np.array([(d[6], d[7]) for d in data])
-
-    # get the predicted labels for the new data points using fit_predict method
-    new_labels = clusterer_instance.fit_predict(coordinates)
-
-    # create a mapping between old and new labels, and update the clusters
-    label_mapping = {}
-    for i, label in enumerate(new_labels):
-        # if the new label is -1 then add it to a -1 cluster
-        if label == -1:
-            if -1 in clusters:
-                clusters[-1].append(data[i])
-            else:
-                clusters[-1] = [data[i]]
-            # skip the rest of the loop if noise
-            continue
-
-        # there's a clustered point - unique -> create a new cluster
-        if label not in label_mapping:
-            # Calc a new unique label value
-            new_label = len(label_mapping) + (max(clusters.keys()) + 1 if clusters else 0)
-            label_mapping[label] = new_label
-
-        # there's a clustered point - NOT unique -> use an existing cluster for it
-        else:
-            new_label = label_mapping[label]
-
-        # UPDATE clusters dictionary with the correct key (new_label) and value (data[i])
-        if new_label in clusters:
-            clusters[new_label].append(data[i])
-        else:
-            clusters[new_label] = [data[i]]
-
-    return clusters
 
 
 """
@@ -294,7 +260,8 @@ def apply_data_fusion(clusters):
             fused_clusters[cluster_id] = events
 
     # if handling the submissions labeled as noise
-    handle_noise_submissions(clusters.get(-1), fused_clusters)
+    if clusters.get(-1):
+        handle_noise_submissions(clusters.get(-1), fused_clusters)
 
     return fused_clusters
 
@@ -304,22 +271,29 @@ def handle_noise_submissions(cluster_members, fused_clusters):
     for i, submission in enumerate(cluster_members):
         sub_id, date, user_id, user_rating, fire_verified, smoke_verified, latitude, longitude, district, parish, keywords = submission
 
+        # Calculate the decay weight for the current submission
+        decay = handle_time_decay(date)
+
         fused_districts = defaultdict(lambda: {"counter": 0, "weight": 0})
         fused_parishes = defaultdict(lambda: {"counter": 0, "weight": 0})
         fused_keywords = defaultdict(lambda: {"counter": 0, "weight": 0})
-        event_hazard_level = 0
 
         # fill in dictionaries with the number of occurrences of districts and parishes
-        fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes, user_rating)
+        fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes,
+                                                           user_rating, decay)
 
         # fill in dictionaries with the number of occurrences of keywords vs their set weights
-        fused_keywords = handle_keywords(keywords, fused_keywords, user_rating)
+        fused_keywords = handle_keywords(keywords, fused_keywords, user_rating, decay)
+
+        # Calculate event hazard level based on the keywords it has - only affects map colour
+        event_hazard_level = calculate_hazard_level(fused_keywords)
 
         # Create 1-submission event
         fused_event = {
             'event_id': -(i + 1),  # Assign negative ID for each noise event
+            'event_hazard_level': event_hazard_level,
             'date_latest': date,
-            'date_age': datetime.datetime.now() - ((datetime.datetime.now() - date) % datetime.timedelta(minutes=1)),
+            'date_age': datetime.datetime.now() - date,
             'date_history': date,
             'user_ids': user_id,
             'sub_ids': sub_id,
@@ -362,39 +336,45 @@ def fuse_cluster_submissions(cluster_id, cluster_members):
     fused_keywords = defaultdict(lambda: {"counter": 0, "weight": 0})
     fused_fire_verified = 0
     fused_smoke_verified = 0
-    event_hazard_level = 0
 
     # Loop over each submission in the cluster
     for submission in cluster_members:
         # Extract data from submission
         sub_id, date, user_id, user_rating, fire_verified, smoke_verified, latitude, longitude, district, parish, keywords = submission
 
+        # Calculate the decay weight for the current submission
+        decay = handle_time_decay(date)
+
         # Add numeric data to lists
-        fused_dates.append(date)  # for timeseries and time progression?
+        fused_dates.append(date)  # for timeseries and time progression
         fused_user_ids.append(user_id)  # ID info
         fused_sub_ids.append(sub_id)  # ID info
         fused_ratings.append(user_rating)  # This info is handed by fireloc
         fused_latitudes.append(latitude)  # This info is handed by fireloc
         fused_longitudes.append(longitude)  # This info is handed by fireloc
 
-        # fill in dictionaries with the number of occurrences of districts and parishes
-        fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes, user_rating)
-
-        # fill in dictionaries with the number of occurrences of keywords vs their set weights
-        fused_keywords = handle_keywords(keywords, fused_keywords, user_rating)
-
         # Update fire/smoke verified flags if one of the fusion members has positive flags. This info is handed by fireloc
         fused_fire_verified |= fire_verified
         fused_smoke_verified |= smoke_verified
 
+        # fill in dictionaries with the number of occurrences of districts and parishes
+        fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes, user_rating, decay)
+
+        # fill in dictionaries with the number of occurrences of keywords vs their set weights
+        fused_keywords = handle_keywords(keywords, fused_keywords, user_rating, decay)
+
     # Calculate centroid of the coordinates in the numpy arrays
     centroid_latitude, centroid_longitude = haversine_centroid(fused_latitudes, fused_longitudes)
+
+    # Calculate event hazard level based on the keywords it has - only affects map colour
+    event_hazard_level = calculate_hazard_level(fused_keywords)
 
     # Create fused event
     fused_event = {
         'event_id': cluster_id,
+        'event_hazard_level': event_hazard_level,
         'date_latest': max(fused_dates),
-        'date_age': datetime.datetime.now() - ((datetime.datetime.now() - min(fused_dates)) % datetime.timedelta(minutes=1)),
+        'date_age': datetime.datetime.now() - min(fused_dates),
         'date_history': fused_dates,
         'user_ids': fused_user_ids,
         'sub_ids': fused_sub_ids,
@@ -412,67 +392,27 @@ def fuse_cluster_submissions(cluster_id, cluster_members):
 
 
 """
-#### Fuse individual submission with an existing event that already went through the fusion procedure
+#### Handle Time Weight Decay
+# the newer the submission the higher the weight should be in the event fusion process. 
+# calculates a weight to then use in the data fusion process
+# expected usage: multiply a value 0-1 with a submissions values
+# expected result: a lifespan of 24hours should result in approximately a 50% decay (1440 mins -> 0.51 decay) with a DECAY_FACTOR of 0.7
+# maximum decay is capped at up to 80% of initial value being removed
 """
 
 
-def apply_partial_data_fusion(new_data_point, fused_event):
-    # Extract the data from the existing fused event
-    fused_dates = fused_event['date_history']
-    fused_user_ids = fused_event['user_ids']
-    fused_sub_ids = fused_event['sub_ids']
-    fused_ratings = fused_event['rating']
-    fused_latitudes = fused_event['latitude']
-    fused_longitudes = fused_event['longitude']
-    fused_districts = fused_event['districts']
-    fused_parishes = fused_event['parishes']
-    fused_keywords = fused_event['keywords']
-    fused_fire_verified = fused_event['fire_verified']
-    fused_smoke_verified = fused_event['smoke_verified']
+def handle_time_decay(date_value):
+    # Calculate total lifespan in minutes
+    lifespan = (datetime.datetime.now() - date_value).total_seconds() / 60
+    nr_minutes_per_day = 24 * 60
 
-    # Extract the data from the new data point
-    sub_id, date, user_id, user_rating, fire_verified, smoke_verified, latitude, longitude, district, parish, keywords = new_data_point
+    # Calculate the decay value
+    decay_value = (1 - DECAY_FACTOR) ** (lifespan / nr_minutes_per_day)
 
-    # Data that is calculated using inbuilt numpy methods are simply appended into arrays
-    fused_dates.append(date)
-    fused_user_ids.append(user_id)
-    fused_sub_ids.append(sub_id)
-    fused_ratings.append(user_rating)
-    fused_latitudes.append(latitude)
-    fused_longitudes.append(longitude)
+    # Cap maximum decay at MAXIMUM_DECAY
+    decay_value = max(MAXIMUM_DECAY, decay_value)
 
-    # Update dictionaries with the number of occurrences of districts and parishes
-    fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes, user_rating)
-
-    # Update dictionaries with the number of occurrences of keywords vs their set weights
-    fused_keywords = handle_keywords(keywords, fused_keywords, user_rating)
-
-    # Update fire/smoke verified flags
-    fused_fire_verified |= fire_verified
-    fused_smoke_verified |= smoke_verified
-
-    # Calculate centroid of the updated coordinates
-    centroid_latitude, centroid_longitude = haversine_centroid(fused_latitudes, fused_longitudes)
-
-    # Create the updated fused event
-    fused_event = {
-        'event_id': fused_event['event_id'],  # event_id remains the same
-        'date_latest': max(fused_dates),
-        'date_age': datetime.datetime.now() - ((datetime.datetime.now() - min(fused_dates)) % datetime.timedelta(minutes=1)),
-        'date_history': fused_dates,
-        'user_ids': fused_user_ids,
-        'sub_ids': fused_sub_ids,
-        'rating': np.mean(fused_ratings),
-        'fire_verified': fused_fire_verified,
-        'smoke_verified': fused_smoke_verified,
-        'latitude': centroid_latitude,
-        'longitude': centroid_longitude,
-        'districts': list(fused_districts.items()),
-        'parishes': list(fused_parishes.items()),
-        'keywords': list(fused_keywords.items())
-    }
-
-    return fused_event
+    return decay_value
 
 
 """
@@ -483,17 +423,19 @@ def apply_partial_data_fusion(new_data_point, fused_event):
 """
 
 
-def handle_locations(district, parish, fused_districts, fused_parishes, user_rating):
+def handle_locations(district, parish, fused_districts, fused_parishes, user_rating, decay):
     # Ignore empty entries and spaces
     district = district.strip()
     parish = parish.strip()
 
-    # Count the districts and parishes that appear within submissions
+    # Count the districts and parishes that appear within submissions if they exist within the given submission
+    # .... for the district-related calculations:
     if district:
-        # calculate counter & final weight
+        # calculate counter
+        # weight functions just as a placeholder at this point
         if district in fused_districts:
             # increment counter and set weight calculation to counter value
-            fused_districts[district]["counter"] += (user_rating / 20)
+            fused_districts[district]["counter"] += (user_rating / 20) * decay
             fused_districts[district]["weight"] += 0
         else:
             # Create a new entry for the keyword
@@ -502,11 +444,20 @@ def handle_locations(district, parish, fused_districts, fused_parishes, user_rat
                 "weight": 0
             }
 
+    # Calculate the total counter value for districts
+    total_districts = sum(entry["counter"] for entry in fused_districts.values())
+
+    # Calculate the weights as a percentage of likelihood
+    for district, data in fused_districts.items():
+        data["weight"] = round((data["counter"] / total_districts) * 100, 2)
+
+    # .... for the parish-related calculations:
     if parish:
-        # calculate counter & final weight
+        # calculate counter
+        # weight functions just as a placeholder at this point
         if parish in fused_parishes:
             # increment counter and set weight calculation to counter value
-            fused_parishes[parish]["counter"] += (user_rating / 20)
+            fused_parishes[parish]["counter"] += (user_rating / 20) * decay
             fused_parishes[parish]["weight"] += 0
         else:
             # Create a new entry for the keyword
@@ -515,21 +466,18 @@ def handle_locations(district, parish, fused_districts, fused_parishes, user_rat
                 "weight": 0
             }
 
-    # Calculate the total counter value for districts and parishes
-    total_districts = sum(entry["counter"] for entry in fused_districts.values())
+    # Calculate the total counter value for parishes
     total_parishes = sum(entry["counter"] for entry in fused_parishes.values())
 
     # Calculate the weights as a percentage of likelihood
-    for district, data in fused_districts.items():
-        data["weight"] = round((data["counter"] / total_districts) * 100, 2)
-
     for parish, data in fused_parishes.items():
         data["weight"] = round((data["counter"] / total_parishes) * 100, 2)
 
+    # return both the district and parish data
     return fused_districts, fused_parishes
 
 
-def handle_keywords(keywords, fused_keywords, user_rating):
+def handle_keywords(keywords, fused_keywords, user_rating, decay):
     # keywords are split based on the "-" char to include keywords with spaces ex. "toxic gas".
     # empty " - " inputs are also handled.
     keywords = keywords.split("-")
@@ -545,7 +493,7 @@ def handle_keywords(keywords, fused_keywords, user_rating):
 
                 # recalculate weights
                 hazard_weight = KEYWORD_WEIGHTS[keyword]
-                calculated_weight = hazard_weight * (user_rating/20)
+                calculated_weight = hazard_weight * (user_rating / 20) * decay
 
                 # update weight calculation
                 fused_keywords[keyword]["weight"] += calculated_weight
@@ -555,15 +503,35 @@ def handle_keywords(keywords, fused_keywords, user_rating):
                 if keyword in fused_keywords:
                     # increment counter and set weight calculation to counter value
                     fused_keywords[keyword]["counter"] += 1
-                    fused_keywords[keyword]["weight"] += (user_rating / 20)
+                    fused_keywords[keyword]["weight"] += (user_rating / 20) * decay
                 else:
                     # Create a new entry for the keyword
                     fused_keywords[keyword] = {
                         "counter": 1,
-                        "weight": user_rating/20
+                        "weight": (user_rating / 20) * decay
                     }
 
     return fused_keywords
+
+
+"""
+Updates map colours depending on the keywords of the event
+"""
+
+
+def calculate_hazard_level(keywords):
+    # LOW PRIORITY
+    hazard_level = 1
+    if keywords:
+        # AVERAGE PRIORITY
+        hazard_level = 2
+        for keyword in keywords:
+            if keyword in PRIORITY_HAZARDS:
+                # HIGH PRIORITY
+                hazard_level = 3
+                break
+
+    return hazard_level
 
 
 """
@@ -616,9 +584,9 @@ def haversine_distance(lat1, lon1, lat2, lon2):
 
 """
 #### Folium plot - plots based on coordinates only, prints event-specific information within the markers. 
-# plot_folium1() -> raw plot of all data points without any processing
+# plot_folium1() -> raw plot of all data points without any processing, for debug only
 # plot_folium2() -> plot all fused data points
-# plot_folium3() -> plot all clustered data points
+# plot_folium3() -> plot all clustered data points, for debug only
 """
 
 
@@ -667,9 +635,11 @@ def plot_folium2(data, map_name):
         # Create a popup message with the event data
         # Format Age String
         incident_span = event.get('date_age')
-        days = incident_span.day
-        hours = incident_span.hour
-        minutes = incident_span.minute
+        # Extract days
+        days = incident_span.days
+        # Calculate remainder hours and minutes
+        hours, remainder = divmod(incident_span.seconds, 3600)
+        minutes, _ = divmod(remainder, 60)
 
         # Create a formatted string for the incident span
         age_string = f"{days} days, {hours} hours, {minutes} minutes"
@@ -689,7 +659,7 @@ def plot_folium2(data, map_name):
             popup_text += '<br><br>Incident District Probability:'
             for district, data in districts:
                 weight = data["weight"]
-                popup_text += f'<br>{district}: {weight}'
+                popup_text += f'<br> - {district}: {weight}%'
         else:
             popup_text += '<br><br>Incident District Probability: <br>Unknown'
 
@@ -699,7 +669,7 @@ def plot_folium2(data, map_name):
             popup_text += '<br><br>Incident Parish Probability:'
             for parish, data in parishes:
                 weight = data["weight"]
-                popup_text += f'<br>{parish}: {weight}'
+                popup_text += f'<br> - {parish}: {weight}%'
         else:
             popup_text += '<br><br>Incident Parish Probability: <br>Unknown'
 
@@ -708,16 +678,26 @@ def plot_folium2(data, map_name):
         if keywords:
             popup_text += '<br><br>Possible Hazards:'
             for keyword, data in keywords:
-                popup_text += f'<br>{keyword}: {data}'
-        else:
-            popup_text += '<br><br>Possible Hazards: <br>Unknown'
+                counter = data.get('counter')
+                weight = data.get('weight')
+                popup_text += f'<br> - {keyword}:<br>&emsp;Submissions: {counter}<br>&emsp;Final Weight: {weight:.3f}'
 
         # set event icon colours
         if event.get('event_id') < 0:
+            # if isolated event
             popup_text += '<br><br>WARNING: <br>Isolated Incident - May be inaccurate'
             color = 'black'
+
         else:
-            color = 'red'
+            # if extremely hazardous event
+            if event.get('event_hazard_level') == 3:
+                color = 'red'
+            # if lightly hazardous/low information event
+            elif event.get('event_hazard_level') == 1:
+                color = 'beige'
+            # if average hazard event
+            else:
+                color = 'orange'
 
         # Add the marker to the marker cluster layer
         popup = folium.Popup(popup_text, max_width=400)  # Adjust popup width
@@ -765,16 +745,69 @@ def plot_folium3(data, map_name):
     return 0
 
 
-# debug function
+# debug functions
 def print_cluster_members(data):
-    print("DEBUG CLUSTERS")
-    for key in data:
-        values = data[key]
+    print("DEBUG")
+    for pt in data:
+        values = data[pt]
         first_values = [v[0] for v in values]
-        print(key, first_values)
+        print(pt, first_values)
 
+
+def print_fused_events(data):
+    print("DEBUG")
+    for eve in data:
+        values = data[eve]
+        print(eve, values)
+
+
+"""
+#### MAIN ################
+
+Stage 1: initial processing - call data_input -> apply_clustering_algorithm -> apply_data_fusion -> plot_folium2
+    this should result in the mapping of all existing submissions within the "database"
+Stage 2: real time processing - within the "while loop":
+  manual user input. should parse_manual_input catch something:
+    A - update_hdbscan_approximate_predict succeeds - fuse_cluster_submissions re-clusters target cluster and data is remapped
+    B - update_hdbscan_approximate_predict fails - add to queue and wait for more inputs. Once enough inputs are queued,
+        update_hdbscan_fit_predict repeats step 1 data is remapped 
+  iterative input. read X txt files every Y minutes to simulate batches of input. Process is always the same as Stage 1. This option is only intended for slideshows. Subs in bulk are expected
+
+        
+Some example inputs:
+    # example input that creates a fire in Serra da Estrela:
+    # 26;10/07/2023 09:30;23;17;1;0;40.334;-7.618;;;
+    # 27;10/07/2023 10:00;24;18;0;1;40.335;-7.617;;;
+    # 28;10/07/2023 10:30;25;20;1;0;40.336;-7.616;;;
+    # 29;10/07/2023 11:00;26;15;0;1;40.318;-7.600;;;
+    # 30;10/07/2023 11:30;27;19;1;0;40.350;-7.622;;;
+
+    # example input that creates a fire cluster next to ID 25 and flips it from "isolated" to standard event type
+    # 26;09/06/2023 10:00;22;17;0;1;40.185;-8.512;;;
+    # 27;09/06/2023 10:00;22;17;0;1;40.185;-8.514;;;
+    # 28;09/06/2023 10:00;22;17;0;1;40.187;-8.513;;;
+    # 29;09/06/2023 10:00;22;17;0;1;40.186;-8.509;;;
+    # 30;09/06/2023 10:00;22;17;0;1;40.186;-8.507;;;
+
+    # example input that adds a fire submission next to cluster [13, 15] and fuses it to an existing event
+    # 31;09/05/2023 16:30;69;1;1;1;40.239;-8.445;;;
+    
+    # example input that adds 5 very spread-out noise points
+    # 26;09/06/2023 10:00;22;17;0;1;41.185;-8.712;;;
+    # 27;09/06/2023 10:00;22;17;0;1;40.185;-8.814;;;
+    # 28;09/06/2023 10:00;22;17;0;1;39.187;-8.913;;;
+    # 29;09/06/2023 10:00;22;17;0;1;40.186;-8.409;;;
+    # 30;09/06/2023 10:00;22;17;0;1;40.186;-8.307;;;
+
+"""
 
 if __name__ == '__main__':
+    manual_input = True  # False True
+    create_new_maps_on_manual_input = False
+    time_counter = time.time()
+    map_counter = 0
+    file_counter = 0
+
     # Read data, plot all submissions in fireloc_map_raw
     data_input = read_data_file(FILE_PATH)
     plot_folium1(data_input, "fireloc_map_raw.html")
@@ -788,69 +821,102 @@ if __name__ == '__main__':
     plot_folium2(fused_events, "fireloc_map_fused.html")
 
     # print_cluster_members(clustered_data) # DEBUG
+    # print_fused_events(fused_events) # DEBUG
 
     data_queue = []
     while True:
         # Simulate real-time and/or manual submissions
 
-        user_input = input("(Only one line at a time) >>  ")
-        if user_input.lower() in {"quit", "q"}:
-            # Quit program
-            break
+        """
+        MANUAL INPUT
+        """
+        if manual_input:
+            user_input = input("(Only one line at a time) >>  ")
+            if user_input.lower() in {"quit", "q"}:
+                # Quit program
+                break
+
+            else:  # Insert inputs manually into current data
+                # parse and save new input
+                parsed_input = parse_manual_input(user_input)
+                # save current submissions (both original and manual inputs)
+                # write_data_file(FILE_PATH, user_input)
+
+                # quickly check if new point belongs to any existing cluster
+                clustered_data, affected_label, found_existing_cluster = update_hdbscan_approximate_predict(parsed_input, clusterer_instance, clustered_data)
+
+                if found_existing_cluster:
+                    # update fused event
+                    fused_events[affected_label] = fuse_cluster_submissions(affected_label, clustered_data.get(affected_label))
+                    print(" > Added to Cluster")
+
+                    # update fused event map
+                    plot_folium2(fused_events, "fireloc_map_fused.html")
+
+                else:
+                    # add point to clustering queue
+                    data_queue.append(parsed_input)
+                    print(" > Added to Queue")
+
+                # once queue is full, cluster the new points
+                if len(data_queue) >= 5:
+                    # merge data queue with existing data
+                    data_input = data_input + data_queue
+
+                    # re-apply clustering to all data, replace old data
+                    clustered_data, clusterer_instance = apply_clustering_algorithm(data_input)
+
+                    # re-apply data fusion to all clusters, replace old data
+                    fused_events = apply_data_fusion(clustered_data)
+
+                    # update fused event map
+                    # if manual input is meant to create a slideshow of maps, make create_new_maps_on_manual_input true
+                    if create_new_maps_on_manual_input:
+                        new_map = "fireloc_map_fused" + str(map_counter) + ".html"
+                        plot_folium2(fused_events, new_map)
+                        map_counter += 1
+
+                    # otherwise, if only an updated map is needed, then make create_new_maps_on_manual_input false
+                    else:
+                        plot_folium2(fused_events, "fireloc_map_fused.html")
+
+                    # reset queue
+                    data_queue = []
+                    print(" > Flushed Queue")
 
         else:
-            # Insert inputs manually into current data
+            """
+            ITERATIVE INPUT
+            """
+            # Check if X minutes have passed
+            if time.time() - time_counter >= 60:
+                print("> Fetching next batch of inputs")
 
-            # example input that creates a fire in Serra da Estrela:
-            # 26;10/07/2023 09:30;23;17;1;0;40.334;-7.618;;;
-            # 27;10/07/2023 10:00;24;18;0;1;40.335;-7.617;;;
-            # 28;10/07/2023 10:30;25;20;1;0;40.336;-7.616;;;
-            # 29;10/07/2023 11:00;26;15;0;1;40.318;-7.600;;;
-            # 30;10/07/2023 11:30;27;19;1;0;40.350;-7.622;;;
+                # get next file if it exists
+                next_file = ITER_FILE_PATH + str(file_counter) + ".txt"
+                if os.path.exists(next_file):
+                    next_data_input = read_data_file(next_file)
+                    data_input += next_data_input
+                else:
+                    print("> No new input files found")
 
-            # example input that creates a fire cluster next to ID 25
-            # 26;09/06/2023 10:00;22;17;0;1;40.185;-8.512;;;
-            # 27;09/06/2023 10:00;22;17;0;1;40.185;-8.514;;;
-            # 28;09/06/2023 10:00;22;17;0;1;40.187;-8.513;;;
-            # 29;09/06/2023 10:00;22;17;0;1;40.186;-8.509;;;
-            # 30;09/06/2023 10:00;22;17;0;1;40.186;-8.507;;;
+                # cluster data, plot all clusters in fireloc_map_clustered
+                clustered_data, clusterer_instance = apply_clustering_algorithm(data_input)
 
-            # example input that adds a fire submission next to cluster [13, 15]
-            # 31;09/05/2023 16:30;69;1;1;1;40.239;-8.445;;;
-
-            # parse and save new input
-            parsed_input = parse_manual_input(user_input)
-            # save current submissions (both original and manual inputs)
-            # write_data_file(FILE_PATH, user_input)
-
-            # quickly check if new point belongs to any existing cluster
-            clustered_data, affected_label, found_existing_cluster = update_hdbscan_approximate_predict(parsed_input, clusterer_instance, clustered_data)
-            if found_existing_cluster:
-                # update cluster map
-                plot_folium3(clustered_data, "fireloc_map_clustered.html")
-
-                # update fused event
-                fused_events[affected_label] = fuse_cluster_submissions(affected_label, clustered_data.get(affected_label))
-
-                # update fused event map
-                plot_folium2(fused_events, "fireloc_map_fused.html")
-
-            else:
-                # add point to clustering queue
-                data_queue.append(parsed_input)
-
-            # once queue is full, cluster the new points
-            if len(data_queue) >= 5:
-                clustered_data = update_hdbscan_fit_predict(data_queue, clusterer_instance, clustered_data)
-
-                # print_cluster_members(clustered_data) # DEBUG
-                # update cluster map
-                plot_folium3(clustered_data, "fireloc_map_clustered.html")
-
-                # re-apply data fusion to all clusters, replace old data
+                # fuse data, plot all fused events in fireloc_map_fused
                 fused_events = apply_data_fusion(clustered_data)
-                # update fused event map
-                plot_folium2(fused_events, "fireloc_map_fused.html")
 
-                # reset queue
-                data_queue = []
+                # update fused event map
+                # if manual input is meant to create a slideshow of maps, make create_new_maps_on_manual_input true
+                if create_new_maps_on_manual_input:
+                    new_map = "fireloc_map_fused" + str(map_counter) + ".html"
+                    plot_folium2(fused_events, new_map)
+                    map_counter += 1
+
+                # otherwise, if only an updated map is needed, then make create_new_maps_on_manual_input false
+                else:
+                    plot_folium2(fused_events, "fireloc_map_fused.html")
+
+                file_counter += 1
+                time_counter = time.time()
+

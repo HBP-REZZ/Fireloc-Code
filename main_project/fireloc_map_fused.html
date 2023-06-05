@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_fd11d3bfb6e0c0611b388d72360a865f {
+                #map_a30d74c3c0f423e1f8d37ff66410e18c {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -42,20 +42,21 @@
 <body>
     
     
-            <div class="folium-map" id="map_fd11d3bfb6e0c0611b388d72360a865f" ></div>
+            <div class="folium-map" id="map_a30d74c3c0f423e1f8d37ff66410e18c" ></div>
         
 </body>
 <script>
     
     
-            var map_fd11d3bfb6e0c0611b388d72360a865f = L.map(
-                "map_fd11d3bfb6e0c0611b388d72360a865f",
+            var map_a30d74c3c0f423e1f8d37ff66410e18c = L.map(
+                "map_a30d74c3c0f423e1f8d37ff66410e18c",
                 {
                     center: [40.22000006023737, -8.48499992620011],
                     crs: L.CRS.EPSG3857,
                     zoom: 6,
                     zoomControl: true,
                     preferCanvas: false,
+                    maxWidth: "100%",
                 }
             );
 
@@ -63,256 +64,256 @@
 
         
     
-            var tile_layer_291796bc55a7aff8ce2c09f101af03f7 = L.tileLayer(
+            var tile_layer_5acd01bf41a3cffa85e75bfac2426a2a = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_fd11d3bfb6e0c0611b388d72360a865f);
+            ).addTo(map_a30d74c3c0f423e1f8d37ff66410e18c);
         
     
-            var marker_cluster_fbd1768054f4f2aa107875bee87ab691 = L.markerClusterGroup(
+            var marker_cluster_da8891ef2c45ff3a263d0e553945d951 = L.markerClusterGroup(
                 {"disableClusteringAtZoom": 10}
             );
-            map_fd11d3bfb6e0c0611b388d72360a865f.addLayer(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            map_a30d74c3c0f423e1f8d37ff66410e18c.addLayer(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var marker_0937df7d3cfb285a5bad11b3cf192bda = L.marker(
+            var marker_835f750490b06a6705f5dd7381fb3a11 = L.marker(
                 [40.22000006023737, -8.48499992620011],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_4ca7147bd88adbff4422967d052c6cba = L.AwesomeMarkers.icon(
+            var icon_9852b0cf785ae641341c2756fcad45b2 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
             );
-            marker_0937df7d3cfb285a5bad11b3cf192bda.setIcon(icon_4ca7147bd88adbff4422967d052c6cba);
+            marker_835f750490b06a6705f5dd7381fb3a11.setIcon(icon_9852b0cf785ae641341c2756fcad45b2);
         
     
-        var popup_cbc954329262e23d4a39c2570c5db570 = L.popup({"maxWidth": "100%"});
+        var popup_f7e3275359a6b2e3b46963a06a7dea45 = L.popup({"maxWidth": 400});
 
         
             
-                var html_5ea063cdb55e3192209395b4e4e54b43 = $(`<div id="html_5ea063cdb55e3192209395b4e4e54b43" style="width: 100.0%; height: 100.0%;">Event ID: 1<br>Date/Time: 2023-05-09 20:00:00<br>User IDs: [1, 10, 20]<br>Submission IDs: [0, 11, 23]<br>Avg rating: 17.333333333333332<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 2)]<br>Parish: []<br><br>Keywords:<br>Fumo: {'counter': 1, 'weight': 1}</div>`)[0];
-                popup_cbc954329262e23d4a39c2570c5db570.setContent(html_5ea063cdb55e3192209395b4e4e54b43);
+                var html_b4b442aefb7b360e56950cc7bca9ef4c = $(`<div id="html_b4b442aefb7b360e56950cc7bca9ef4c" style="width: 100.0%; height: 100.0%;">Incident ID: 1<br><br>Latest Update: 2023-05-09 20:00:00<br>Incident Span: 27 days, 15 hours, 16 minutes<br><br>Contributor IDs: [1, 10, 20]<br>Contribution IDs: [0, 11, 23]<br><br>Fire: Confirmed<br>Smoke: Unknown<br><br>Incident District Probability:<br> - Coimbra: 69.23%<br> - Leiria: 30.77%<br><br>Incident Parish Probability:<br> - Figueira da Foz: 100.0%<br><br>Possible Hazards:<br> - Fumo:<br>&emsp;Submissions: 1<br>&emsp;Final Weight: 0.180<br> - Gasolina:<br>&emsp;Submissions: 1<br>&emsp;Final Weight: 0.900</div>`)[0];
+                popup_f7e3275359a6b2e3b46963a06a7dea45.setContent(html_b4b442aefb7b360e56950cc7bca9ef4c);
             
         
 
-        marker_0937df7d3cfb285a5bad11b3cf192bda.bindPopup(popup_cbc954329262e23d4a39c2570c5db570)
+        marker_835f750490b06a6705f5dd7381fb3a11.bindPopup(popup_f7e3275359a6b2e3b46963a06a7dea45)
         ;
 
         
     
     
-            var marker_b53adae8cb958336b1f60e367c6ebfaa = L.marker(
+            var marker_c9742b1833b29779ee55e85e1694e3ab = L.marker(
                 [40.20525005243729, -8.458249912413956],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_b6f08c5281589b651b0a62d80fc6168f = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            var icon_0e1566c4a17434daf6ef0bb56b262c18 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
             );
-            marker_b53adae8cb958336b1f60e367c6ebfaa.setIcon(icon_b6f08c5281589b651b0a62d80fc6168f);
+            marker_c9742b1833b29779ee55e85e1694e3ab.setIcon(icon_0e1566c4a17434daf6ef0bb56b262c18);
         
     
-        var popup_fc1eb6758acf57e9d743d0215e2dd342 = L.popup({"maxWidth": "100%"});
+        var popup_51dd08d81665c1289e91ff8fc3709bcc = L.popup({"maxWidth": 400});
 
         
             
-                var html_ee238e2f36e4a9832bf2336bee9c74f2 = $(`<div id="html_ee238e2f36e4a9832bf2336bee9c74f2" style="width: 100.0%; height: 100.0%;">Event ID: 5<br>Date/Time: 2023-05-09 19:00:00<br>User IDs: [2, 2, 9, 1]<br>Submission IDs: [1, 6, 10, 21]<br>Avg rating: 17.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []<br><br>Keywords:<br>Casas: {'counter': 2, 'weight': 2}</div>`)[0];
-                popup_fc1eb6758acf57e9d743d0215e2dd342.setContent(html_ee238e2f36e4a9832bf2336bee9c74f2);
+                var html_9c40ab28aa22f1e78319d54ce4caf159 = $(`<div id="html_9c40ab28aa22f1e78319d54ce4caf159" style="width: 100.0%; height: 100.0%;">Incident ID: 5<br><br>Latest Update: 2023-05-09 19:00:00<br>Incident Span: 27 days, 14 hours, 46 minutes<br><br>Contributor IDs: [2, 2, 9, 1]<br>Contribution IDs: [1, 6, 10, 21]<br><br>Fire: Confirmed<br>Smoke: Confirmed<br><br>Incident District Probability:<br> - Coimbra: 100.0%<br><br>Incident Parish Probability: <br>Unknown<br><br>Possible Hazards:<br> - Casas:<br>&emsp;Submissions: 2<br>&emsp;Final Weight: 0.380</div>`)[0];
+                popup_51dd08d81665c1289e91ff8fc3709bcc.setContent(html_9c40ab28aa22f1e78319d54ce4caf159);
             
         
 
-        marker_b53adae8cb958336b1f60e367c6ebfaa.bindPopup(popup_fc1eb6758acf57e9d743d0215e2dd342)
+        marker_c9742b1833b29779ee55e85e1694e3ab.bindPopup(popup_51dd08d81665c1289e91ff8fc3709bcc)
         ;
 
         
     
     
-            var marker_3b03037a8045beb1a543c1079dce4790 = L.marker(
+            var marker_ac581c4bbf15d0a4dc2ed60b6e861acf = L.marker(
                 [40.2192500892771, -8.457500241691024],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_fcfd39c73fdfab72e12f40f0a533ee00 = L.AwesomeMarkers.icon(
+            var icon_6037c9467dfb6c81856e6fb434744a6e = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
             );
-            marker_3b03037a8045beb1a543c1079dce4790.setIcon(icon_fcfd39c73fdfab72e12f40f0a533ee00);
+            marker_ac581c4bbf15d0a4dc2ed60b6e861acf.setIcon(icon_6037c9467dfb6c81856e6fb434744a6e);
         
     
-        var popup_1891e8cadadd7cc67e876d685bdf7b5c = L.popup({"maxWidth": "100%"});
+        var popup_af2d5ed494422092ec3feadebdeaf1ae = L.popup({"maxWidth": 400});
 
         
             
-                var html_4512b57d5ee88103fc3c74d5268a785c = $(`<div id="html_4512b57d5ee88103fc3c74d5268a785c" style="width: 100.0%; height: 100.0%;">Event ID: 6<br>Date/Time: 2023-05-09 18:00:00<br>User IDs: [3, 8, 15, 17]<br>Submission IDs: [2, 9, 16, 19]<br>Avg rating: 18.0<br>Fire verified: 0<br>Smoke verified: 1<br>District: [('Coimbra', 2)]<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Gasolina: {'counter': 2, 'weight': 2}<br>Explosivo: {'counter': 1, 'weight': 1}</div>`)[0];
-                popup_1891e8cadadd7cc67e876d685bdf7b5c.setContent(html_4512b57d5ee88103fc3c74d5268a785c);
+                var html_7eac2897c33a8577523064fba86bef45 = $(`<div id="html_7eac2897c33a8577523064fba86bef45" style="width: 100.0%; height: 100.0%;">Incident ID: 6<br><br>Latest Update: 2023-05-09 18:00:00<br>Incident Span: 27 days, 14 hours, 16 minutes<br><br>Contributor IDs: [3, 8, 15, 17]<br>Contribution IDs: [2, 9, 16, 19]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Incident District Probability:<br> - Coimbra: 100.0%<br><br>Incident Parish Probability:<br> - Coimbra: 100.0%<br><br>Possible Hazards:<br> - Gasolina:<br>&emsp;Submissions: 2<br>&emsp;Final Weight: 1.750<br> - Explosivo:<br>&emsp;Submissions: 1<br>&emsp;Final Weight: 0.850</div>`)[0];
+                popup_af2d5ed494422092ec3feadebdeaf1ae.setContent(html_7eac2897c33a8577523064fba86bef45);
             
         
 
-        marker_3b03037a8045beb1a543c1079dce4790.bindPopup(popup_1891e8cadadd7cc67e876d685bdf7b5c)
+        marker_ac581c4bbf15d0a4dc2ed60b6e861acf.bindPopup(popup_af2d5ed494422092ec3feadebdeaf1ae)
         ;
 
         
     
     
-            var marker_efd9b835776b01e54a87e2cb9aba2a5b = L.marker(
+            var marker_1ff5a782e359c5799a32545fe7233367 = L.marker(
                 [40.23166675989601, -8.474000073820061],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_26f8430e42ec8e1510e7f83383729cee = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            var icon_289d3beb5627e4bb97ec0b010242b7d9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
             );
-            marker_efd9b835776b01e54a87e2cb9aba2a5b.setIcon(icon_26f8430e42ec8e1510e7f83383729cee);
+            marker_1ff5a782e359c5799a32545fe7233367.setIcon(icon_289d3beb5627e4bb97ec0b010242b7d9);
         
     
-        var popup_dce17f85ea14772af34fb4e9834e476d = L.popup({"maxWidth": "100%"});
+        var popup_d8a429d85a32a9cb75b3085288ffabb8 = L.popup({"maxWidth": 400});
 
         
             
-                var html_a67462f071fc7684263904c4bd8b9ffd = $(`<div id="html_a67462f071fc7684263904c4bd8b9ffd" style="width: 100.0%; height: 100.0%;">Event ID: 2<br>Date/Time: 2023-05-09 18:30:00<br>User IDs: [1, 5, 7, 11, 16, 18]<br>Submission IDs: [3, 5, 8, 12, 18, 20]<br>Avg rating: 18.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Casas: {'counter': 2, 'weight': 2}<br>Fumo: {'counter': 2, 'weight': 2}</div>`)[0];
-                popup_dce17f85ea14772af34fb4e9834e476d.setContent(html_a67462f071fc7684263904c4bd8b9ffd);
+                var html_0276ba4309e04b439740b8163025b378 = $(`<div id="html_0276ba4309e04b439740b8163025b378" style="width: 100.0%; height: 100.0%;">Incident ID: 2<br><br>Latest Update: 2023-05-09 18:30:00<br>Incident Span: 27 days, 13 hours, 46 minutes<br><br>Contributor IDs: [1, 5, 7, 11, 16, 18]<br>Contribution IDs: [3, 5, 8, 12, 18, 20]<br><br>Fire: Confirmed<br>Smoke: Confirmed<br><br>Incident District Probability:<br> - Coimbra: 100.0%<br><br>Incident Parish Probability:<br> - Coimbra: 100.0%<br><br>Possible Hazards:<br> - Casas:<br>&emsp;Submissions: 2<br>&emsp;Final Weight: 0.350<br> - Fumo:<br>&emsp;Submissions: 2<br>&emsp;Final Weight: 0.370</div>`)[0];
+                popup_d8a429d85a32a9cb75b3085288ffabb8.setContent(html_0276ba4309e04b439740b8163025b378);
             
         
 
-        marker_efd9b835776b01e54a87e2cb9aba2a5b.bindPopup(popup_dce17f85ea14772af34fb4e9834e476d)
+        marker_1ff5a782e359c5799a32545fe7233367.bindPopup(popup_d8a429d85a32a9cb75b3085288ffabb8)
         ;
 
         
     
     
-            var marker_f118236bf830fae77bec25270ff3bcbf = L.marker(
+            var marker_0680c46b297f098d4658920eca3871b0 = L.marker(
                 [40.197500000000005, -8.467000000000002],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_2cf168a8322b540e56c090c0844e98d8 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            var icon_15eed1279def6aebf3a7297f2b2feef1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
             );
-            marker_f118236bf830fae77bec25270ff3bcbf.setIcon(icon_2cf168a8322b540e56c090c0844e98d8);
+            marker_0680c46b297f098d4658920eca3871b0.setIcon(icon_15eed1279def6aebf3a7297f2b2feef1);
         
     
-        var popup_4df3a2df17d39ed5b8b65a0c4d92d799 = L.popup({"maxWidth": "100%"});
+        var popup_551e4faaded3d671fcdd57d915a366d8 = L.popup({"maxWidth": 400});
 
         
             
-                var html_4346cb3ad8a7d21114cd9a0cba92b163 = $(`<div id="html_4346cb3ad8a7d21114cd9a0cba92b163" style="width: 100.0%; height: 100.0%;">Event ID: 4<br>Date/Time: 2023-05-09 19:30:00<br>User IDs: [6, 19]<br>Submission IDs: [7, 22]<br>Avg rating: 17.0<br>Fire verified: 1<br>Smoke verified: 1<br>District: []<br>Parish: [('Coimbra', 1)]</div>`)[0];
-                popup_4df3a2df17d39ed5b8b65a0c4d92d799.setContent(html_4346cb3ad8a7d21114cd9a0cba92b163);
+                var html_f5877db4645d7eaf579cdd74144994f7 = $(`<div id="html_f5877db4645d7eaf579cdd74144994f7" style="width: 100.0%; height: 100.0%;">Incident ID: 4<br><br>Latest Update: 2023-05-09 19:30:00<br>Incident Span: 27 days, 11 hours, 46 minutes<br><br>Contributor IDs: [6, 19]<br>Contribution IDs: [7, 22]<br><br>Fire: Confirmed<br>Smoke: Confirmed<br><br>Incident District Probability: <br>Unknown<br><br>Incident Parish Probability:<br> - Coimbra: 100.0%</div>`)[0];
+                popup_551e4faaded3d671fcdd57d915a366d8.setContent(html_f5877db4645d7eaf579cdd74144994f7);
             
         
 
-        marker_f118236bf830fae77bec25270ff3bcbf.bindPopup(popup_4df3a2df17d39ed5b8b65a0c4d92d799)
+        marker_0680c46b297f098d4658920eca3871b0.bindPopup(popup_551e4faaded3d671fcdd57d915a366d8)
         ;
 
         
     
     
-            var marker_50c54032e5e1abd792c31ed2282b5a98 = L.marker(
+            var marker_31cb8e84c71361e91a4020f7eaea5a44 = L.marker(
                 [40.23600005271335, -8.447500051687944],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_a4a6390f7b2b756ad73def6cc7d9a1a0 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            var icon_411dd403729935f7413e83fa5346412a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
             );
-            marker_50c54032e5e1abd792c31ed2282b5a98.setIcon(icon_a4a6390f7b2b756ad73def6cc7d9a1a0);
+            marker_31cb8e84c71361e91a4020f7eaea5a44.setIcon(icon_411dd403729935f7413e83fa5346412a);
         
     
-        var popup_21d65d77328b690304de80166a6d85e8 = L.popup({"maxWidth": "100%"});
+        var popup_a89fb2d737962a21a370a157ac9c8114 = L.popup({"maxWidth": 400});
 
         
             
-                var html_02bde6d4ee9cd4e73cb766a8544c45dd = $(`<div id="html_02bde6d4ee9cd4e73cb766a8544c45dd" style="width: 100.0%; height: 100.0%;">Event ID: 0<br>Date/Time: 2023-05-09 16:00:00<br>User IDs: [12, 14]<br>Submission IDs: [13, 15]<br>Avg rating: 19.5<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []</div>`)[0];
-                popup_21d65d77328b690304de80166a6d85e8.setContent(html_02bde6d4ee9cd4e73cb766a8544c45dd);
+                var html_72eda3beca9587882183c1f9055c4b0d = $(`<div id="html_72eda3beca9587882183c1f9055c4b0d" style="width: 100.0%; height: 100.0%;">Incident ID: 0<br><br>Latest Update: 2023-05-09 16:00:00<br>Incident Span: 27 days, 8 hours, 46 minutes<br><br>Contributor IDs: [12, 14]<br>Contribution IDs: [13, 15]<br><br>Fire: Confirmed<br>Smoke: Confirmed<br><br>Incident District Probability:<br> - Coimbra: 100.0%<br><br>Incident Parish Probability: <br>Unknown</div>`)[0];
+                popup_a89fb2d737962a21a370a157ac9c8114.setContent(html_72eda3beca9587882183c1f9055c4b0d);
             
         
 
-        marker_50c54032e5e1abd792c31ed2282b5a98.bindPopup(popup_21d65d77328b690304de80166a6d85e8)
+        marker_31cb8e84c71361e91a4020f7eaea5a44.bindPopup(popup_a89fb2d737962a21a370a157ac9c8114)
         ;
 
         
     
     
-            var marker_3fa991ae12b197a4c88cfc8dba73bdb2 = L.marker(
+            var marker_7c816909f03dc2b7395f37b071d5d5e0 = L.marker(
                 [40.20466674219791, -8.480333267772627],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_0c7683f7689822c666f255d449c060a3 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            var icon_d45819394d26531a4c106725c8808f1e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
             );
-            marker_3fa991ae12b197a4c88cfc8dba73bdb2.setIcon(icon_0c7683f7689822c666f255d449c060a3);
+            marker_7c816909f03dc2b7395f37b071d5d5e0.setIcon(icon_d45819394d26531a4c106725c8808f1e);
         
     
-        var popup_7e70ea2a63508264ac856c72f3ce2a98 = L.popup({"maxWidth": "100%"});
+        var popup_c66937716cefa056822937de1b075837 = L.popup({"maxWidth": 400});
 
         
             
-                var html_76927d2d6c2485a50f69bcec3e753498 = $(`<div id="html_76927d2d6c2485a50f69bcec3e753498" style="width: 100.0%; height: 100.0%;">Event ID: 3<br>Date/Time: 2023-05-09 20:30:00<br>User IDs: [13, 2, 21]<br>Submission IDs: [14, 17, 24]<br>Avg rating: 16.0<br>Fire verified: 1<br>Smoke verified: 1<br>District: [('Coimbra', 1)]<br>Parish: []</div>`)[0];
-                popup_7e70ea2a63508264ac856c72f3ce2a98.setContent(html_76927d2d6c2485a50f69bcec3e753498);
+                var html_653e76f3be1cf6ddc4e531cc6d825daa = $(`<div id="html_653e76f3be1cf6ddc4e531cc6d825daa" style="width: 100.0%; height: 100.0%;">Incident ID: 3<br><br>Latest Update: 2023-05-09 20:30:00<br>Incident Span: 27 days, 8 hours, 16 minutes<br><br>Contributor IDs: [13, 2, 21]<br>Contribution IDs: [14, 17, 24]<br><br>Fire: Confirmed<br>Smoke: Confirmed<br><br>Incident District Probability:<br> - Coimbra: 100.0%<br><br>Incident Parish Probability: <br>Unknown</div>`)[0];
+                popup_c66937716cefa056822937de1b075837.setContent(html_653e76f3be1cf6ddc4e531cc6d825daa);
             
         
 
-        marker_3fa991ae12b197a4c88cfc8dba73bdb2.bindPopup(popup_7e70ea2a63508264ac856c72f3ce2a98)
+        marker_7c816909f03dc2b7395f37b071d5d5e0.bindPopup(popup_c66937716cefa056822937de1b075837)
         ;
 
         
     
     
-            var marker_891494c1bebf95ec5145a96d945d4747 = L.marker(
+            var marker_5264bbe8d9f23edd1ce3612f5e0a730e = L.marker(
                 [40.212, -8.441],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_5bb9506beb7ec6e7b76026c7029caf20 = L.AwesomeMarkers.icon(
+            var icon_640bed849f2a0d245cd6058e0c9d2f6d = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
             );
-            marker_891494c1bebf95ec5145a96d945d4747.setIcon(icon_5bb9506beb7ec6e7b76026c7029caf20);
+            marker_5264bbe8d9f23edd1ce3612f5e0a730e.setIcon(icon_640bed849f2a0d245cd6058e0c9d2f6d);
         
     
-        var popup_b6b2e533ed6e3cc7e9edbbfdbb0bee46 = L.popup({"maxWidth": "100%"});
+        var popup_7cb2e6314f58cb8de2bfc928f7c00acd = L.popup({"maxWidth": 400});
 
         
             
-                var html_33eb34aab2cc679c7ca7d86f01f50f39 = $(`<div id="html_33eb34aab2cc679c7ca7d86f01f50f39" style="width: 100.0%; height: 100.0%;">Event ID: -1<br>Date/Time: 2023-05-09 10:30:00<br>User IDs: 4<br>Submission IDs: 4<br>Avg rating: 15<br>Fire verified: 1<br>Smoke verified: 1<br>District: []<br>Parish: []</div>`)[0];
-                popup_b6b2e533ed6e3cc7e9edbbfdbb0bee46.setContent(html_33eb34aab2cc679c7ca7d86f01f50f39);
+                var html_2e0634e301d114b4fff435264091f49a = $(`<div id="html_2e0634e301d114b4fff435264091f49a" style="width: 100.0%; height: 100.0%;">Incident ID: -1<br><br>Latest Update: 2023-05-09 10:30:00<br>Incident Span: 27 days, 13 hours, 16 minutes<br><br>Contributor IDs: 4<br>Contribution IDs: 4<br><br>Fire: Confirmed<br>Smoke: Confirmed<br><br>Incident District Probability: <br>Unknown<br><br>Incident Parish Probability: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_7cb2e6314f58cb8de2bfc928f7c00acd.setContent(html_2e0634e301d114b4fff435264091f49a);
             
         
 
-        marker_891494c1bebf95ec5145a96d945d4747.bindPopup(popup_b6b2e533ed6e3cc7e9edbbfdbb0bee46)
+        marker_5264bbe8d9f23edd1ce3612f5e0a730e.bindPopup(popup_7cb2e6314f58cb8de2bfc928f7c00acd)
         ;
 
         
     
     
-            var marker_b9341b1962ebf7a28515851f93cafa90 = L.marker(
+            var marker_323b4f760a62e8749f37ef9776886b8a = L.marker(
                 [40.184, -8.512],
                 {}
-            ).addTo(marker_cluster_fbd1768054f4f2aa107875bee87ab691);
+            ).addTo(marker_cluster_da8891ef2c45ff3a263d0e553945d951);
         
     
-            var icon_e6f615d4c88c541ac6aa540a5bf39844 = L.AwesomeMarkers.icon(
+            var icon_009e88a9460357a6cf34203b9be7b120 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
             );
-            marker_b9341b1962ebf7a28515851f93cafa90.setIcon(icon_e6f615d4c88c541ac6aa540a5bf39844);
+            marker_323b4f760a62e8749f37ef9776886b8a.setIcon(icon_009e88a9460357a6cf34203b9be7b120);
         
     
-        var popup_8f67b4ce43f6e2396009b3cbda2c1365 = L.popup({"maxWidth": "100%"});
+        var popup_99abf8d441a7dbeb67070ea64cab3df8 = L.popup({"maxWidth": 400});
 
         
             
-                var html_25dc1292a91ac664dbde19606c2c112c = $(`<div id="html_25dc1292a91ac664dbde19606c2c112c" style="width: 100.0%; height: 100.0%;">Event ID: -2<br>Date/Time: 2023-06-09 10:00:00<br>User IDs: 22<br>Submission IDs: 25<br>Avg rating: 17<br>Fire verified: 0<br>Smoke verified: 1<br>District: []<br>Parish: [('Coimbra', 1)]<br><br>Keywords:<br>Fumo: 1<br>Casas: 1</div>`)[0];
-                popup_8f67b4ce43f6e2396009b3cbda2c1365.setContent(html_25dc1292a91ac664dbde19606c2c112c);
+                var html_7c52bcb87685ffd76764954ade35fcd2 = $(`<div id="html_7c52bcb87685ffd76764954ade35fcd2" style="width: 100.0%; height: 100.0%;">Incident ID: -2<br><br>Latest Update: 2023-06-09 10:00:00<br>Incident Span: -4 days, 13 hours, 46 minutes<br><br>Contributor IDs: 22<br>Contribution IDs: 25<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Incident District Probability: <br>Unknown<br><br>Incident Parish Probability:<br> - Coimbra: 100.0%<br><br>Possible Hazards:<br> - Fumo:<br>&emsp;Submissions: 1<br>&emsp;Final Weight: 52.594<br> - Casas:<br>&emsp;Submissions: 1<br>&emsp;Final Weight: 52.594<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_99abf8d441a7dbeb67070ea64cab3df8.setContent(html_7c52bcb87685ffd76764954ade35fcd2);
             
         
 
-        marker_b9341b1962ebf7a28515851f93cafa90.bindPopup(popup_8f67b4ce43f6e2396009b3cbda2c1365)
+        marker_323b4f760a62e8749f37ef9776886b8a.bindPopup(popup_99abf8d441a7dbeb67070ea64cab3df8)
         ;
 
         
