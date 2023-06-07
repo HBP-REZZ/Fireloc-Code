@@ -213,7 +213,8 @@ def apply_clustering_algorithm(data):
 """
 update_hdbscan_approximate_predict will check if any new points belong to existing clusters. 
 this is an extremely light operation. 
-any points that dont belong to existing clusters will be labeled noise.
+any points that dont belong to existing clusters will be labeled as noise (-1)
+these are added to the data_queue and then wait for the main re-clustering operation
 """
 
 
@@ -241,8 +242,9 @@ def update_hdbscan_approximate_predict(data_point, c_instance, clusters):
 
 """
 #### Fuse all known data clusters
-# apply_data_fusion() iterates over all clusters and sends individual clusters to the fusion function. 
-Returns all fused clusters. 
+# apply_data_fusion() iterates over all clusters and sends each individual cluster to the fusion function. 
+# these are processed one at a time
+# returns all fused clusters - a dictionary of dictionaries
 """
 
 
@@ -266,24 +268,118 @@ def apply_data_fusion(clusters):
     return fused_clusters
 
 
+"""
+#### Fuse individual members of a single cluster
+# fuse_cluster_submissions() loads up all the data and creates an event dictionary.  
+# strings are handled in separate functions handle_locations() and handle_keywords().
+# centroids are handled in a separate function, big_circle_calculation2().
+# from 1 cluster, 1 event is created. this event is returned to apply_data_fusion() and saved in an array.
+# the cluster ID becomes the EVENT ID
+"""
+
+
+def fuse_cluster_submissions(cluster_id, cluster_members):
+    # Initialize lists to hold fused data
+    fused_dates = []
+    fused_user_ids = []
+    fused_sub_ids = []
+    fused_ratings = []
+    haversine_weights = []
+    fused_latitudes = []
+    fused_longitudes = []
+    fused_districts = defaultdict(lambda: {"counter": 0, "percentage": 0})
+    fused_parishes = defaultdict(lambda: {"counter": 0, "percentage": 0})
+    fused_keywords = defaultdict(lambda: {"counter": 0, "weight": 0, "weight_percentage": 0})
+    fused_fire_verified = 0
+    fused_smoke_verified = 0
+
+    # Loop over each submission in the cluster
+    for submission in cluster_members:
+        # Extract data from submission
+        sub_id, date, user_id, user_rating, fire_verified, smoke_verified, latitude, longitude, district, parish, keywords = submission
+
+        # Calculate the decay weight for the current submission
+        time_decay = handle_time_decay(date)
+        weight = time_decay * (user_rating / 20)
+
+        # Weights to be used for the coordinate fusion
+        haversine_weights.append(weight)
+
+        # Add numeric data to lists
+        fused_dates.append(date)  # for timeseries and time progression
+        fused_user_ids.append(user_id)  # ID info
+        fused_sub_ids.append(sub_id)  # ID info
+        fused_ratings.append(user_rating)  # This info is handed by fireloc
+        fused_latitudes.append(latitude)  # This info is handed by fireloc
+        fused_longitudes.append(longitude)  # This info is handed by fireloc
+
+        # Update fire/smoke verified flags if one of the fusion members has positive flags. This info is handed by fireloc
+        fused_fire_verified |= fire_verified
+        fused_smoke_verified |= smoke_verified
+
+        # fill in dictionaries with the number of occurrences of districts and parishes
+        fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes, weight)
+
+        # fill in dictionaries with the number of occurrences of keywords vs their set weights
+        fused_keywords = handle_keywords(keywords, fused_keywords, weight)
+
+    # Calculate centroid of the coordinates in the numpy arrays
+    centroid_latitude, centroid_longitude = weighted_haversine_centroid(fused_latitudes, fused_longitudes, haversine_weights)
+
+    # Calculate event hazard level based on the keywords it has - only affects map colour
+    event_hazard_level = calculate_hazard_level(fused_keywords)
+
+    # Create fused event
+    fused_event = {
+        'event_id': cluster_id,
+        'event_hazard_level': event_hazard_level,
+        'date_latest': max(fused_dates),
+        'date_age': datetime.datetime.now() - min(fused_dates),
+        'date_history': fused_dates,
+        'user_ids': fused_user_ids,
+        'sub_ids': fused_sub_ids,
+        'rating': np.mean(fused_ratings),
+        'fire_verified': fused_fire_verified,
+        'smoke_verified': fused_smoke_verified,
+        'latitude': centroid_latitude,
+        'longitude': centroid_longitude,
+        'districts': list(fused_districts.items()),
+        'parishes': list(fused_parishes.items()),
+        'keywords': list(fused_keywords.items())
+    }
+
+    return fused_event
+
+
+"""
+This process is similar to fuse_cluster_submissions(cluster_id, cluster_members), but only handles the noise (-1) cluster
+in this cluster, each submission is meant to be seen as a 1-member "cluster", and so, creates a 1-submission event.
+Most of the process is the same, but anything that involved multiple values is simplified:
+    averages are not calculated and their values become the ones of the single submission
+    the same happens with booleans and time variables
+    keywords and other text variables remain the same
+    >IMP> IDs of these events are generated starting at -1 and are always negative. this is to simplify the process of finding which events are isolated. 
+"""
+
+
 def handle_noise_submissions(cluster_members, fused_clusters):
     # Loop over each submission in the cluster
     for i, submission in enumerate(cluster_members):
         sub_id, date, user_id, user_rating, fire_verified, smoke_verified, latitude, longitude, district, parish, keywords = submission
 
         # Calculate the decay weight for the current submission
-        decay = handle_time_decay(date)
+        time_decay = handle_time_decay(date)
+        weight = time_decay * (user_rating / 20)
 
-        fused_districts = defaultdict(lambda: {"counter": 0, "weight": 0})
-        fused_parishes = defaultdict(lambda: {"counter": 0, "weight": 0})
-        fused_keywords = defaultdict(lambda: {"counter": 0, "weight": 0})
+        fused_districts = defaultdict(lambda: {"counter": 0, "percentage": 0})
+        fused_parishes = defaultdict(lambda: {"counter": 0, "percentage": 0})
+        fused_keywords = defaultdict(lambda: {"counter": 0, "weight": 0, "weight_percentage": 0})
 
         # fill in dictionaries with the number of occurrences of districts and parishes
-        fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes,
-                                                           user_rating, decay)
+        fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes, weight)
 
         # fill in dictionaries with the number of occurrences of keywords vs their set weights
-        fused_keywords = handle_keywords(keywords, fused_keywords, user_rating, decay)
+        fused_keywords = handle_keywords(keywords, fused_keywords, weight)
 
         # Calculate event hazard level based on the keywords it has - only affects map colour
         event_hazard_level = calculate_hazard_level(fused_keywords)
@@ -313,82 +409,7 @@ def handle_noise_submissions(cluster_members, fused_clusters):
     return fused_clusters
 
 
-"""
-#### Fuse individual members of a single cluster
-# fuse_cluster_submissions() loads up all the data and creates an event dictionary.  
-# strings are handled in separate functions handle_locations() and handle_keywords().
-# centroids are handled in a separate function, big_circle_calculation2().
-# from 1 cluster, 1 event is created. this event is returned to apply_data_fusion() and saved in an array.
-# the cluster ID becomes the EVENT ID
-"""
-
-
-def fuse_cluster_submissions(cluster_id, cluster_members):
-    # Initialize lists to hold fused data
-    fused_dates = []
-    fused_user_ids = []
-    fused_sub_ids = []
-    fused_ratings = []
-    fused_latitudes = []
-    fused_longitudes = []
-    fused_districts = defaultdict(lambda: {"counter": 0, "weight": 0})
-    fused_parishes = defaultdict(lambda: {"counter": 0, "weight": 0})
-    fused_keywords = defaultdict(lambda: {"counter": 0, "weight": 0})
-    fused_fire_verified = 0
-    fused_smoke_verified = 0
-
-    # Loop over each submission in the cluster
-    for submission in cluster_members:
-        # Extract data from submission
-        sub_id, date, user_id, user_rating, fire_verified, smoke_verified, latitude, longitude, district, parish, keywords = submission
-
-        # Calculate the decay weight for the current submission
-        decay = handle_time_decay(date)
-
-        # Add numeric data to lists
-        fused_dates.append(date)  # for timeseries and time progression
-        fused_user_ids.append(user_id)  # ID info
-        fused_sub_ids.append(sub_id)  # ID info
-        fused_ratings.append(user_rating)  # This info is handed by fireloc
-        fused_latitudes.append(latitude)  # This info is handed by fireloc
-        fused_longitudes.append(longitude)  # This info is handed by fireloc
-
-        # Update fire/smoke verified flags if one of the fusion members has positive flags. This info is handed by fireloc
-        fused_fire_verified |= fire_verified
-        fused_smoke_verified |= smoke_verified
-
-        # fill in dictionaries with the number of occurrences of districts and parishes
-        fused_districts, fused_parishes = handle_locations(district, parish, fused_districts, fused_parishes, user_rating, decay)
-
-        # fill in dictionaries with the number of occurrences of keywords vs their set weights
-        fused_keywords = handle_keywords(keywords, fused_keywords, user_rating, decay)
-
-    # Calculate centroid of the coordinates in the numpy arrays
-    centroid_latitude, centroid_longitude = haversine_centroid(fused_latitudes, fused_longitudes)
-
-    # Calculate event hazard level based on the keywords it has - only affects map colour
-    event_hazard_level = calculate_hazard_level(fused_keywords)
-
-    # Create fused event
-    fused_event = {
-        'event_id': cluster_id,
-        'event_hazard_level': event_hazard_level,
-        'date_latest': max(fused_dates),
-        'date_age': datetime.datetime.now() - min(fused_dates),
-        'date_history': fused_dates,
-        'user_ids': fused_user_ids,
-        'sub_ids': fused_sub_ids,
-        'rating': np.mean(fused_ratings),
-        'fire_verified': fused_fire_verified,
-        'smoke_verified': fused_smoke_verified,
-        'latitude': centroid_latitude,
-        'longitude': centroid_longitude,
-        'districts': list(fused_districts.items()),
-        'parishes': list(fused_parishes.items()),
-        'keywords': list(fused_keywords.items())
-    }
-
-    return fused_event
+########## AUX functions for Data Fusion ##########
 
 
 """
@@ -420,10 +441,14 @@ def handle_time_decay(date_value):
 # for each non-empty string, a dictionary entry is created with the number of occurrences of said string
 # these functions receive a dictionary entry that may or may not be empty, 
 # and return an updated version of this same entry.
+#
+# locations and keywords use the weight variable in different ways. 
+    locations uses it AS the counter variable to then calculate a likelihood of that location being the correct one
+    keywords use it (along with a counter and dictionary of keywords) to calculate the weight of a certain keyword towards an hazard threshold
 """
 
 
-def handle_locations(district, parish, fused_districts, fused_parishes, user_rating, decay):
+def handle_locations(district, parish, fused_districts, fused_parishes, weighted_counter):
     # Ignore empty entries and spaces
     district = district.strip()
     parish = parish.strip()
@@ -432,52 +457,50 @@ def handle_locations(district, parish, fused_districts, fused_parishes, user_rat
     # .... for the district-related calculations:
     if district:
         # calculate counter
-        # weight functions just as a placeholder at this point
         if district in fused_districts:
             # increment counter and set weight calculation to counter value
-            fused_districts[district]["counter"] += (user_rating / 20) * decay
-            fused_districts[district]["weight"] += 0
+            fused_districts[district]["counter"] += weighted_counter
+            fused_districts[district]["percentage"] += 0
         else:
             # Create a new entry for the keyword
             fused_districts[district] = {
-                "counter": user_rating / 20,
-                "weight": 0
+                "counter": weighted_counter,
+                "percentage": 0
             }
 
     # Calculate the total counter value for districts
     total_districts = sum(entry["counter"] for entry in fused_districts.values())
 
-    # Calculate the weights as a percentage of likelihood
+    # Calculate the percentage of likelihood
     for district, data in fused_districts.items():
-        data["weight"] = round((data["counter"] / total_districts) * 100, 2)
+        data["percentage"] = round((data["counter"] / total_districts) * 100, 2)
 
     # .... for the parish-related calculations:
     if parish:
         # calculate counter
-        # weight functions just as a placeholder at this point
         if parish in fused_parishes:
             # increment counter and set weight calculation to counter value
-            fused_parishes[parish]["counter"] += (user_rating / 20) * decay
-            fused_parishes[parish]["weight"] += 0
+            fused_parishes[parish]["counter"] += weighted_counter
+            fused_parishes[parish]["percentage"] += 0
         else:
             # Create a new entry for the keyword
             fused_parishes[parish] = {
-                "counter": user_rating / 20,
-                "weight": 0
+                "counter": weighted_counter,
+                "percentage": 0
             }
 
     # Calculate the total counter value for parishes
     total_parishes = sum(entry["counter"] for entry in fused_parishes.values())
 
-    # Calculate the weights as a percentage of likelihood
+    # Calculate the percentage of likelihood
     for parish, data in fused_parishes.items():
-        data["weight"] = round((data["counter"] / total_parishes) * 100, 2)
+        data["percentage"] = round((data["counter"] / total_parishes) * 100, 2)
 
     # return both the district and parish data
     return fused_districts, fused_parishes
 
 
-def handle_keywords(keywords, fused_keywords, user_rating, decay):
+def handle_keywords(keywords, fused_keywords, decay_weight):
     # keywords are split based on the "-" char to include keywords with spaces ex. "toxic gas".
     # empty " - " inputs are also handled.
     keywords = keywords.split("-")
@@ -493,7 +516,7 @@ def handle_keywords(keywords, fused_keywords, user_rating, decay):
 
                 # recalculate weights
                 hazard_weight = KEYWORD_WEIGHTS[keyword]
-                calculated_weight = hazard_weight * (user_rating / 20) * decay
+                calculated_weight = hazard_weight * decay_weight
 
                 # update weight calculation
                 fused_keywords[keyword]["weight"] += calculated_weight
@@ -503,13 +526,21 @@ def handle_keywords(keywords, fused_keywords, user_rating, decay):
                 if keyword in fused_keywords:
                     # increment counter and set weight calculation to counter value
                     fused_keywords[keyword]["counter"] += 1
-                    fused_keywords[keyword]["weight"] += (user_rating / 20) * decay
+                    fused_keywords[keyword]["weight"] += decay_weight
                 else:
                     # Create a new entry for the keyword
                     fused_keywords[keyword] = {
                         "counter": 1,
-                        "weight": (user_rating / 20) * decay
+                        "weight": decay_weight
                     }
+
+    # Calculate weight as a percentage of the distribution between known keywords
+    total_weight = sum(entry["weight"] for entry in fused_keywords.values())
+
+    for keyword in fused_keywords:
+        fused_keywords[keyword]["weight_percentage"] = (
+            fused_keywords[keyword]["weight"] / total_weight
+        ) * 100
 
     return fused_keywords
 
@@ -519,6 +550,7 @@ Updates map colours depending on the keywords of the event
 """
 
 
+# TODO a better version of this hazard function
 def calculate_hazard_level(keywords):
     # LOW PRIORITY
     hazard_level = 1
@@ -536,6 +568,8 @@ def calculate_hazard_level(keywords):
 
 """
 # haversine_centroid() calcs the centroid of a cluster using the geodesic algorithm (from an existing implementation)
+# weighted_haversine_centroid() is the same as haversine_centroid(), but with a weighted average. The weights are time decay multiplied by user rating 
+# a submission with an age of 30min and an user rating of 19 will result in a weight of 0.95. Weights vary between [0,1]
 # haversine_distance() calcs the distance between 2 points using the geodesic algorithm (from an existing implementation)
 """
 
@@ -553,6 +587,38 @@ def haversine_centroid(_latitudes, _longitudes):
     centroid_x = np.mean(x)
     centroid_y = np.mean(y)
     centroid_z = np.mean(z)
+
+    centroid_long = np.arctan2(centroid_y, centroid_x)
+    centroid_hyp = np.sqrt(centroid_x ** 2 + centroid_y ** 2)
+    centroid_lat = np.arctan2(centroid_z, centroid_hyp)
+
+    centroid_lat_degrees = np.degrees(centroid_lat)
+    centroid_long_degrees = np.degrees(centroid_long)
+
+    return centroid_lat_degrees, centroid_long_degrees
+
+
+def weighted_haversine_centroid(_latitudes, _longitudes, _weights):
+    radius = 6371  # Radius of the earth in km
+
+    lat_radians = np.radians(_latitudes)
+    long_radians = np.radians(_longitudes)
+
+    x = radius * np.cos(lat_radians) * np.cos(long_radians)
+    y = radius * np.cos(lat_radians) * np.sin(long_radians)
+    z = radius * np.sin(lat_radians)
+
+    # Calculate the weighted sum of coordinates
+    weighted_sum_x = np.sum(_weights * x)
+    weighted_sum_y = np.sum(_weights * y)
+    weighted_sum_z = np.sum(_weights * z)
+
+    # Calculate the total weight
+    total_weight = np.sum(_weights)
+
+    centroid_x = weighted_sum_x / total_weight
+    centroid_y = weighted_sum_y / total_weight
+    centroid_z = weighted_sum_z / total_weight
 
     centroid_long = np.arctan2(centroid_y, centroid_x)
     centroid_hyp = np.sqrt(centroid_x ** 2 + centroid_y ** 2)
@@ -614,7 +680,7 @@ def plot_folium1(data, map_name):
 
     map_plot.save(map_name)
 
-    return 0
+    return
 
 
 def plot_folium2(data, map_name):
@@ -645,7 +711,8 @@ def plot_folium2(data, map_name):
         age_string = f"{days} days, {hours} hours, {minutes} minutes"
 
         # Create the popup message with the updated event data
-        popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Incident Span: {age_string}<br><br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
+        popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Incident Span: " \
+                     f"{age_string}<br><br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
 
         # Display "Has Fire" and "Has Smoke"
         has_fire = "Confirmed" if event.get('fire_verified') else "Unknown"
@@ -653,36 +720,47 @@ def plot_folium2(data, map_name):
 
         popup_text += f"<br><br>Fire: {has_fire}<br>Smoke: {has_smoke}"
 
-        # Add district to the popup message
+        ############# Add district to the popup message
         districts = event.get('districts')
         if districts:
-            popup_text += '<br><br>Incident District Probability:'
-            for district, data in districts:
-                weight = data["weight"]
-                popup_text += f'<br> - {district}: {weight}%'
-        else:
-            popup_text += '<br><br>Incident District Probability: <br>Unknown'
+            # Sort by percentage in descending order
+            districts = sorted(districts, key=lambda x: x[1]["percentage"], reverse=True)
 
-        # Add parish to the popup message
+            popup_text += '<br><br>Distribution of Submitted Districts:'
+            for district, data in districts:
+                percentage = data["percentage"]
+                popup_text += f'<br> - {district}: {percentage:.1f}%'
+        else:
+            popup_text += '<br><br>Distribution of Incident Districts: <br>Unknown'
+
+        ############# Add parish to the popup message
         parishes = event.get('parishes')
         if parishes:
-            popup_text += '<br><br>Incident Parish Probability:'
-            for parish, data in parishes:
-                weight = data["weight"]
-                popup_text += f'<br> - {parish}: {weight}%'
-        else:
-            popup_text += '<br><br>Incident Parish Probability: <br>Unknown'
+            # Sort by percentage in descending order
+            parishes = sorted(parishes, key=lambda x: x[1]["percentage"], reverse=True)
 
-        # Add keywords to the popup message
+            popup_text += '<br><br>Distribution of Submitted Parishes:'
+            for parish, data in parishes:
+                percentage = data["percentage"]
+                popup_text += f'<br> - {parish}: {percentage:.1f}%'
+        else:
+            popup_text += '<br><br>Distribution of Incident Parishes: <br>Unknown'
+
+        ############# Add keywords to the popup message
         keywords = event.get('keywords')
         if keywords:
-            popup_text += '<br><br>Possible Hazards:'
+            # Sort by percentage in descending order
+            keywords = sorted(keywords, key=lambda x: x[1]["weight_percentage"], reverse=True)
+
+            popup_text += '<br><br>Distribution of Submitted Hazards:'
             for keyword, data in keywords:
                 counter = data.get('counter')
-                weight = data.get('weight')
-                popup_text += f'<br> - {keyword}:<br>&emsp;Submissions: {counter}<br>&emsp;Final Weight: {weight:.3f}'
+                percentage = data.get('weight_percentage')
+                popup_text += f'<br> - {keyword}:<br>&emsp;Submissions: {counter}<br>&emsp; Weight: {percentage:.1f}%'
+        else:
+            popup_text += '<br><br>Distribution of Incident Hazards: <br>Unknown'
 
-        # set event icon colours
+        ############# set event icon colours
         if event.get('event_id') < 0:
             # if isolated event
             popup_text += '<br><br>WARNING: <br>Isolated Incident - May be inaccurate'
@@ -706,7 +784,7 @@ def plot_folium2(data, map_name):
     # save map HTML
     map_plot.save(map_name)
 
-    return 0
+    return
 
 
 def plot_folium3(data, map_name):
@@ -742,7 +820,7 @@ def plot_folium3(data, map_name):
 
     map_plot.save(map_name)
 
-    return 0
+    return
 
 
 # debug functions
@@ -843,11 +921,13 @@ if __name__ == '__main__':
                 # write_data_file(FILE_PATH, user_input)
 
                 # quickly check if new point belongs to any existing cluster
-                clustered_data, affected_label, found_existing_cluster = update_hdbscan_approximate_predict(parsed_input, clusterer_instance, clustered_data)
+                clustered_data, affected_label, found_existing_cluster = update_hdbscan_approximate_predict(
+                    parsed_input, clusterer_instance, clustered_data)
 
                 if found_existing_cluster:
                     # update fused event
-                    fused_events[affected_label] = fuse_cluster_submissions(affected_label, clustered_data.get(affected_label))
+                    fused_events[affected_label] = fuse_cluster_submissions(affected_label,
+                                                                            clustered_data.get(affected_label))
                     print(" > Added to Cluster")
 
                     # update fused event map
@@ -919,4 +999,3 @@ if __name__ == '__main__':
 
                 file_counter += 1
                 time_counter = time.time()
-
