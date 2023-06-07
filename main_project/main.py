@@ -1,7 +1,7 @@
 """
 #### Import Libs
 """
-import os
+
 import time
 
 import folium
@@ -18,7 +18,9 @@ import hdbscan
 """
 
 FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file2.txt"
-ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\it_data_file_"
+ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file3.txt"
+
+BATCH_SIZE = 5
 
 NOISE_DISTANCE_THRESHOLD = 1.5
 
@@ -27,23 +29,29 @@ MAXIMUM_DECAY = 0.2
 
 KEYWORD_WEIGHTS = {
     # SIGNS
-    "Fumo": 1,
-    "Fogo": 2,
-    "Incendio": 2,
-    "Chamas": 2,
+    "fumo": 1,
+    "fogo": 2,
+    "chamas": 2,
     # FUELS
-    "Explosivo": 5,
-    "Fertilizante": 4,
-    "Quimico": 5,
-    "Gas": 5,
-    "Gasolina": 5,
-    "Petroleo": 5,
+    "explosivo": 5,
+    "fertilizante": 4,
+    "químico": 5,
+    "gas": 5,
+    "gasolina": 5,
+    "petroleo": 5,
     # HOUSES & PEOPLE
-    "Urbana": 2,
-    "Urbananizaçao": 2,
-    "Casa": 2,
-    "Populacao": 2,
-    "Hospital": 5,
+    "urbana": 3,
+    "urbanização": 4,
+    "casa": 3,
+    "populacao": 3,
+    "hospital": 5,
+    # FIRE RELATED
+    "ignicao": 3,
+    "combustivel": 4,
+    "propagacao": 2,
+    "queimada": 3,
+    "rescaldo": 2,
+    "incendio": 1
 }
 
 PRIORITY_HAZARDS = []
@@ -94,6 +102,37 @@ def read_data_file(file_path):
 def write_data_file(file_path, data_string):
     with open(file_path, 'a') as f:
         f.write(data_string + "\n")
+
+
+def fetch_next_batch(file_path, start_line, end_line):
+    data_batch = []
+    with open(file_path, 'r') as f:
+        lines = f.readlines()[1:]  # skip the first line
+
+    # Get the lines within the specified range
+    batch = lines[start_line:end_line]
+
+    # Process the batch of lines
+    for line in batch:
+        # Partition the line's data as needed
+        line = line.strip().split(';')
+        submission_id = int(line[0])
+        submission_date = datetime.datetime.strptime(line[1], '%d/%m/%Y %H:%M')
+        user_id = int(line[2])
+        user_rating = int(line[3])
+        fire_verified = int(line[4])
+        smoke_verified = int(line[5])
+        lat = float(line[6])
+        lon = float(line[7])
+        text_district = line[8]
+        text_parish = line[9]
+        text_keywords = line[10]
+
+        # Add the line's data to the data_batch list
+        data_batch.append((submission_id, submission_date, user_id, user_rating, fire_verified, smoke_verified,
+                           lat, lon, text_district, text_parish, text_keywords))
+
+    return data_batch
 
 
 """
@@ -473,7 +512,11 @@ def handle_locations(district, parish, fused_districts, fused_parishes, weighted
 
     # Calculate the percentage of likelihood
     for district, data in fused_districts.items():
-        data["percentage"] = round((data["counter"] / total_districts) * 100, 2)
+        print(district,data)
+        if total_districts != 0:  # Check for zero division
+            data["percentage"] = round((data["counter"] / total_districts) * 100, 2)
+        else:
+            data["percentage"] = 0
 
     # .... for the parish-related calculations:
     if parish:
@@ -494,7 +537,10 @@ def handle_locations(district, parish, fused_districts, fused_parishes, weighted
 
     # Calculate the percentage of likelihood
     for parish, data in fused_parishes.items():
-        data["percentage"] = round((data["counter"] / total_parishes) * 100, 2)
+        if total_parishes != 0:  # Check for zero division
+            data["percentage"] = round((data["counter"] / total_parishes) * 100, 2)
+        else:
+            data["percentage"] = 0
 
     # return both the district and parish data
     return fused_districts, fused_parishes
@@ -538,9 +584,10 @@ def handle_keywords(keywords, fused_keywords, decay_weight):
     total_weight = sum(entry["weight"] for entry in fused_keywords.values())
 
     for keyword in fused_keywords:
-        fused_keywords[keyword]["weight_percentage"] = (
-            fused_keywords[keyword]["weight"] / total_weight
-        ) * 100
+        if total_weight != 0:  # Check for zero division
+            fused_keywords[keyword]["weight_percentage"] = (fused_keywords[keyword]["weight"] / total_weight) * 100
+        else:
+            fused_keywords[keyword]["weight_percentage"] = 0
 
     return fused_keywords
 
@@ -880,11 +927,18 @@ Some example inputs:
 """
 
 if __name__ == '__main__':
-    manual_input = True  # False True
+    # make this value TRUE if you want to add new submissions through the console
+    # make this value FALSE if you want to add new submissions iteratively through ITER_FILE_PATH
+    manual_input = True
+    # make this value TRUE if you want to create a new map every time submissions are re-clustered (ex. for a slideshow)
+    # make this value FALSE if you want to simply override the default fusion map
     create_new_maps_on_manual_input = False
+
+    # counters & time variables
     time_counter = time.time()
     map_counter = 0
-    file_counter = 0
+    start_l = 0
+    end_l = BATCH_SIZE
 
     # Read data, plot all submissions in fireloc_map_raw
     data_input = read_data_file(FILE_PATH)
@@ -939,7 +993,7 @@ if __name__ == '__main__':
                     print(" > Added to Queue")
 
                 # once queue is full, cluster the new points
-                if len(data_queue) >= 5:
+                if len(data_queue) >= BATCH_SIZE:
                     # merge data queue with existing data
                     data_input = data_input + data_queue
 
@@ -968,17 +1022,18 @@ if __name__ == '__main__':
             """
             ITERATIVE INPUT
             """
+
             # Check if X minutes have passed
             if time.time() - time_counter >= 60:
                 print("> Fetching next batch of inputs")
 
-                # get next file if it exists
-                next_file = ITER_FILE_PATH + str(file_counter) + ".txt"
-                if os.path.exists(next_file):
-                    next_data_input = read_data_file(next_file)
-                    data_input += next_data_input
-                else:
-                    print("> No new input files found")
+                # Fetch the next batch of inputs
+                next_data_input = fetch_next_batch(ITER_FILE_PATH, start_l, end_l)
+                data_input += next_data_input
+
+                # Update the start and end lines for the next batch
+                start_l = end_l + 1
+                end_l = start_l + BATCH_SIZE
 
                 # cluster data, plot all clusters in fireloc_map_clustered
                 clustered_data, clusterer_instance = apply_clustering_algorithm(data_input)
@@ -997,5 +1052,4 @@ if __name__ == '__main__':
                 else:
                     plot_folium2(fused_events, "fireloc_map_fused.html")
 
-                file_counter += 1
                 time_counter = time.time()

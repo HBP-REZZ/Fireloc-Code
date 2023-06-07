@@ -7,6 +7,7 @@ from sklearn.cluster import DBSCAN
 from sklearn.cluster import OPTICS
 import hdbscan
 
+
 import matplotlib.pyplot as plt
 
 
@@ -22,6 +23,34 @@ def generate_random_clusters(num_clusters, num_points_per_cluster, noise_level):
     # Add some random noise points
     noise_points = np.random.uniform(0, 300, size=(int(num_points_per_cluster / 2), 2))
     clusters.append(noise_points)
+
+    return clusters
+
+
+def mrf_clustering(coordinates, threshold):
+    # Convert coordinates to numpy array
+    coordinates = np.array(coordinates)
+
+    # Compute pairwise distances between coordinates
+    distances = np.sqrt(((coordinates[:, None] - coordinates) ** 2).sum(axis=2))
+
+    # Create adjacency matrix based on distances and threshold
+    adjacency_matrix = distances <= threshold
+
+    # Perform clustering using K-Means on the adjacency matrix
+    kmeans = KMeans(n_clusters=None, random_state=0).fit(adjacency_matrix)
+
+    # Get cluster labels
+    labels = kmeans.labels_
+
+    # Create clusters dictionary
+    clusters = {}
+    for i, label in enumerate(labels):
+        point = tuple(coordinates[i].tolist())
+        if label in clusters:
+            clusters[label].append(point)
+        else:
+            clusters[label] = [point]
 
     return clusters
 
