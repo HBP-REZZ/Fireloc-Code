@@ -366,7 +366,7 @@ def fuse_cluster_submissions(cluster_id, cluster_members):
     centroid_latitude, centroid_longitude = weighted_haversine_centroid(fused_latitudes, fused_longitudes, haversine_weights)
 
     # Calculate event hazard level based on the keywords it has - only affects map colour
-    event_hazard_level = calculate_hazard_level(fused_keywords)
+    event_hazard_level = calculate_hazard_level(fused_keywords, fused_fire_verified, fused_smoke_verified)
 
     # Create fused event
     fused_event = {
@@ -421,7 +421,7 @@ def handle_noise_submissions(cluster_members, fused_clusters):
         fused_keywords = handle_keywords(keywords, fused_keywords, weight)
 
         # Calculate event hazard level based on the keywords it has - only affects map colour
-        event_hazard_level = calculate_hazard_level(fused_keywords)
+        event_hazard_level = calculate_hazard_level(fused_keywords, fire_verified, smoke_verified)
 
         # Create 1-submission event
         fused_event = {
@@ -512,7 +512,6 @@ def handle_locations(district, parish, fused_districts, fused_parishes, weighted
 
     # Calculate the percentage of likelihood
     for district, data in fused_districts.items():
-        print(district,data)
         if total_districts != 0:  # Check for zero division
             data["percentage"] = round((data["counter"] / total_districts) * 100, 2)
         else:
@@ -598,14 +597,20 @@ Updates map colours depending on the keywords of the event
 
 
 # TODO a better version of this hazard function
-def calculate_hazard_level(keywords):
+def calculate_hazard_level(keywords, fire_bool, smoke_bool):
+    if not smoke_bool and not fire_bool and not keywords:
+        hazard_level = 0
+
     # LOW PRIORITY
     hazard_level = 1
+
     if keywords:
         # AVERAGE PRIORITY
-        hazard_level = 2
+        if fire_bool:
+            hazard_level = 2
+
         for keyword in keywords:
-            if keyword in PRIORITY_HAZARDS:
+            if keyword.lower() in PRIORITY_HAZARDS:
                 # HIGH PRIORITY
                 hazard_level = 3
                 break
