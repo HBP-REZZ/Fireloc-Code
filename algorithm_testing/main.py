@@ -2,6 +2,7 @@ from matplotlib.lines import Line2D
 
 import time
 import numpy as np
+from scipy.spatial import distance
 from sklearn.cluster import KMeans
 from sklearn.cluster import DBSCAN
 from sklearn.cluster import OPTICS
@@ -34,25 +35,37 @@ def mrf_clustering(coordinates, threshold):
     # Compute pairwise distances between coordinates
     distances = np.sqrt(((coordinates[:, None] - coordinates) ** 2).sum(axis=2))
 
-    # Create adjacency matrix based on distances and threshold
-    adjacency_matrix = distances <= threshold
-
-    # Perform clustering using K-Means on the adjacency matrix
-    kmeans = KMeans(n_clusters=None, random_state=0).fit(adjacency_matrix)
+    # Perform clustering using K-Means on the distances
+    kmeans = KMeans(n_clusters=10, random_state=0).fit(distances)
 
     # Get cluster labels
     labels = kmeans.labels_
 
-    # Create clusters dictionary
-    clusters = {}
-    for i, label in enumerate(labels):
-        point = tuple(coordinates[i].tolist())
-        if label in clusters:
-            clusters[label].append(point)
-        else:
-            clusters[label] = [point]
+    # # Create clusters dictionary
+    # clusters = {}
+    # for i, label in enumerate(labels):
+    #     point = tuple(coordinates[i].tolist())
+    #     if label in clusters:
+    #         clusters[label].append(point)
+    #     else:
+    #         clusters[label] = [point]
+    return labels
 
-    return clusters
+
+def calculate_average_distance(points):
+    # Convert points to numpy array
+    points = np.array(points)
+
+    # Calculate pairwise distances
+    pairwise_distances = distance.cdist(points, points, metric='euclidean')
+
+    # Exclude self-distances on the diagonal
+    np.fill_diagonal(pairwise_distances, np.inf)
+
+    # Calculate average distance
+    average_distance = np.mean(pairwise_distances)
+
+    return average_distance
 
 
 def run_clustering_algorithms(points):
@@ -79,6 +92,19 @@ def run_clustering_algorithms(points):
         time_results[algorithm_name] = execution_time
         # Save the cluster labels
         results[algorithm_name] = algorithm.labels_
+
+    print("Running MRF Clustering algorithm...")
+    start_time = time.time()
+
+    # Perform MRF Clustering
+    mrf_clusters = mrf_clustering(points, calculate_average_distance(points)/10)
+
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"MRF Clustering algorithm executed in {execution_time:.4f} seconds.")
+    time_results['MRF Clustering'] = execution_time
+    # Save the cluster labels
+    results['MRF Clustering'] = mrf_clusters
 
     # Plot the clustering results
     plot_clustering_results(points, results)
@@ -124,7 +150,7 @@ def plot_clustering_results(points, results):
     # Iterate over each algorithm's results and plot them
     for algorithm_name, cluster_labels in results.items():
         # Create a subplot for the algorithm
-        plt.subplot(2, 2, plot_num)
+        plt.subplot(2, 3, plot_num)
 
         # Get a unique color for each cluster
         num_clusters = len(np.unique(cluster_labels))
@@ -154,9 +180,9 @@ def plot_clustering_results(points, results):
 
 if __name__ == '__main__':
     # Example usage:
-    num_clusters = 5
-    num_points_per_cluster = 30
-    noise_level = 25.0
+    num_clusters = 20
+    num_points_per_cluster = 40
+    noise_level = 30.0
 
     separate_clusters = generate_random_clusters(num_clusters, num_points_per_cluster, noise_level)
     concat_clusters = np.concatenate(separate_clusters)
