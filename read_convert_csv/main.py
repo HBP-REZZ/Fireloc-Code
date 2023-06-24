@@ -8,6 +8,24 @@ FILE_PATH = "C:\\Users\\Hugo\\Desktop\\read_convert_csv\\Tweets_incendio_complet
 PARISHES_PATH = "C:\\Users\\Hugo\\Desktop\\read_convert_csv\\Parishes.txt"
 SAVE_PATH = "C:\\Users\\Hugo\\Desktop\\read_convert_csv\\october_fires.txt"
 
+# these imports are needed for some geopandas tools
+import matplotlib
+import matplotlib.pyplot as plt
+
+import geopandas as gpd
+from shapely.geometry import Point
+
+# make sure its a folder not file
+GEO_FILE_PATH_PT = "C:\\Users\\Hugo\\Desktop\\read_convert_csv\\CAOP_Continente_2022"
+GEO_FILE_PATH_MAD = "C:\\Users\\Hugo\\Desktop\\read_convert_csv\\CAOP_Madeira_2022"
+GEO_FILE_PATH_AZO = "C:\\Users\\Hugo\\Desktop\\read_convert_csv\\CAOP_Azores_2022"
+
+PORTUGAL_GDF = gpd.read_file(GEO_FILE_PATH_PT)
+MADEIRA_GDF = gpd.read_file(GEO_FILE_PATH_MAD)
+AZORES_GDF = gpd.read_file(GEO_FILE_PATH_AZO)
+
+
+# useless now since geopandas handles this
 DISTRICTS = [
     "aveiro",
     "beja",
@@ -58,6 +76,16 @@ HAZARDS = [
 ]
 
 
+def generate_string():
+    text_hazard = random.choice(HAZARDS)
+
+    if random.random() < 0.2:
+        text_hazard += f'-{random.choice(HAZARDS)}'
+
+    return text_hazard
+
+
+# useless now since geopandas handles this
 def read_parishes_file(file_path):
     parishes = []
 
@@ -75,45 +103,12 @@ def read_parishes_file(file_path):
 PARISHES = read_parishes_file(PARISHES_PATH)
 
 
-def process_text(text):
-    # Split the text into words
-    words = text.split()
-
-    # Remove words with less than 2 characters
-    processed_words = [word for word in words if len(word) >= 2]
-
-    # Check if words are in the lists of districts, parishes, and hazards
-    district_words = [word for word in processed_words if word in DISTRICTS]
-    text_district = ' '.join(list(set(district_words)))  # Remove duplicates
-
-    # Exclude district words from parish words
-    remaining_words = [word for word in processed_words if word not in DISTRICTS]
-    parish_words = [word for word in remaining_words if word in PARISHES]
-    text_parish = ' '.join(list(set(parish_words)))  # Remove duplicates
-
-    text_hazards = list(set([word for word in remaining_words if word in HAZARDS]))  # Remove duplicates
-
-    # Concatenate multiple hazards with a "-"
-    text_hazard = '-'.join(text_hazards)
-
-    # Add a random hazard with a 10% chance
-    if random.random() < 0.2 and HAZARDS:
-        remaining_hazards = [hazard for hazard in HAZARDS if hazard not in text_hazards]
-        if remaining_hazards:
-            random_hazard = random.choice(remaining_hazards)
-            if text_hazard:
-                text_hazard += f'-{random_hazard}'
-            else:
-                text_hazard = random_hazard
-
-    return text_district, text_parish, text_hazard
-
 def read_csv_file(file_path):
     df = pd.read_csv(file_path)
     return df
 
 
-def read_excel_file(file_path):
+def process_excel_file(file_path):
     data = []
     df = read_csv_file(file_path)
     i = 0
@@ -128,7 +123,7 @@ def read_excel_file(file_path):
             user_rating = user_data["rating"]
         else:
             user_id = i  # Create a new unique user
-            user_rating = random.randint(0, 20)  # Assign a random rating between 0 and 20
+            user_rating = random.randint(1, 20)  # Assign a random rating between 1 and 20
             users[user_id] = {"rating": user_rating}  # Store the new user
 
         submission_date_str = row['Datetime']
@@ -147,9 +142,21 @@ def read_excel_file(file_path):
             fire_verified = 1
         smoke_verified = random.choice([0, 1])  # Randomly choose True or False for smoke_verified
 
-        # Process the text column
+        # ignore text
         text = row['Text']
-        text_district, text_parish, text_keywords = process_text(text)
+
+        # create point
+        pt = (lat, lon)
+
+        # use geopandas to get point data
+        district, parish = get_concelho_distrito(pt, PORTUGAL_GDF, MADEIRA_GDF, AZORES_GDF)
+
+        text_district = district
+        text_parish = parish
+        text_keywords = ''
+
+        if random.random() < 0.2:
+            text_keywords = generate_string()
 
         data.append((submission_id, submission_date, user_id, user_rating, fire_verified, smoke_verified,
                      lat, lon, text_district, text_parish, text_keywords))
@@ -177,11 +184,59 @@ def save_data_to_txt(data, file_path):
     print(f"Data saved to file: {file_path}")
 
 
+def get_concelho_distrito(point, district_parish_gdf, madeira_gdf, azores_gdf):
+    # Create a Point object from the given coordinates
+    point_geom = Point(point[1], point[0])
+
+    # Create a GeoDataFrame for the input point
+    point_gdf = gpd.GeoDataFrame(geometry=[point_geom], crs="EPSG:4326")
+
+    # Convert the CRS of the point GeoDataFrame to match the district_parish_gdf CRS
+    point_gdf = point_gdf.to_crs(district_parish_gdf.crs)
+
+    # Perform the spatial join with district_parish_gdf
+    joined_gdf = gpd.sjoin(point_gdf, district_parish_gdf, how='inner', predicate='within')
+
+    # Check if there is a matching district and parish in district_parish_gdf
+    if len(joined_gdf) > 0:
+        concelho = joined_gdf['Concelho'].iloc[0]
+        distrito = joined_gdf['Distrito'].iloc[0]
+        return str(distrito), str(concelho)
+
+    else:
+        # Convert the CRS of the point GeoDataFrame to match the madeira_gdf CRS
+        point_gdf_madeira = point_gdf.to_crs(madeira_gdf.crs)
+        # Perform the spatial join with madeira_gdf
+        joined_gdf_madeira = gpd.sjoin(point_gdf_madeira, madeira_gdf, how='inner', predicate='within')
+        # Check if there is a matching district and parish in madeira_gdf
+        if len(joined_gdf_madeira) > 0:
+            concelho = joined_gdf_madeira['Concelho'].iloc[0]
+            distrito = joined_gdf_madeira['Ilha'].iloc[0]
+            return str(distrito), str(concelho)
+
+        else:
+            point_gdf_azores = point_gdf.to_crs(azores_gdf.crs)
+            joined_gdf_azores = gpd.sjoin(point_gdf_azores, azores_gdf, how='inner', predicate='within')
+            # Check if the point belongs to the Azores region
+            if len(joined_gdf_azores) > 0:
+                concelho = joined_gdf_azores['Concelho'].iloc[0]
+                distrito = joined_gdf_azores['Ilha'].iloc[0]
+                return str(distrito), str(concelho)
+
+            # If no matching district and parish found in any region
+            print("No matching district for given point:", str(point))
+            return '', ''
+
+
 if __name__ == '__main__':
-    excel_data = read_excel_file(FILE_PATH)
+    print(AZORES_GDF.head())
+    print(AZORES_GDF.columns)
 
-    # Print the first 10 lines
-    for line in excel_data[:20]:
-        print(line)
-
+    excel_data = process_excel_file(FILE_PATH)
     save_data_to_txt(excel_data, SAVE_PATH)
+
+
+
+   # figueira = (40.151, -8.855)
+
+

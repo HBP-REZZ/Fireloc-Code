@@ -17,7 +17,7 @@ import hdbscan
 #### Define MACROS and Globals
 """
 
-FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file2.txt"
+FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires.txt"  # data_file2
 ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file3.txt"
 
 BATCH_SIZE = 5
@@ -26,6 +26,10 @@ NOISE_DISTANCE_THRESHOLD = 1.5
 
 DECAY_FACTOR = 0.7
 MAXIMUM_DECAY = 0.2
+MINIMUM_WEIGHT_DIVIDE = 0.01
+
+CUSTOM_DATE = datetime.datetime.strptime('30/09/2017 23:59', '%d/%m/%Y %H:%M')
+USING_CUSTOM_DATE = False
 
 KEYWORD_WEIGHTS = {
     # SIGNS
@@ -57,7 +61,7 @@ KEYWORD_WEIGHTS = {
 PRIORITY_HAZARDS = []
 
 for key, value in KEYWORD_WEIGHTS.items():
-    if value > 3:
+    if value > 4:
         PRIORITY_HAZARDS.append(key)
 
 """
@@ -70,8 +74,8 @@ date ignores seconds
 
 
 def read_data_file(file_path):
-    with open(file_path, 'r') as f:
-        lines = f.readlines()[1:]  # skip the first line
+    with open(file_path, 'r') as rf:
+        lines = rf.readlines()[1:]  # skip the first line
 
     # list of tuples & arrays
     data = []
@@ -100,24 +104,27 @@ def read_data_file(file_path):
 
 # write console input to data file. make sure there's an empty line in the end of the file
 def write_data_file(file_path, data_string):
-    with open(file_path, 'a') as f:
-        f.write(data_string + "\n")
+    with open(file_path, 'a') as wf:
+        wf.write(data_string + "\n")
 
 
-def fetch_next_batch(file_path, start_line, end_line):
+def fetch_next_batch(file_data, start_line, end_line):
     data_batch = []
-    with open(file_path, 'r') as f:
-        lines = f.readlines()[1:]  # skip the first line
-
     # Get the lines within the specified range
-    batch = lines[start_line:end_line]
+    batch = file_data[start_line:end_line]
 
     # Process the batch of lines
     for line in batch:
         # Partition the line's data as needed
         line = line.strip().split(';')
         submission_id = int(line[0])
+
         submission_date = datetime.datetime.strptime(line[1], '%d/%m/%Y %H:%M')
+
+        # TODO THIS SHOULD UPDATE CURRENT CUSTOM DATE TO THE NEWEST INPUTTED DATE
+        global CUSTOM_DATE
+        CUSTOM_DATE = submission_date
+
         user_id = int(line[2])
         user_rating = int(line[3])
         fire_verified = int(line[4])
@@ -368,12 +375,17 @@ def fuse_cluster_submissions(cluster_id, cluster_members):
     # Calculate event hazard level based on the keywords it has - only affects map colour
     event_hazard_level = calculate_hazard_level(fused_keywords, fused_fire_verified, fused_smoke_verified)
 
+    if USING_CUSTOM_DATE:
+        date_age = CUSTOM_DATE - min(fused_dates)
+    else:
+        date_age = datetime.datetime.now() - min(fused_dates)
+
     # Create fused event
     fused_event = {
         'event_id': cluster_id,
         'event_hazard_level': event_hazard_level,
         'date_latest': max(fused_dates),
-        'date_age': datetime.datetime.now() - min(fused_dates),
+        'date_age': date_age,
         'date_history': fused_dates,
         'user_ids': fused_user_ids,
         'sub_ids': fused_sub_ids,
@@ -423,12 +435,17 @@ def handle_noise_submissions(cluster_members, fused_clusters):
         # Calculate event hazard level based on the keywords it has - only affects map colour
         event_hazard_level = calculate_hazard_level(fused_keywords, fire_verified, smoke_verified)
 
+        if USING_CUSTOM_DATE:
+            date_age = CUSTOM_DATE - date
+        else:
+            date_age = datetime.datetime.now() - date
+
         # Create 1-submission event
         fused_event = {
             'event_id': -(i + 1),  # Assign negative ID for each noise event
             'event_hazard_level': event_hazard_level,
             'date_latest': date,
-            'date_age': datetime.datetime.now() - date,
+            'date_age': date_age,
             'date_history': date,
             'user_ids': user_id,
             'sub_ids': sub_id,
@@ -463,10 +480,13 @@ def handle_noise_submissions(cluster_members, fused_clusters):
 
 def handle_time_decay(date_value):
     # Calculate total lifespan in minutes
-    lifespan = (datetime.datetime.now() - date_value).total_seconds() / 60
-    nr_minutes_per_day = 24 * 60
+    if USING_CUSTOM_DATE:
+        lifespan = (CUSTOM_DATE - date_value).total_seconds() / 60
+    else:
+        lifespan = (datetime.datetime.now() - date_value).total_seconds() / 60
 
     # Calculate the decay value
+    nr_minutes_per_day = 24 * 60
     decay_value = (1 - DECAY_FACTOR) ** (lifespan / nr_minutes_per_day)
 
     # Cap maximum decay at MAXIMUM_DECAY
@@ -606,7 +626,7 @@ def calculate_hazard_level(keywords, fire_bool, smoke_bool):
 
     if keywords:
         # AVERAGE PRIORITY
-        if fire_bool:
+        if fire_bool or smoke_bool:
             hazard_level = 2
 
         for keyword in keywords:
@@ -860,7 +880,7 @@ def plot_folium3(data, map_name):
             # Extract the latitude, longitude, and text location from the event
             lat, lon, text_loc = event[6], event[7], event[9]
 
-            popup_text = f"Submission IDs:: {event[0]}"
+            popup_text = f"Submission ID:: {event[0]}<br><br>Cluster ID: {cluster_id}"
             # Determine the color for this marker based on the cluster ID
             if cluster_id == -1:
                 color = 'black'
@@ -960,6 +980,15 @@ if __name__ == '__main__':
     # print_cluster_members(clustered_data) # DEBUG
     # print_fused_events(fused_events) # DEBUG
 
+    print(">> Finished processing static dataset successfully.")
+
+    # if using iterative input, read entire file in advance and get nr of lines
+    nr_iter_lines = 0
+    if not manual_input:
+        with open(ITER_FILE_PATH, 'r') as f:
+            iter_data = f.readlines()[1:]  # skip the first line
+        nr_iter_lines = len(iter_data)
+
     data_queue = []
     while True:
         # Simulate real-time and/or manual submissions
@@ -1028,17 +1057,27 @@ if __name__ == '__main__':
             ITERATIVE INPUT
             """
 
+            """
+            Beware that the fetch_next_batch function will update CUSTOM_DATE to the date of the last line of input of a batch
+            to avoid errors, make sure that the batch dataset is ordered by date. 
+            """
+
             # Check if X minutes have passed
-            if time.time() - time_counter >= 60:
+            seconds = 60
+            if time.time() - time_counter >= seconds:
                 print("> Fetching next batch of inputs")
 
                 # Fetch the next batch of inputs
-                next_data_input = fetch_next_batch(ITER_FILE_PATH, start_l, end_l)
+                next_data_input = fetch_next_batch(iter_data, start_l, end_l)
                 data_input += next_data_input
 
                 # Update the start and end lines for the next batch
                 start_l = end_l + 1
                 end_l = start_l + BATCH_SIZE
+
+                # Check if end_l exceeds the last line index
+                if end_l >= nr_iter_lines or nr_iter_lines <= 0:
+                    break
 
                 # cluster data, plot all clusters in fireloc_map_clustered
                 clustered_data, clusterer_instance = apply_clustering_algorithm(data_input)
