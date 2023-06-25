@@ -1,16 +1,31 @@
+import datetime
+
 from matplotlib.lines import Line2D
 
 import time
 import numpy as np
+from matplotlib.patches import Circle
 from scipy.spatial import distance
 from sklearn.cluster import KMeans
 from sklearn.cluster import DBSCAN
 from sklearn.cluster import OPTICS
 import hdbscan
 
+import folium
+from folium.plugins import MarkerCluster
+
+
+
+FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\coordinates2.txt"
 
 import matplotlib.pyplot as plt
 
+
+def save_coordinates(coordinates, filename):
+    with open(filename, 'w') as file:
+        for coordinate in coordinates:
+            x, y = coordinate
+            file.write(f"{x},{y}\n")
 
 def generate_random_clusters(num_clusters, num_points_per_cluster, noise_level):
     clusters = []
@@ -28,7 +43,7 @@ def generate_random_clusters(num_clusters, num_points_per_cluster, noise_level):
     return clusters
 
 
-def mrf_clustering(coordinates, threshold):
+def mrf_clustering(coordinates, threshold, n_clusters):
     # Convert coordinates to numpy array
     coordinates = np.array(coordinates)
 
@@ -36,7 +51,7 @@ def mrf_clustering(coordinates, threshold):
     distances = np.sqrt(((coordinates[:, None] - coordinates) ** 2).sum(axis=2))
 
     # Perform clustering using K-Means on the distances
-    kmeans = KMeans(n_clusters=10, random_state=0).fit(distances)
+    kmeans = KMeans(n_clusters=n_clusters, n_init='auto').fit(distances)
 
     # Get cluster labels
     labels = kmeans.labels_
@@ -69,11 +84,16 @@ def calculate_average_distance(points):
 
 
 def run_clustering_algorithms(points):
+    n_clusters=10
     algorithms = {
-        'K-means': KMeans(n_clusters=10, n_init='auto'),
-        'DBSCAN': DBSCAN(eps=10, min_samples=5),
-        'OPTICS': OPTICS(eps=10, min_samples=5),
-        'HDBSCAN': hdbscan.HDBSCAN(min_samples=5, min_cluster_size=3)
+      #  'K-means': KMeans(n_clusters=5, n_init='auto'),
+        #'DBSCAN': DBSCAN(eps=2, min_samples=3),
+       # 'OPTICS': OPTICS(eps=3, min_samples=5),
+        #'HDBSCAN': hdbscan.HDBSCAN(min_samples=3, min_cluster_size=3)
+        'K-means': KMeans(n_clusters=n_clusters, n_init='auto'),
+        'DBSCAN': DBSCAN(eps=5, min_samples=5),
+        'OPTICS': OPTICS(eps=5, min_samples=5),
+        'HDBSCAN': hdbscan.HDBSCAN(min_samples=5, min_cluster_size=5)
     }
 
     results = {}
@@ -97,7 +117,7 @@ def run_clustering_algorithms(points):
     start_time = time.time()
 
     # Perform MRF Clustering
-    mrf_clusters = mrf_clustering(points, calculate_average_distance(points)/10)
+    mrf_clusters = mrf_clustering(points, calculate_average_distance(points)/10, n_clusters)
 
     end_time = time.time()
     execution_time = end_time - start_time
@@ -108,6 +128,9 @@ def run_clustering_algorithms(points):
 
     # Plot the clustering results
     plot_clustering_results(points, results)
+
+
+    plot_clustering_results2(points, results)
 
     return time_results
 
@@ -150,7 +173,10 @@ def plot_clustering_results(points, results):
     # Iterate over each algorithm's results and plot them
     for algorithm_name, cluster_labels in results.items():
         # Create a subplot for the algorithm
-        plt.subplot(2, 3, plot_num)
+        if plot_num == 5 or plot_num == 6:
+            plt.subplot(2, 3, plot_num)
+        else:
+            plt.subplot(2, 3, plot_num)
 
         # Get a unique color for each cluster
         num_clusters = len(np.unique(cluster_labels))
@@ -165,33 +191,161 @@ def plot_clustering_results(points, results):
         plt.axis('equal')
         plt.subplots_adjust(hspace=0.4)
         plot_num += 1
-
-        # Add legend for clusters
-        legend_handles = []
-        for i in range(num_clusters):
-            color = cmap(i)
-            handle = Line2D([0], [0], marker='o', color=color, label=f'Cluster {i}', markersize=10)
-            legend_handles.append(handle)
-        plt.legend(handles=legend_handles)
+        #
+         # Add legend for clusters
+        # if plot_num == 5 or plot_num == 6:
+        #     legend_handles = []
+        #     for i in range(num_clusters):
+        #         color = cmap(i)
+        #         handle = Line2D([0], [0], marker='o', color=color, label=f'Cluster {i}', markersize=10)
+        #         legend_handles.append(handle)
+        #     plt.legend(handles=legend_handles, loc='center')
 
     # Show the plot
     plt.show()
 
 
+def read_data_file(file_path):
+    with open(file_path, 'r') as f:
+        lines = f.readlines()[1:]  # skip the first line
+
+    # list of tuples & arrays
+    data = []
+
+    # go over each line and partition its data
+    for line in lines:
+        line = line.strip().split(';')
+        submission_id = int(line[0])
+        submission_date = datetime.datetime.strptime(line[1], '%d/%m/%Y %H:%M')
+        user_id = int(line[2])
+        user_rating = int(line[3])  # rating is both the quality and quantity of the submissions
+        fire_verified = int(line[4])
+        smoke_verified = int(line[5])
+        lat = float(line[6])
+        lon = float(line[7])
+        text_district = line[8]
+        text_parish = line[9]
+        text_keywords = line[10]
+
+        # join current iteration line into the input array
+        data.append((submission_id, submission_date, user_id, user_rating, fire_verified, smoke_verified, lat, lon,
+                     text_district, text_parish, text_keywords))
+
+    return data
+
+
+def write_coordinates_to_txt(coordinates, file_path):
+    with open(file_path, 'w') as file:
+        for x, y in coordinates:
+            file.write(f"{x},{y}\n")
+    print(f"Coordinates written to {file_path} successfully.")
+
+
+def read_coordinates_from_txt(file_path):
+    coordinates = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            x, y = line.strip().split(',')
+            coordinates.append([float(x), float(y)])
+    return np.array(coordinates)
+
+
+def plot_clustering_results2(points, results):
+    # Plotting parameters
+    plt.figure(figsize=(15, 10))
+    plt.subplots_adjust(left=.02, right=.98, bottom=.001, top=.96, wspace=.05, hspace=.01)
+    plot_num = 1
+
+    # Dictionary to store the centroids
+    centroids = {}
+
+    # Iterate over each algorithm's results and plot the centroids
+    for algorithm_name, cluster_labels in results.items():
+        # Create a subplot for the algorithm
+        if plot_num == 5 or plot_num == 6:
+            plt.subplot(2, 3, plot_num)
+        else:
+            plt.subplot(2, 3, plot_num)
+
+        # Get a unique color for each cluster
+        num_clusters = len(np.unique(cluster_labels))
+        cmap = plt.cm.get_cmap('viridis', num_clusters)
+
+        # Get the unique labels and their corresponding centroids
+        unique_labels = np.unique(cluster_labels)
+        cluster_centroids = []
+
+        # Iterate over each label and calculate the centroid
+        for label in unique_labels:
+            centroid = np.mean(points[cluster_labels == label], axis=0)
+            cluster_centroids.append(centroid)
+
+        # Store the centroids in the dictionary
+        centroids[algorithm_name] = np.array(cluster_centroids)
+
+        # Plot the centroids
+        cluster_centroids = np.array(cluster_centroids)
+        plt.scatter(cluster_centroids[:, 0], cluster_centroids[:, 1], c='red', marker='x')
+
+        # Set the subplot title and adjust the layout
+        plt.title(algorithm_name)
+        plt.axis('equal')
+        plt.subplots_adjust(hspace=0.4)
+        plot_num += 1
+
+    # Show the plot
+    plt.show()
+
+    return centroids
+
+def weighted_haversine_centroid(_latitudes, _longitudes, _weights):
+    radius = 6371  # Radius of the earth in km
+
+    lat_radians = np.radians(_latitudes)
+    long_radians = np.radians(_longitudes)
+
+    x = radius * np.cos(lat_radians) * np.cos(long_radians)
+    y = radius * np.cos(lat_radians) * np.sin(long_radians)
+    z = radius * np.sin(lat_radians)
+
+    # Calculate the weighted sum of coordinates
+    weighted_sum_x = np.sum(_weights * x)
+    weighted_sum_y = np.sum(_weights * y)
+    weighted_sum_z = np.sum(_weights * z)
+
+    # Calculate the total weight
+    total_weight = np.sum(_weights)
+
+    centroid_x = weighted_sum_x / total_weight
+    centroid_y = weighted_sum_y / total_weight
+    centroid_z = weighted_sum_z / total_weight
+
+    centroid_long = np.arctan2(centroid_y, centroid_x)
+    centroid_hyp = np.sqrt(centroid_x ** 2 + centroid_y ** 2)
+    centroid_lat = np.arctan2(centroid_z, centroid_hyp)
+
+    centroid_lat_degrees = np.degrees(centroid_lat)
+    centroid_long_degrees = np.degrees(centroid_long)
+
+    return centroid_lat_degrees, centroid_long_degrees
+
+
+
+
 if __name__ == '__main__':
     # Example usage:
-    num_clusters = 20
+    num_clusters = 10
     num_points_per_cluster = 40
-    noise_level = 30.0
+    noise_level = 40.0
 
-    separate_clusters = generate_random_clusters(num_clusters, num_points_per_cluster, noise_level)
-    concat_clusters = np.concatenate(separate_clusters)
-    time_results = run_clustering_algorithms(concat_clusters)
 
-    """
-     num_times = 50
-     avg_times = run_multiple_times(num_times)
-     print("Average Runtimes:")
-     for algorithm_name, avg_execution_time in avg_times.items():
-        print(f"{algorithm_name}: {avg_execution_time:.4f} seconds")
-    """
+    #separate_clusters = generate_random_clusters(num_clusters, num_points_per_cluster, noise_level)
+    #concat_clusters = np.concatenate(separate_clusters)
+    #time_results = run_clustering_algorithms(concat_clusters)
+
+   # save_coordinates(concat_clusters, 'C:\\Users\\Hugo\\Desktop\\algorithm_testing\\coordinates3.txt')
+
+
+
+    #data = read_coordinates_from_txt('C:\\Users\\Hugo\\Desktop\\algorithm_testing\\coordinates2.txt')
+    #run_clustering_algorithms(data)
