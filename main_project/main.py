@@ -17,19 +17,22 @@ import hdbscan
 #### Define MACROS and Globals
 """
 
-FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires.txt"  # data_file2
+FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file2.txt"  # data_file2  october_fires
 ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file3.txt"
 
 BATCH_SIZE = 5
 
-NOISE_DISTANCE_THRESHOLD = 1.5
+NOISE_DISTANCE_THRESHOLD = 1.5  # +NOISE_DISTANCE_THRESHOLD --> less noise but more isolated outliers will merge with normal clusters
 
-DECAY_FACTOR = 0.7
-MAXIMUM_DECAY = 0.2
-MINIMUM_WEIGHT_DIVIDE = 0.01
+DECAY_FACTOR = 0.7  # +DECAY_FACTOR --> weight will decrease faster 
+MAXIMUM_DECAY = 0.2  # stops decay at 20%. dont use zero as a value
 
 CUSTOM_DATE = datetime.datetime.strptime('30/09/2017 23:59', '%d/%m/%Y %H:%M')
 USING_CUSTOM_DATE = False
+
+# TODO 
+REMOVE_OLD_SUBMISSIONS = False
+REMOVE_SUBMISSIONS_AT_AGE = 0
 
 KEYWORD_WEIGHTS = {
     # SIGNS
@@ -479,7 +482,7 @@ def handle_noise_submissions(cluster_members, fused_clusters):
 
 
 def handle_time_decay(date_value):
-    # Calculate total lifespan in minutes
+    # Calculate total lifespan in minutes of the current submission
     if USING_CUSTOM_DATE:
         lifespan = (CUSTOM_DATE - date_value).total_seconds() / 60
     else:
@@ -1017,7 +1020,7 @@ if __name__ == '__main__':
                     fused_events[affected_label] = fuse_cluster_submissions(affected_label,
                                                                             clustered_data.get(affected_label))
                     print(" > Added to Cluster")
-
+                    plot_folium3(clustered_data, "fireloc_map_clustered.html")
                     # update fused event map
                     plot_folium2(fused_events, "fireloc_map_fused.html")
 
