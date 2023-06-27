@@ -5,9 +5,7 @@
 import time
 
 import folium
-
 from folium.plugins import MarkerCluster
-from folium import Map, FeatureGroup, Marker, LayerControl
 
 from collections import defaultdict
 import datetime
@@ -15,29 +13,26 @@ import numpy as np
 
 import hdbscan
 
-
 """
 #### Define MACROS and Globals
 """
 
-FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires_first_100.txt"  # data_file2  october_fires october_fires_first_100
-ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires.txt"
+FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file2.txt"  # data_file2  october_fires
+ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\data_file3.txt"
 
-BATCH_SIZE = 50  # how many lines to read every batch
+BATCH_SIZE = 5
 
 NOISE_DISTANCE_THRESHOLD = 1.5  # +NOISE_DISTANCE_THRESHOLD --> less noise but more isolated outliers will merge with normal clusters
 
-DECAY_FACTOR = 0.7  # +DECAY_FACTOR --> weight will decrease faster --> 0.5 should result in 50% decay in 24h
+DECAY_FACTOR = 0.7  # +DECAY_FACTOR --> weight will decrease faster 
 MAXIMUM_DECAY = 0.2  # stops decay at 20%. dont use zero as a value
 
-CUSTOM_DATE = datetime.datetime.strptime('05/06/2017 16:00', '%d/%m/%Y %H:%M')  # 01/06/2017 00:01 is the oldest october_fires_100 entry , 05/06/2017 15:34 is the earliest
-USING_CUSTOM_DATE = True  #  True False
+CUSTOM_DATE = datetime.datetime.strptime('30/09/2017 23:59', '%d/%m/%Y %H:%M')
+USING_CUSTOM_DATE = False
 
 # TODO 
 REMOVE_OLD_SUBMISSIONS = False
 REMOVE_SUBMISSIONS_AT_AGE = 0
-
-DATA_ITERATIONS = []
 
 KEYWORD_WEIGHTS = {
     # SIGNS
@@ -481,7 +476,7 @@ def handle_noise_submissions(cluster_members, fused_clusters):
 # the newer the submission the higher the weight should be in the event fusion process. 
 # calculates a weight to then use in the data fusion process
 # expected usage: multiply a value 0-1 with a submissions values
-# expected result: a lifespan of 24hours should result in approximately a 50% decay (1440 mins -> 0.51 decay) with a DECAY_FACTOR of 0.5
+# expected result: a lifespan of 24hours should result in approximately a 50% decay (1440 mins -> 0.51 decay) with a DECAY_FACTOR of 0.7
 # maximum decay is capped at up to 80% of initial value being removed
 """
 
@@ -912,184 +907,11 @@ def print_cluster_members(data):
         print(pt, first_values)
 
 
-# TODO this function needs work. the events wont refresh on the map unless you click in the layer control box, and idk why
-# TODO and the button custom component also appears in the control box, and i cant remove or hide it...
-# TODO everything else seems to work properly
 def print_fused_events(data):
     print("DEBUG")
     for eve in data:
         values = data[eve]
         print(eve, values)
-
-
-def plot_folium_iterative(datasets, map_name):
-    # Create a map centered at the first event in the first dataset
-    first_dataset = datasets[0]
-    first_event = next(iter(first_dataset.values()))
-    map_center = [first_event.get('latitude'), first_event.get('longitude')]
-    map_plot = folium.Map(location=map_center, zoom_start=8, max_width='100%')
-
-    # Create a marker cluster layer to add things to the map.
-    # disableClusteringAtZoom -> at what zoom lvl events disperse
-    marker_cluster = MarkerCluster(disableClusteringAtZoom=5)
-
-    # Create a list to store the feature groups
-    feature_groups = []
-
-    # Iterate over the datasets
-    for dataset_index, dataset in enumerate(datasets):
-        # Create a unique ID for the feature group
-        feature_group_id = f"feature_group_{dataset_index}"
-
-        # Create a FeatureGroup for the current dataset
-        feature_group = folium.FeatureGroup(name=f"Dataset {dataset_index + 1}", show=(dataset_index == 0), id=feature_group_id)
-        feature_groups.append(feature_group)
-
-        # Iterate over the events in the dataset
-        for event_index, event in enumerate(dataset.values()):
-            # Extract the latitude, longitude, and text location from the event
-            lat, lon, text_loc = event.get('latitude'), event.get('longitude'), event.get('location')
-
-            # Create a popup message with the event data
-            # Format Age String
-            incident_span = event.get('date_age')
-            # Extract days
-            days = incident_span.days
-            # Calculate remainder hours and minutes
-            hours, remainder = divmod(incident_span.seconds, 3600)
-            minutes, _ = divmod(remainder, 60)
-
-            # Create a formatted string for the incident span
-            age_string = f"{days} days, {hours} hours, {minutes} minutes"
-
-            # Create the popup message with the updated event data
-            popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Incident Span: " \
-                         f"{age_string}<br><br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
-
-            # Display "Has Fire" and "Has Smoke"
-            has_fire = "Confirmed" if event.get('fire_verified') else "Unknown"
-            has_smoke = "Confirmed" if event.get('smoke_verified') else "Unknown"
-
-            popup_text += f"<br><br>Fire: {has_fire}<br>Smoke: {has_smoke}"
-
-            ############# Add district to the popup message
-            districts = event.get('districts')
-            if districts:
-                # Sort by percentage in descending order
-                districts = sorted(districts, key=lambda x: x[1]["percentage"], reverse=True)
-
-                popup_text += '<br><br>Distribution of Submitted Districts:'
-                for district, data in districts:
-                    percentage = data["percentage"]
-                    popup_text += f'<br> - {district}: {percentage:.1f}%'
-            else:
-                popup_text += '<br><br>Distribution of Incident Districts: <br>Unknown'
-
-            ############# Add parish to the popup message
-            parishes = event.get('parishes')
-            if parishes:
-                # Sort by percentage in descending order
-                parishes = sorted(parishes, key=lambda x: x[1]["percentage"], reverse=True)
-
-                popup_text += '<br><br>Distribution of Submitted Parishes:'
-                for parish, data in parishes:
-                    percentage = data["percentage"]
-                    popup_text += f'<br> - {parish}: {percentage:.1f}%'
-            else:
-                popup_text += '<br><br>Distribution of Incident Parishes: <br>Unknown'
-
-            ############# Add keywords to the popup message
-            keywords = event.get('keywords')
-            if keywords:
-                # Sort by percentage in descending order
-                keywords = sorted(keywords, key=lambda x: x[1]["weight_percentage"], reverse=True)
-
-                popup_text += '<br><br>Distribution of Submitted Hazards:'
-                for keyword, data in keywords:
-                    counter = data.get('counter')
-                    percentage = data.get('weight_percentage')
-                    popup_text += f'<br> - {keyword}:<br>&emsp;Submissions: {counter}<br>&emsp; Weight: {percentage:.1f}%'
-            else:
-                popup_text += '<br><br>Distribution of Incident Hazards: <br>Unknown'
-
-            ############# set event icon colours
-            if event.get('event_id') < 0:
-                # if isolated event
-                popup_text += '<br><br>WARNING: <br>Isolated Incident - May be inaccurate'
-                color = 'black'
-
-            else:
-                # if extremely hazardous event
-                if event.get('event_hazard_level') == 3:
-                    color = 'red'
-                # if lightly hazardous/low information event
-                elif event.get('event_hazard_level') == 1:
-                    color = 'beige'
-                # if average hazard event
-                else:
-                    color = 'orange'
-
-            # Add markers to the feature group
-            popup = folium.Popup(popup_text, max_width=400)  # Adjust popup width
-            folium.Marker([lat, lon], icon=folium.Icon(color=color), popup=popup).add_to(feature_group)
-
-        # Add feature group to the map
-        feature_group.add_to(map_plot)
-
-    # Add marker cluster layer to the map
-    marker_cluster.add_to(map_plot)
-
-    # Add layer control
-    control = folium.LayerControl(position='topleft')
-    control.add_to(map_plot)
-
-    # JavaScript code for iterating datasets
-    callback = """<script>
-            var currentIndex = 0;
-            var numDatasets = {0};
-            var marker_cluster = null;
-            function toggleVisibility() {{
-                currentIndex = (currentIndex + 1) % numDatasets;
-                var control = document.querySelector(".leaflet-control-layers");
-                var inputs = control.querySelectorAll("input[type='checkbox']");
-                for (var i = 0; i < inputs.length; i++) {{
-                    inputs[i].checked = (i === currentIndex);
-                    inputs[i].dispatchEvent(new Event('change'));
-                }}
-
-                // Hide the last element in the layer control
-                if (currentIndex === numDatasets - 1) {{
-                    var lastCheckbox = document.getElementById("checkbox_" + (numDatasets - 1));
-                    var lastLabel = lastCheckbox.parentElement;
-                    lastLabel.style.display = 'none';
-                }}
-
-                // Clear the marker cluster layer
-                if (marker_cluster !== null) {{
-                    marker_cluster.clearLayers();
-                }}
-
-                // Add markers from the current dataset to the marker cluster layer
-                var currentFeatureGroup = map_plot.getPane("feature_group_" + currentIndex);
-                marker_cluster = new L.MarkerClusterGroup({{ disableClusteringAtZoom: 10 }});
-                marker_cluster.addLayer(currentFeatureGroup);
-                map_plot.addLayer(marker_cluster);
-            }}
-    </script>""".format(len(datasets))
-
-    # JavaScript code for generic button
-    button_html = """
-        <button onclick="toggleVisibility();">Next</button>
-    """
-
-    # Add HTML button
-    map_plot.get_root().html.add_child(folium.Element(button_html))
-
-    # Add the callback
-    map_plot.get_root().html.add_child(folium.Element(callback))
-
-    # Save map
-    map_plot.save(map_name)
 
 
 """
@@ -1132,21 +954,19 @@ Some example inputs:
 
 """
 
-
 if __name__ == '__main__':
     # make this value TRUE if you want to add new submissions through the console
     # make this value FALSE if you want to add new submissions iteratively through ITER_FILE_PATH
-    manual_input = False  # False True
+    manual_input = True
     # make this value TRUE if you want to create a new map every time submissions are re-clustered (ex. for a slideshow)
     # make this value FALSE if you want to simply override the default fusion map
-    create_new_maps_on_manual_input = True  # False True
+    create_new_maps_on_manual_input = False
 
     # counters & time variables
     time_counter = time.time()
     map_counter = 0
-
-    start_l = 100
-    end_l = start_l + BATCH_SIZE
+    start_l = 0
+    end_l = BATCH_SIZE
 
     # Read data, plot all submissions in fireloc_map_raw
     data_input = read_data_file(FILE_PATH)
@@ -1164,7 +984,6 @@ if __name__ == '__main__':
     # print_fused_events(fused_events) # DEBUG
 
     print(">> Finished processing static dataset successfully.")
-    DATA_ITERATIONS.append(fused_events)
 
     # if using iterative input, read entire file in advance and get nr of lines
     nr_iter_lines = 0
@@ -1224,7 +1043,7 @@ if __name__ == '__main__':
                     # update fused event map
                     # if manual input is meant to create a slideshow of maps, make create_new_maps_on_manual_input true
                     if create_new_maps_on_manual_input:
-                        new_map = "fireloc_map_fused_" + str(map_counter) + ".html"
+                        new_map = "fireloc_map_fused" + str(map_counter) + ".html"
                         plot_folium2(fused_events, new_map)
                         map_counter += 1
 
@@ -1246,8 +1065,8 @@ if __name__ == '__main__':
             to avoid errors, make sure that the batch dataset is ordered by date. 
             """
 
-            # Check if X time has passed
-            seconds = 2
+            # Check if X minutes have passed
+            seconds = 60
             if time.time() - time_counter >= seconds:
                 print("> Fetching next batch of inputs")
 
@@ -1268,12 +1087,11 @@ if __name__ == '__main__':
 
                 # fuse data, plot all fused events in fireloc_map_fused
                 fused_events = apply_data_fusion(clustered_data)
-                DATA_ITERATIONS.append(fused_events)
 
                 # update fused event map
                 # if manual input is meant to create a slideshow of maps, make create_new_maps_on_manual_input true
                 if create_new_maps_on_manual_input:
-                    new_map = "iterative_maps\\iter_" + str(map_counter) + ".html"
+                    new_map = "fireloc_map_fused" + str(map_counter) + ".html"
                     plot_folium2(fused_events, new_map)
                     map_counter += 1
 
@@ -1282,8 +1100,3 @@ if __name__ == '__main__':
                     plot_folium2(fused_events, "fireloc_map_fused.html")
 
                 time_counter = time.time()
-
-            if map_counter == 5:
-                break
-
-    plot_folium_iterative(DATA_ITERATIONS, "october_fires_iterative.html")
