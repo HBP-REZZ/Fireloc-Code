@@ -23,7 +23,7 @@ import hdbscan
 FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires_first_100.txt"  # data_file2  october_fires october_fires_first_100
 ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires.txt"
 
-BATCH_SIZE = 50  # how many lines to read every batch
+BATCH_SIZE = 25  # how many lines to read every batch
 
 NOISE_DISTANCE_THRESHOLD = 1.5  # +NOISE_DISTANCE_THRESHOLD --> less noise but more isolated outliers will merge with normal clusters
 
@@ -1283,7 +1283,7 @@ if __name__ == '__main__':
 
                 time_counter = time.time()
 
-            if map_counter == 5:
-                break
+            #if map_counter == 5:
+             #   break
 
     plot_folium_iterative(DATA_ITERATIONS, "october_fires_iterative.html")
