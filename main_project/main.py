@@ -7,7 +7,6 @@ import time
 import folium
 
 from folium.plugins import MarkerCluster
-from folium import Map, FeatureGroup, Marker, LayerControl
 
 from collections import defaultdict
 import datetime
@@ -20,10 +19,10 @@ import hdbscan
 #### Define MACROS and Globals
 """
 
-FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires_first_100.txt"  # data_file2  october_fires october_fires_first_100
+FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires.txt"  # data_file2  october_fires october_fires_first_100
 ITER_FILE_PATH = "C:\\Users\\Hugo\\Desktop\\main_project\\october_fires.txt"
 
-BATCH_SIZE = 25  # how many lines to read every batch
+BATCH_SIZE = 50  # how many lines to read every batch
 
 NOISE_DISTANCE_THRESHOLD = 1.5  # +NOISE_DISTANCE_THRESHOLD --> less noise but more isolated outliers will merge with normal clusters
 
@@ -31,11 +30,11 @@ DECAY_FACTOR = 0.7  # +DECAY_FACTOR --> weight will decrease faster --> 0.5 shou
 MAXIMUM_DECAY = 0.2  # stops decay at 20%. dont use zero as a value
 
 CUSTOM_DATE = datetime.datetime.strptime('05/06/2017 16:00', '%d/%m/%Y %H:%M')  # 01/06/2017 00:01 is the oldest october_fires_100 entry , 05/06/2017 15:34 is the earliest
-USING_CUSTOM_DATE = True  #  True False
+USING_CUSTOM_DATE = False  # True False
 
-# TODO 
-REMOVE_OLD_SUBMISSIONS = False
-REMOVE_SUBMISSIONS_AT_AGE = 0
+ASSIGN_GREEN = False  # if you want to label events as inactive (colours them green)
+REMOVE_GREEN = False  # if you want inactive events to be removed from the map
+INACTIVITY_THRESHOLD = 1.5 * 7 * 24 * 60  # how long before an event is deemed inactive 1.5 weeks = 1.5 * 7 days x 24h x 60m
 
 DATA_ITERATIONS = []
 
@@ -129,7 +128,7 @@ def fetch_next_batch(file_data, start_line, end_line):
 
         submission_date = datetime.datetime.strptime(line[1], '%d/%m/%Y %H:%M')
 
-        # TODO THIS SHOULD UPDATE CURRENT CUSTOM DATE TO THE NEWEST INPUTTED DATE
+        # THIS SHOULD UPDATE CURRENT CUSTOM DATE TO THE NEWEST INPUTTED DATE
         global CUSTOM_DATE
         CUSTOM_DATE = submission_date
 
@@ -380,8 +379,15 @@ def fuse_cluster_submissions(cluster_id, cluster_members):
     # Calculate centroid of the coordinates in the numpy arrays
     centroid_latitude, centroid_longitude = weighted_haversine_centroid(fused_latitudes, fused_longitudes, haversine_weights)
 
+    # Calculate last update
+    if USING_CUSTOM_DATE:
+        inactivity = (CUSTOM_DATE - max(fused_dates)).total_seconds() / 60
+
+    else:
+        inactivity = (datetime.datetime.now() - max(fused_dates)).total_seconds() / 60
+
     # Calculate event hazard level based on the keywords it has - only affects map colour
-    event_hazard_level = calculate_hazard_level(fused_keywords, fused_fire_verified, fused_smoke_verified)
+    event_hazard_level = calculate_hazard_level(fused_keywords, fused_fire_verified, fused_smoke_verified, inactivity)
 
     if USING_CUSTOM_DATE:
         date_age = CUSTOM_DATE - min(fused_dates)
@@ -393,6 +399,7 @@ def fuse_cluster_submissions(cluster_id, cluster_members):
         'event_id': cluster_id,
         'event_hazard_level': event_hazard_level,
         'date_latest': max(fused_dates),
+        'date_last_update': inactivity,
         'date_age': date_age,
         'date_history': fused_dates,
         'user_ids': fused_user_ids,
@@ -440,8 +447,15 @@ def handle_noise_submissions(cluster_members, fused_clusters):
         # fill in dictionaries with the number of occurrences of keywords vs their set weights
         fused_keywords = handle_keywords(keywords, fused_keywords, weight)
 
+        # Calculate last update
+        if USING_CUSTOM_DATE:
+            inactivity = (CUSTOM_DATE - date).total_seconds() / 60
+
+        else:
+            inactivity = (datetime.datetime.now() - date).total_seconds() / 60
+
         # Calculate event hazard level based on the keywords it has - only affects map colour
-        event_hazard_level = calculate_hazard_level(fused_keywords, fire_verified, smoke_verified)
+        event_hazard_level = calculate_hazard_level(fused_keywords, fire_verified, smoke_verified, inactivity)
 
         if USING_CUSTOM_DATE:
             date_age = CUSTOM_DATE - date
@@ -453,6 +467,7 @@ def handle_noise_submissions(cluster_members, fused_clusters):
             'event_id': -(i + 1),  # Assign negative ID for each noise event
             'event_hazard_level': event_hazard_level,
             'date_latest': date,
+            'date_last_update': inactivity,
             'date_age': date_age,
             'date_history': date,
             'user_ids': user_id,
@@ -625,22 +640,22 @@ Updates map colours depending on the keywords of the event
 
 
 # TODO a better version of this hazard function
-def calculate_hazard_level(keywords, fire_bool, smoke_bool):
-    if not smoke_bool and not fire_bool and not keywords:
-        hazard_level = 0
+def calculate_hazard_level(keywords, fire_bool, smoke_bool, inactivity):
+    # if set to label events as inactive
+    if ASSIGN_GREEN:
+        if inactivity > INACTIVITY_THRESHOLD:
+            return 0
 
-    # LOW PRIORITY
-    hazard_level = 1
+    # otherwise continue as normal
+    hazard_level = 1  # Default hazard level (LOW PRIORITY)
 
     if keywords:
-        # AVERAGE PRIORITY
         if fire_bool or smoke_bool:
-            hazard_level = 2
+            hazard_level = 2  # AVERAGE PRIORITY
 
         for keyword in keywords:
             if keyword.lower() in PRIORITY_HAZARDS:
-                # HIGH PRIORITY
-                hazard_level = 3
+                hazard_level = 3  # HIGH PRIORITY
                 break
 
     return hazard_level
@@ -790,8 +805,20 @@ def plot_folium2(data, map_name):
         # Create a formatted string for the incident span
         age_string = f"{days} days, {hours} hours, {minutes} minutes"
 
+        inactivity = event.get('date_last_update')
+        # Convert inactivity to timedelta object
+        inactivity_timedelta = datetime.timedelta(minutes=inactivity)
+
+        # Extract days, hours, and minutes from inactivity_timedelta
+        days = inactivity_timedelta.days
+        hours, remainder = divmod(inactivity_timedelta.seconds, 3600)
+        minutes, _ = divmod(remainder, 60)
+
+        # Create the formatted string for inactivity
+        inactivity_string = f"{days} days, {hours} hours, {minutes} minutes"
+
         # Create the popup message with the updated event data
-        popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Incident Span: " \
+        popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Time Since Update: {inactivity_string}<br>Incident Span: " \
                      f"{age_string}<br><br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
 
         # Display "Has Fire" and "Has Smoke"
@@ -850,12 +877,24 @@ def plot_folium2(data, map_name):
             # if extremely hazardous event
             if event.get('event_hazard_level') == 3:
                 color = 'red'
+
+            # if average hazard event
+            elif event.get('event_hazard_level') == 2:
+                color = 'orange'
+
             # if lightly hazardous/low information event
             elif event.get('event_hazard_level') == 1:
                 color = 'beige'
-            # if average hazard event
+
+            # if event is old and has become redundant
+            elif event.get('event_hazard_level') == 0 and ASSIGN_GREEN:
+                color = 'green'
+
             else:
-                color = 'orange'
+                color = 'beige'
+
+        if REMOVE_GREEN and color == 'green':
+            continue
 
         # Add the marker to the marker cluster layer
         popup = folium.Popup(popup_text, max_width=400)  # Adjust popup width
@@ -912,9 +951,6 @@ def print_cluster_members(data):
         print(pt, first_values)
 
 
-# TODO this function needs work. the events wont refresh on the map unless you click in the layer control box, and idk why
-# TODO and the button custom component also appears in the control box, and i cant remove or hide it...
-# TODO everything else seems to work properly
 def print_fused_events(data):
     print("DEBUG")
     for eve in data:
@@ -922,6 +958,9 @@ def print_fused_events(data):
         print(eve, values)
 
 
+# TODO this function needs work. the events wont refresh on the map unless you click in the layer control box after clicking next, and idk why
+# TODO and the button custom component also appears in the control box, and i cant remove or hide it...
+# TODO everything else seems to work properly
 def plot_folium_iterative(datasets, map_name):
     # Create a map centered at the first event in the first dataset
     first_dataset = datasets[0]
@@ -962,8 +1001,20 @@ def plot_folium_iterative(datasets, map_name):
             # Create a formatted string for the incident span
             age_string = f"{days} days, {hours} hours, {minutes} minutes"
 
+            inactivity = event.get('date_last_update')
+            # Convert inactivity to timedelta object
+            inactivity_timedelta = datetime.timedelta(minutes=inactivity)
+
+            # Extract days, hours, and minutes from inactivity_timedelta
+            days = inactivity_timedelta.days
+            hours, remainder = divmod(inactivity_timedelta.seconds, 3600)
+            minutes, _ = divmod(remainder, 60)
+
+            # Create the formatted string for inactivity
+            inactivity_string = f"{days} days, {hours} hours, {minutes} minutes"
+
             # Create the popup message with the updated event data
-            popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Incident Span: " \
+            popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Time Since Update: {inactivity_string}<br>Incident Span: " \
                          f"{age_string}<br><br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
 
             # Display "Has Fire" and "Has Smoke"
@@ -1017,17 +1068,24 @@ def plot_folium_iterative(datasets, map_name):
                 # if isolated event
                 popup_text += '<br><br>WARNING: <br>Isolated Incident - May be inaccurate'
                 color = 'black'
-
             else:
                 # if extremely hazardous event
                 if event.get('event_hazard_level') == 3:
                     color = 'red'
+                # if average hazard event
+                elif event.get('event_hazard_level') == 2:
+                    color = 'orange'
                 # if lightly hazardous/low information event
                 elif event.get('event_hazard_level') == 1:
                     color = 'beige'
-                # if average hazard event
+                # if event is old and has become redundant
+                elif event.get('event_hazard_level') == 0 and ASSIGN_GREEN:
+                    color = 'green'
                 else:
-                    color = 'orange'
+                    color = 'beige'
+
+            if REMOVE_GREEN and color == 'green':
+                continue
 
             # Add markers to the feature group
             popup = folium.Popup(popup_text, max_width=400)  # Adjust popup width
