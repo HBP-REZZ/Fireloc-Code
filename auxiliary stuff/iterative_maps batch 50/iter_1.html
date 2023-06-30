@@ -1,0 +1,2563 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_78abdf070651e4337694724a00deb334 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_78abdf070651e4337694724a00deb334" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_78abdf070651e4337694724a00deb334 = L.map(
+                "map_78abdf070651e4337694724a00deb334",
+                {
+                    center: [39.69919745, -8.964786222111007],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 6,
+                    zoomControl: true,
+                    preferCanvas: false,
+                    maxWidth: "100%",
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_1620be0d57a1b6466717831a43238157 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_78abdf070651e4337694724a00deb334);
+        
+    
+            var marker_cluster_66215120233b3658c2d6cfa98ae1ce16 = L.markerClusterGroup(
+                {"disableClusteringAtZoom": 10}
+            );
+            map_78abdf070651e4337694724a00deb334.addLayer(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var marker_a1cda87589355553762148d424fdfa23 = L.marker(
+                [39.69919745, -8.964786222111007],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_cd7b811958cf2dfeeabb0178dc10a3ba = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_a1cda87589355553762148d424fdfa23.setIcon(icon_cd7b811958cf2dfeeabb0178dc10a3ba);
+        
+    
+        var popup_89d68f963128d02143d9794fbf30fcd3 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_4cdfa61c1868325dd68a9e222b3326eb = $(`<div id="html_4cdfa61c1868325dd68a9e222b3326eb" style="width: 100.0%; height: 100.0%;">Incident ID: 26<br><br>Latest Update: 2017-06-05 19:35:00<br>Time Since Update: 4 days, 1 hours, 22 minutes<br>Incident Span: 8 days, 20 hours, 56 minutes<br><br>Contributor IDs: [25, 85]<br>Contribution IDs: [25, 85]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Leiria: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Alcobaça: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_89d68f963128d02143d9794fbf30fcd3.setContent(html_4cdfa61c1868325dd68a9e222b3326eb);
+            
+        
+
+        marker_a1cda87589355553762148d424fdfa23.bindPopup(popup_89d68f963128d02143d9794fbf30fcd3)
+        ;
+
+        
+    
+    
+            var marker_de47a16932d78c5352326f8d041ad0c8 = L.marker(
+                [38.628550700000005, -9.197438700000001],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_75e8d6bbc7b4726e49e078d31e12b31a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_de47a16932d78c5352326f8d041ad0c8.setIcon(icon_75e8d6bbc7b4726e49e078d31e12b31a);
+        
+    
+        var popup_7852fdc35b041dc4b675f779f27c7bcd = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_9959bf96586f250a3f42e83128fa6080 = $(`<div id="html_9959bf96586f250a3f42e83128fa6080" style="width: 100.0%; height: 100.0%;">Incident ID: 43<br><br>Latest Update: 2017-06-03 23:18:00<br>Time Since Update: 5 days, 21 hours, 39 minutes<br>Incident Span: 8 days, 13 hours, 30 minutes<br><br>Contributor IDs: [24, 27]<br>Contribution IDs: [24, 27]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Setúbal: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Almada: 100.0%<br><br>Distribution of Submitted Hazards:<br> - explosivo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 83.3%<br> - fumo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 16.7%</div>`)[0];
+                popup_7852fdc35b041dc4b675f779f27c7bcd.setContent(html_9959bf96586f250a3f42e83128fa6080);
+            
+        
+
+        marker_de47a16932d78c5352326f8d041ad0c8.bindPopup(popup_7852fdc35b041dc4b675f779f27c7bcd)
+        ;
+
+        
+    
+    
+            var marker_11fff0a2a9f02c954147bab1e3b73ad9 = L.marker(
+                [38.059928259899735, -8.116011406315152],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_573b895c77037ba2622f91f92b3561ff = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_11fff0a2a9f02c954147bab1e3b73ad9.setIcon(icon_573b895c77037ba2622f91f92b3561ff);
+        
+    
+        var popup_faee23f0bdd99d895f856c591daae6e2 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_5dc6b0c51799fd9b9a2866f47d396d7f = $(`<div id="html_5dc6b0c51799fd9b9a2866f47d396d7f" style="width: 100.0%; height: 100.0%;">Incident ID: 16<br><br>Latest Update: 2017-06-09 18:34:00<br>Time Since Update: 0 days, 2 hours, 23 minutes<br>Incident Span: 8 days, 9 hours, 40 minutes<br><br>Contributor IDs: [21, 19, 190]<br>Contribution IDs: [21, 19, 190]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Beja: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Ferreira do Alentejo: 100.0%<br><br>Distribution of Submitted Hazards:<br> - chamas:<br>&emsp;Submissions: 1<br>&emsp; Weight: 48.3%<br> - incendio:<br>&emsp;Submissions: 1<br>&emsp; Weight: 25.9%<br> - fumo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 25.9%</div>`)[0];
+                popup_faee23f0bdd99d895f856c591daae6e2.setContent(html_5dc6b0c51799fd9b9a2866f47d396d7f);
+            
+        
+
+        marker_11fff0a2a9f02c954147bab1e3b73ad9.bindPopup(popup_faee23f0bdd99d895f856c591daae6e2)
+        ;
+
+        
+    
+    
+            var marker_cef5650eecefab227d2aa5a03f114277 = L.marker(
+                [39.74379020000001, -8.8071119],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_8640e37b8fbb27b8b28e1a43de5397e2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_cef5650eecefab227d2aa5a03f114277.setIcon(icon_8640e37b8fbb27b8b28e1a43de5397e2);
+        
+    
+        var popup_b3733d6d9a9b12f50cb0b8fe6537a3b7 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_77f06afccca745b8194a6c51ce2508e6 = $(`<div id="html_77f06afccca745b8194a6c51ce2508e6" style="width: 100.0%; height: 100.0%;">Incident ID: 27<br><br>Latest Update: 2017-06-05 13:34:00<br>Time Since Update: 4 days, 7 hours, 23 minutes<br>Incident Span: 8 days, 9 hours, 14 minutes<br><br>Contributor IDs: [22, 51, 113, 106]<br>Contribution IDs: [22, 51, 113, 106]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Leiria: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Leiria: 100.0%<br><br>Distribution of Submitted Hazards:<br> - explosivo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 50.0%<br> - gas:<br>&emsp;Submissions: 1<br>&emsp; Weight: 50.0%</div>`)[0];
+                popup_b3733d6d9a9b12f50cb0b8fe6537a3b7.setContent(html_77f06afccca745b8194a6c51ce2508e6);
+            
+        
+
+        marker_cef5650eecefab227d2aa5a03f114277.bindPopup(popup_b3733d6d9a9b12f50cb0b8fe6537a3b7)
+        ;
+
+        
+    
+    
+            var marker_6a01f02d7a004c1807c12b6e8ac5407a = L.marker(
+                [38.811885152351046, -9.117576775163771],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_1979210a25e9e89e60138d0f80e7a93c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_6a01f02d7a004c1807c12b6e8ac5407a.setIcon(icon_1979210a25e9e89e60138d0f80e7a93c);
+        
+    
+        var popup_3a8ed6e8b6b01c5ba66d32e37dcba2b4 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_b29be4bb24689ad0efbd4531199980ac = $(`<div id="html_b29be4bb24689ad0efbd4531199980ac" style="width: 100.0%; height: 100.0%;">Incident ID: 55<br><br>Latest Update: 2017-06-09 13:32:00<br>Time Since Update: 0 days, 7 hours, 25 minutes<br>Incident Span: 8 days, 9 hours, 14 minutes<br><br>Contributor IDs: [23, 166, 202]<br>Contribution IDs: [23, 166, 202]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Loures: 100.0%<br><br>Distribution of Submitted Hazards:<br> - urbanização:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_3a8ed6e8b6b01c5ba66d32e37dcba2b4.setContent(html_b29be4bb24689ad0efbd4531199980ac);
+            
+        
+
+        marker_6a01f02d7a004c1807c12b6e8ac5407a.bindPopup(popup_3a8ed6e8b6b01c5ba66d32e37dcba2b4)
+        ;
+
+        
+    
+    
+            var marker_1fe58613b6c990e9de2ba6353b0c4869 = L.marker(
+                [39.726275564857374, -7.642392234342315],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_83ebb9dd9e782efc826721cc1fabff33 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_1fe58613b6c990e9de2ba6353b0c4869.setIcon(icon_83ebb9dd9e782efc826721cc1fabff33);
+        
+    
+        var popup_d00c217ce02d20f571a2275fbbce88ee = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_93a92ce93735ef8c42fda205724dc738 = $(`<div id="html_93a92ce93735ef8c42fda205724dc738" style="width: 100.0%; height: 100.0%;">Incident ID: 20<br><br>Latest Update: 2017-06-07 20:54:00<br>Time Since Update: 2 days, 0 hours, 3 minutes<br>Incident Span: 8 days, 8 hours, 19 minutes<br><br>Contributor IDs: [20, 129]<br>Contribution IDs: [20, 129]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Castelo Branco: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Vila Velha de Ródão: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_d00c217ce02d20f571a2275fbbce88ee.setContent(html_93a92ce93735ef8c42fda205724dc738);
+            
+        
+
+        marker_1fe58613b6c990e9de2ba6353b0c4869.bindPopup(popup_d00c217ce02d20f571a2275fbbce88ee)
+        ;
+
+        
+    
+    
+            var marker_3e2bef564ff9b99a10b369b80f3e2456 = L.marker(
+                [39.481651005409354, -8.693384469238893],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_832e8095ffb2f38ec5b6cdd2518e0ad1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_3e2bef564ff9b99a10b369b80f3e2456.setIcon(icon_832e8095ffb2f38ec5b6cdd2518e0ad1);
+        
+    
+        var popup_6a74de13cf39f32ac498536abd81f2b3 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_995540efd55937c5fbc091beeb19010d = $(`<div id="html_995540efd55937c5fbc091beeb19010d" style="width: 100.0%; height: 100.0%;">Incident ID: 49<br><br>Latest Update: 2017-06-03 14:33:00<br>Time Since Update: 6 days, 6 hours, 24 minutes<br>Incident Span: 8 days, 5 hours, 45 minutes<br><br>Contributor IDs: [14, 50]<br>Contribution IDs: [14, 50]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Santarém: 93.3%<br> - Leiria: 6.7%<br><br>Distribution of Submitted Parishes:<br> - Alcanena: 93.3%<br> - Porto de Mós: 6.7%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_6a74de13cf39f32ac498536abd81f2b3.setContent(html_995540efd55937c5fbc091beeb19010d);
+            
+        
+
+        marker_3e2bef564ff9b99a10b369b80f3e2456.bindPopup(popup_6a74de13cf39f32ac498536abd81f2b3)
+        ;
+
+        
+    
+    
+            var marker_298dc863e1382faa5ddee3f31e91535a = L.marker(
+                [41.52559339704435, -7.951743177513803],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_d1a731bd159d34c29c2ae2296ebd9b4b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_298dc863e1382faa5ddee3f31e91535a.setIcon(icon_d1a731bd159d34c29c2ae2296ebd9b4b);
+        
+    
+        var popup_fd882d8daa038cd4ea8a5931826f8979 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_ea75b78d791bc8cee1c6477af70eb792 = $(`<div id="html_ea75b78d791bc8cee1c6477af70eb792" style="width: 100.0%; height: 100.0%;">Incident ID: 21<br><br>Latest Update: 2017-06-09 13:56:00<br>Time Since Update: 0 days, 7 hours, 1 minutes<br>Incident Span: 8 days, 5 hours, 10 minutes<br><br>Contributor IDs: [10, 59, 25, 203]<br>Contribution IDs: [13, 59, 110, 203]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Braga: 62.2%<br> - Vila Real: 37.8%<br><br>Distribution of Submitted Parishes:<br> - Cabeceiras de Basto: 55.9%<br> - Ribeira de Pena: 37.8%<br> - Vieira do Minho: 6.3%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_fd882d8daa038cd4ea8a5931826f8979.setContent(html_ea75b78d791bc8cee1c6477af70eb792);
+            
+        
+
+        marker_298dc863e1382faa5ddee3f31e91535a.bindPopup(popup_fd882d8daa038cd4ea8a5931826f8979)
+        ;
+
+        
+    
+    
+            var marker_02f113e1ea089b08433a69979a397e2d = L.marker(
+                [37.839812670797244, -8.19088962713482],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_9447f35598ad1f114458a60597430313 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_02f113e1ea089b08433a69979a397e2d.setIcon(icon_9447f35598ad1f114458a60597430313);
+        
+    
+        var popup_467b7a0529e1cbd6610e590f73490cea = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_96688f00d6db2aecf7cc87d743718f64 = $(`<div id="html_96688f00d6db2aecf7cc87d743718f64" style="width: 100.0%; height: 100.0%;">Incident ID: 15<br><br>Latest Update: 2017-06-07 20:04:00<br>Time Since Update: 2 days, 0 hours, 53 minutes<br>Incident Span: 8 days, 4 hours, 26 minutes<br><br>Contributor IDs: [11, 29, 131]<br>Contribution IDs: [11, 29, 131]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Beja: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Aljustrel: 61.9%<br> - Castro Verde: 38.1%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_467b7a0529e1cbd6610e590f73490cea.setContent(html_96688f00d6db2aecf7cc87d743718f64);
+            
+        
+
+        marker_02f113e1ea089b08433a69979a397e2d.bindPopup(popup_467b7a0529e1cbd6610e590f73490cea)
+        ;
+
+        
+    
+    
+            var marker_c95d8cca1b689827c5feeeb579f61844 = L.marker(
+                [41.30407668072668, -8.46741791254192],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_083bcc4be1c4a0962adf1dcb7a3bd585 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_c95d8cca1b689827c5feeeb579f61844.setIcon(icon_083bcc4be1c4a0962adf1dcb7a3bd585);
+        
+    
+        var popup_95de87a7dd7cb56eb827c95e0dd53687 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_56fa96c39c2f55615dcd78d17584ef87 = $(`<div id="html_56fa96c39c2f55615dcd78d17584ef87" style="width: 100.0%; height: 100.0%;">Incident ID: 45<br><br>Latest Update: 2017-06-03 14:57:00<br>Time Since Update: 6 days, 6 hours, 0 minutes<br>Incident Span: 8 days, 4 hours, 25 minutes<br><br>Contributor IDs: [10, 52]<br>Contribution IDs: [10, 52]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Santo Tirso: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_95de87a7dd7cb56eb827c95e0dd53687.setContent(html_56fa96c39c2f55615dcd78d17584ef87);
+            
+        
+
+        marker_c95d8cca1b689827c5feeeb579f61844.bindPopup(popup_95de87a7dd7cb56eb827c95e0dd53687)
+        ;
+
+        
+    
+    
+            var marker_ad4f248d66c7ef6842991fc34f97d575 = L.marker(
+                [37.9768204020353, -7.467328711985763],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_8e9516830f26a14b401c8b2eb8e56c12 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_ad4f248d66c7ef6842991fc34f97d575.setIcon(icon_8e9516830f26a14b401c8b2eb8e56c12);
+        
+    
+        var popup_66c4d7b185733d45af30540d65d8f41d = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_1ba46741e522401d4304999762887fa6 = $(`<div id="html_1ba46741e522401d4304999762887fa6" style="width: 100.0%; height: 100.0%;">Incident ID: 11<br><br>Latest Update: 2017-06-07 23:28:00<br>Time Since Update: 1 days, 21 hours, 29 minutes<br>Incident Span: 8 days, 3 hours, 53 minutes<br><br>Contributor IDs: [9, 0, 62, 101, 151, 119]<br>Contribution IDs: [9, 0, 62, 101, 151, 119]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Beja: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Serpa: 46.9%<br> - Moura: 29.7%<br> - Mértola: 23.4%<br><br>Distribution of Submitted Hazards:<br> - hospital:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_66c4d7b185733d45af30540d65d8f41d.setContent(html_1ba46741e522401d4304999762887fa6);
+            
+        
+
+        marker_ad4f248d66c7ef6842991fc34f97d575.bindPopup(popup_66c4d7b185733d45af30540d65d8f41d)
+        ;
+
+        
+    
+    
+            var marker_b8a156cf37019bd77bd08e668f8496e6 = L.marker(
+                [41.7030034, -8.6674105],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_9b21ec095e27a6a26616a06c5372f379 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_b8a156cf37019bd77bd08e668f8496e6.setIcon(icon_9b21ec095e27a6a26616a06c5372f379);
+        
+    
+        var popup_b598c52f1a427fed1c8f629d2357ee79 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_6d3da8bd49528005032a5320d17b70e2 = $(`<div id="html_6d3da8bd49528005032a5320d17b70e2" style="width: 100.0%; height: 100.0%;">Incident ID: 30<br><br>Latest Update: 2017-06-05 14:29:00<br>Time Since Update: 4 days, 6 hours, 28 minutes<br>Incident Span: 8 days, 3 hours, 2 minutes<br><br>Contributor IDs: [7, 100]<br>Contribution IDs: [7, 100]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Viana do Castelo: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Viana do Castelo: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_b598c52f1a427fed1c8f629d2357ee79.setContent(html_6d3da8bd49528005032a5320d17b70e2);
+            
+        
+
+        marker_b8a156cf37019bd77bd08e668f8496e6.bindPopup(popup_b598c52f1a427fed1c8f629d2357ee79)
+        ;
+
+        
+    
+    
+            var marker_258fe9a40bdbb87bc0ce2675835623d2 = L.marker(
+                [41.17964947724804, -6.9105022615972524],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_a88ff42ea0361e17b580cd776ddb94d9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_258fe9a40bdbb87bc0ce2675835623d2.setIcon(icon_a88ff42ea0361e17b580cd776ddb94d9);
+        
+    
+        var popup_505de60280dd87bcacc60d8fd39ff03d = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_b28efe64743d2735aee0a4798a2ee470 = $(`<div id="html_b28efe64743d2735aee0a4798a2ee470" style="width: 100.0%; height: 100.0%;">Incident ID: 3<br><br>Latest Update: 2017-06-07 08:13:00<br>Time Since Update: 2 days, 12 hours, 44 minutes<br>Incident Span: 8 days, 2 hours, 18 minutes<br><br>Contributor IDs: [4, 180]<br>Contribution IDs: [6, 180]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Bragança: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Freixo de Espada à Cinta: 55.9%<br> - Torre de Moncorvo: 44.1%<br><br>Distribution of Submitted Hazards:<br> - chamas:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_505de60280dd87bcacc60d8fd39ff03d.setContent(html_b28efe64743d2735aee0a4798a2ee470);
+            
+        
+
+        marker_258fe9a40bdbb87bc0ce2675835623d2.bindPopup(popup_505de60280dd87bcacc60d8fd39ff03d)
+        ;
+
+        
+    
+    
+            var marker_267068547c8ab85de4c291f72aa3f921 = L.marker(
+                [39.464578457312825, -8.463530678773473],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_0c415850acdfbc43797a6292d620dca4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_267068547c8ab85de4c291f72aa3f921.setIcon(icon_0c415850acdfbc43797a6292d620dca4);
+        
+    
+        var popup_58c9adaacdf3c09916039db44319d19c = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_cb85970159d852c212ff5d33294ee917 = $(`<div id="html_cb85970159d852c212ff5d33294ee917" style="width: 100.0%; height: 100.0%;">Incident ID: 48<br><br>Latest Update: 2017-06-05 03:25:00<br>Time Since Update: 4 days, 17 hours, 32 minutes<br>Incident Span: 8 days, 1 hours, 57 minutes<br><br>Contributor IDs: [5, 35, 118]<br>Contribution IDs: [5, 35, 118]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Santarém: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Entroncamento: 90.9%<br> - Vila Nova da Barquinha: 9.1%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_58c9adaacdf3c09916039db44319d19c.setContent(html_cb85970159d852c212ff5d33294ee917);
+            
+        
+
+        marker_267068547c8ab85de4c291f72aa3f921.bindPopup(popup_58c9adaacdf3c09916039db44319d19c)
+        ;
+
+        
+    
+    
+            var marker_7a0071bad1a4d86c6e62d9dae3f1e0bc = L.marker(
+                [41.64125247669748, -6.893637247756723],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_060e08843d22c0bd1da4bea2f641649b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_7a0071bad1a4d86c6e62d9dae3f1e0bc.setIcon(icon_060e08843d22c0bd1da4bea2f641649b);
+        
+    
+        var popup_04a478448a9560acf6c4cf360abeabe1 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_9a0e726e1e419ba4689de24e9c2163a7 = $(`<div id="html_9a0e726e1e419ba4689de24e9c2163a7" style="width: 100.0%; height: 100.0%;">Incident ID: 7<br><br>Latest Update: 2017-06-07 15:28:00<br>Time Since Update: 2 days, 5 hours, 29 minutes<br>Incident Span: 8 days, 1 hours, 27 minutes<br><br>Contributor IDs: [4, 160]<br>Contribution IDs: [4, 160]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Bragança: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Macedo de Cavaleiros: 55.6%<br> - Bragança: 44.4%<br><br>Distribution of Submitted Hazards:<br> - chamas:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_04a478448a9560acf6c4cf360abeabe1.setContent(html_9a0e726e1e419ba4689de24e9c2163a7);
+            
+        
+
+        marker_7a0071bad1a4d86c6e62d9dae3f1e0bc.bindPopup(popup_04a478448a9560acf6c4cf360abeabe1)
+        ;
+
+        
+    
+    
+            var marker_bf196ecc34e391f65cad3783a892e5b6 = L.marker(
+                [38.78973375416322, -9.139632549964869],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_eddf3b207dfa2e7d23fec1de55346586 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_bf196ecc34e391f65cad3783a892e5b6.setIcon(icon_eddf3b207dfa2e7d23fec1de55346586);
+        
+    
+        var popup_48e8f9dc84973d6db6622120492bae28 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_d71e6a091e46780f825c1c4437a321ac = $(`<div id="html_d71e6a091e46780f825c1c4437a321ac" style="width: 100.0%; height: 100.0%;">Incident ID: 56<br><br>Latest Update: 2017-06-03 17:45:00<br>Time Since Update: 6 days, 3 hours, 12 minutes<br>Incident Span: 8 days, 1 hours, 21 minutes<br><br>Contributor IDs: [3, 40]<br>Contribution IDs: [3, 40]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Loures: 60.0%<br> - Odivelas: 40.0%<br><br>Distribution of Submitted Hazards:<br> - petroleo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 71.4%<br> - casa:<br>&emsp;Submissions: 1<br>&emsp; Weight: 28.6%</div>`)[0];
+                popup_48e8f9dc84973d6db6622120492bae28.setContent(html_d71e6a091e46780f825c1c4437a321ac);
+            
+        
+
+        marker_bf196ecc34e391f65cad3783a892e5b6.bindPopup(popup_48e8f9dc84973d6db6622120492bae28)
+        ;
+
+        
+    
+    
+            var marker_471bad062103c220cfe1f1756ac24881 = L.marker(
+                [41.28605248330764, -8.03574427447462],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_db699ea275cadb060b6b8d338207d6c7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_471bad062103c220cfe1f1756ac24881.setIcon(icon_db699ea275cadb060b6b8d338207d6c7);
+        
+    
+        var popup_af365c897ff44253083ec8e1644285e8 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_8525477eebfad48ab444854cd8d9d847 = $(`<div id="html_8525477eebfad48ab444854cd8d9d847" style="width: 100.0%; height: 100.0%;">Incident ID: 28<br><br>Latest Update: 2017-06-03 02:16:00<br>Time Since Update: 6 days, 18 hours, 41 minutes<br>Incident Span: 8 days, 0 hours, 38 minutes<br><br>Contributor IDs: [0, 75]<br>Contribution IDs: [2, 75]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Amarante: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_af365c897ff44253083ec8e1644285e8.setContent(html_8525477eebfad48ab444854cd8d9d847);
+            
+        
+
+        marker_471bad062103c220cfe1f1756ac24881.bindPopup(popup_af365c897ff44253083ec8e1644285e8)
+        ;
+
+        
+    
+    
+            var marker_772b2688abf80614478a0856081facf6 = L.marker(
+                [38.436479265018704, -7.540231392584656],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_d51dbe0ecc2ed5762418acd23664900d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_772b2688abf80614478a0856081facf6.setIcon(icon_d51dbe0ecc2ed5762418acd23664900d);
+        
+    
+        var popup_81fc5b24e8b677abf683cf1155d70e40 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_c4ba6c0d439ec997a2c4a832acc951d7 = $(`<div id="html_c4ba6c0d439ec997a2c4a832acc951d7" style="width: 100.0%; height: 100.0%;">Incident ID: 12<br><br>Latest Update: 2017-06-09 17:16:00<br>Time Since Update: 0 days, 3 hours, 41 minutes<br>Incident Span: 7 days, 23 hours, 26 minutes<br><br>Contributor IDs: [1, 87, 192]<br>Contribution IDs: [1, 87, 192]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Évora: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Reguengos de Monsaraz: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_81fc5b24e8b677abf683cf1155d70e40.setContent(html_c4ba6c0d439ec997a2c4a832acc951d7);
+            
+        
+
+        marker_772b2688abf80614478a0856081facf6.bindPopup(popup_81fc5b24e8b677abf683cf1155d70e40)
+        ;
+
+        
+    
+    
+            var marker_cf519cd9867ca12a439584f7fe8f63d1 = L.marker(
+                [38.77591970000001, -9.2639449],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_3605d23abf5b1a090f5b09287b597d96 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_cf519cd9867ca12a439584f7fe8f63d1.setIcon(icon_3605d23abf5b1a090f5b09287b597d96);
+        
+    
+        var popup_e31a439039334f6a20274358dc03b16a = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_10f90456d9a15fd91aeffb1fd1ca64f1 = $(`<div id="html_10f90456d9a15fd91aeffb1fd1ca64f1" style="width: 100.0%; height: 100.0%;">Incident ID: 58<br><br>Latest Update: 2017-06-07 21:44:00<br>Time Since Update: 1 days, 23 hours, 13 minutes<br>Incident Span: 6 days, 20 hours, 33 minutes<br><br>Contributor IDs: [78, 122]<br>Contribution IDs: [78, 122]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Sintra: 100.0%<br><br>Distribution of Submitted Hazards:<br> - fumo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_e31a439039334f6a20274358dc03b16a.setContent(html_10f90456d9a15fd91aeffb1fd1ca64f1);
+            
+        
+
+        marker_cf519cd9867ca12a439584f7fe8f63d1.bindPopup(popup_e31a439039334f6a20274358dc03b16a)
+        ;
+
+        
+    
+    
+            var marker_22ab1a79f16359c73bef92e7701be204 = L.marker(
+                [38.903255897551624, -9.238415244152293],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_ba0f1a883d5804abb513e631b1192b25 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_22ab1a79f16359c73bef92e7701be204.setIcon(icon_ba0f1a883d5804abb513e631b1192b25);
+        
+    
+        var popup_35c07436d478388d3cd46f042766032c = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_d2fd7d95e080ed4b25568305a373df64 = $(`<div id="html_d2fd7d95e080ed4b25568305a373df64" style="width: 100.0%; height: 100.0%;">Incident ID: 47<br><br>Latest Update: 2017-06-07 12:41:00<br>Time Since Update: 2 days, 8 hours, 16 minutes<br>Incident Span: 6 days, 18 hours, 36 minutes<br><br>Contributor IDs: [76, 47, 91, 175, 172]<br>Contribution IDs: [76, 47, 91, 175, 172]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 92.5%<br> - Santarém: 7.5%<br><br>Distribution of Submitted Parishes:<br> - Mafra: 50.9%<br> - Sintra: 32.1%<br> - Vila Franca de Xira: 9.4%<br> - Benavente: 7.5%<br><br>Distribution of Submitted Hazards:<br> - combustivel:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_35c07436d478388d3cd46f042766032c.setContent(html_d2fd7d95e080ed4b25568305a373df64);
+            
+        
+
+        marker_22ab1a79f16359c73bef92e7701be204.bindPopup(popup_35c07436d478388d3cd46f042766032c)
+        ;
+
+        
+    
+    
+            var marker_bb7ff9f6442c27a4b9bda8adce8d925c = L.marker(
+                [41.235779263564446, -7.653283495378354],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_e1b3f068ef9183ec7a7e791def4ed16c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_bb7ff9f6442c27a4b9bda8adce8d925c.setIcon(icon_e1b3f068ef9183ec7a7e791def4ed16c);
+        
+    
+        var popup_b1e8dd0fe406130dc96c3fb0034ab9c4 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_1cd357a19ed745452d70016c21160df1 = $(`<div id="html_1cd357a19ed745452d70016c21160df1" style="width: 100.0%; height: 100.0%;">Incident ID: 19<br><br>Latest Update: 2017-06-03 12:40:00<br>Time Since Update: 6 days, 8 hours, 17 minutes<br>Incident Span: 6 days, 17 hours, 0 minutes<br><br>Contributor IDs: [74, 64]<br>Contribution IDs: [74, 64]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Vila Real: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Sabrosa: 86.4%<br> - Vila Real: 13.6%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_b1e8dd0fe406130dc96c3fb0034ab9c4.setContent(html_1cd357a19ed745452d70016c21160df1);
+            
+        
+
+        marker_bb7ff9f6442c27a4b9bda8adce8d925c.bindPopup(popup_b1e8dd0fe406130dc96c3fb0034ab9c4)
+        ;
+
+        
+    
+    
+            var marker_ef9ba2fc3860fe3dcb7eb181d33d7f5e = L.marker(
+                [39.342484699860194, -8.81284878244502],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_be17708b13d48ca7050673fd8ecbd822 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_ef9ba2fc3860fe3dcb7eb181d33d7f5e.setIcon(icon_be17708b13d48ca7050673fd8ecbd822);
+        
+    
+        var popup_c8e573e8d98795e5b250eb2996129c05 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_0862b018a2cbd2ef0442f48cbae59640 = $(`<div id="html_0862b018a2cbd2ef0442f48cbae59640" style="width: 100.0%; height: 100.0%;">Incident ID: 57<br><br>Latest Update: 2017-06-07 18:32:00<br>Time Since Update: 2 days, 2 hours, 25 minutes<br>Incident Span: 6 days, 15 hours, 30 minutes<br><br>Contributor IDs: [72, 70, 138]<br>Contribution IDs: [72, 70, 138]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Santarém: 82.3%<br> - Leiria: 17.6%<br><br>Distribution of Submitted Parishes:<br> - Rio Maior: 52.9%<br> - Chamusca: 29.4%<br> - Peniche: 17.6%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_c8e573e8d98795e5b250eb2996129c05.setContent(html_0862b018a2cbd2ef0442f48cbae59640);
+            
+        
+
+        marker_ef9ba2fc3860fe3dcb7eb181d33d7f5e.bindPopup(popup_c8e573e8d98795e5b250eb2996129c05)
+        ;
+
+        
+    
+    
+            var marker_c6bbf0780d33f0d64a8b63a621f44226 = L.marker(
+                [38.69324439999999, -9.355054025521007],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_b4921d3265bd8a3b315b8c8918858ef8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_c6bbf0780d33f0d64a8b63a621f44226.setIcon(icon_b4921d3265bd8a3b315b8c8918858ef8);
+        
+    
+        var popup_0aae6a88ca982b8e262c007bee4640aa = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_f458b8605bb6e069798c6c3e87328fa5 = $(`<div id="html_f458b8605bb6e069798c6c3e87328fa5" style="width: 100.0%; height: 100.0%;">Incident ID: 54<br><br>Latest Update: 2017-06-07 18:01:00<br>Time Since Update: 2 days, 2 hours, 56 minutes<br>Incident Span: 6 days, 15 hours, 16 minutes<br><br>Contributor IDs: [73, 139]<br>Contribution IDs: [73, 139]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Cascais: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_0aae6a88ca982b8e262c007bee4640aa.setContent(html_f458b8605bb6e069798c6c3e87328fa5);
+            
+        
+
+        marker_c6bbf0780d33f0d64a8b63a621f44226.bindPopup(popup_0aae6a88ca982b8e262c007bee4640aa)
+        ;
+
+        
+    
+    
+            var marker_c7e6ecaec96d6f0635ed705e3c6025a4 = L.marker(
+                [41.1494512, -8.610788399999997],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_604c6d4553489a73e58470cdd8281d78 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_c7e6ecaec96d6f0635ed705e3c6025a4.setIcon(icon_604c6d4553489a73e58470cdd8281d78);
+        
+    
+        var popup_72a73d865f76a553f821b45f6fbbbbee = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_d1378cbc096ff3f8ae8c009706c9cfdf = $(`<div id="html_d1378cbc096ff3f8ae8c009706c9cfdf" style="width: 100.0%; height: 100.0%;">Incident ID: 36<br><br>Latest Update: 2017-06-09 16:34:00<br>Time Since Update: 0 days, 4 hours, 23 minutes<br>Incident Span: 6 days, 13 hours, 25 minutes<br><br>Contributor IDs: [71, 65, 33, 164, 126, 124, 199]<br>Contribution IDs: [71, 65, 34, 164, 126, 124, 199]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Porto: 100.0%<br><br>Distribution of Submitted Hazards:<br> - gas:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_72a73d865f76a553f821b45f6fbbbbee.setContent(html_d1378cbc096ff3f8ae8c009706c9cfdf);
+            
+        
+
+        marker_c7e6ecaec96d6f0635ed705e3c6025a4.bindPopup(popup_72a73d865f76a553f821b45f6fbbbbee)
+        ;
+
+        
+    
+    
+            var marker_cb300ba2ab4d7b7207df6b7397994780 = L.marker(
+                [39.06094773540673, -8.972285314361516],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_10a9d6c853cfc0cacff17821202b85cb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_cb300ba2ab4d7b7207df6b7397994780.setIcon(icon_10a9d6c853cfc0cacff17821202b85cb);
+        
+    
+        var popup_f68a620fb65153664167ea1e8f852fb5 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_d2a529744a622c14818f95d444b13220 = $(`<div id="html_d2a529744a622c14818f95d444b13220" style="width: 100.0%; height: 100.0%;">Incident ID: 51<br><br>Latest Update: 2017-06-09 20:26:00<br>Time Since Update: 0 days, 0 hours, 31 minutes<br>Incident Span: 6 days, 8 hours, 34 minutes<br><br>Contributor IDs: [67, 63, 47, 26, 186]<br>Contribution IDs: [67, 63, 53, 26, 186]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Alenquer: 77.0%<br> - Azambuja: 23.0%<br><br>Distribution of Submitted Hazards:<br> - explosivo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 50.0%<br> - gas:<br>&emsp;Submissions: 1<br>&emsp; Weight: 50.0%</div>`)[0];
+                popup_f68a620fb65153664167ea1e8f852fb5.setContent(html_d2a529744a622c14818f95d444b13220);
+            
+        
+
+        marker_cb300ba2ab4d7b7207df6b7397994780.bindPopup(popup_f68a620fb65153664167ea1e8f852fb5)
+        ;
+
+        
+    
+    
+            var marker_002ed6a5c3c233225309e8f5ec948bbf = L.marker(
+                [41.28363481370652, -8.385337314236034],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_9c6aec54a0cef034dffc490790572238 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_002ed6a5c3c233225309e8f5ec948bbf.setIcon(icon_9c6aec54a0cef034dffc490790572238);
+        
+    
+        var popup_9ab884968574855db14188bdd57f081d = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_d84a1c5e579bf757ac2fa6a0be6d2a5f = $(`<div id="html_d84a1c5e579bf757ac2fa6a0be6d2a5f" style="width: 100.0%; height: 100.0%;">Incident ID: 46<br><br>Latest Update: 2017-06-07 14:09:00<br>Time Since Update: 2 days, 6 hours, 48 minutes<br>Incident Span: 6 days, 8 hours, 23 minutes<br><br>Contributor IDs: [68, 76, 161]<br>Contribution IDs: [68, 90, 161]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Paços de Ferreira: 100.0%<br><br>Distribution of Submitted Hazards:<br> - fumo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_9ab884968574855db14188bdd57f081d.setContent(html_d84a1c5e579bf757ac2fa6a0be6d2a5f);
+            
+        
+
+        marker_002ed6a5c3c233225309e8f5ec948bbf.bindPopup(popup_9ab884968574855db14188bdd57f081d)
+        ;
+
+        
+    
+    
+            var marker_5b54c416e366958d6b1e7a01be1f912e = L.marker(
+                [41.62771830454319, -8.531153078509885],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_eb631931b50578ca211b9fa84beabb4a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_5b54c416e366958d6b1e7a01be1f912e.setIcon(icon_eb631931b50578ca211b9fa84beabb4a);
+        
+    
+        var popup_7ce05048bcad0d1c52a85c9b11c414c2 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_bf5a81990f709b8a1508fbf0ff2d5e45 = $(`<div id="html_bf5a81990f709b8a1508fbf0ff2d5e45" style="width: 100.0%; height: 100.0%;">Incident ID: 31<br><br>Latest Update: 2017-06-07 20:46:00<br>Time Since Update: 2 days, 0 hours, 11 minutes<br>Incident Span: 6 days, 8 hours, 13 minutes<br><br>Contributor IDs: [69, 130]<br>Contribution IDs: [69, 130]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Braga: 79.2%<br> - Viana do Castelo: 20.8%<br><br>Distribution of Submitted Parishes:<br> - Vila Verde: 79.2%<br> - Ponte de Lima: 20.8%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_7ce05048bcad0d1c52a85c9b11c414c2.setContent(html_bf5a81990f709b8a1508fbf0ff2d5e45);
+            
+        
+
+        marker_5b54c416e366958d6b1e7a01be1f912e.bindPopup(popup_7ce05048bcad0d1c52a85c9b11c414c2)
+        ;
+
+        
+    
+    
+            var marker_cbe4fe7616359401bcb478a86759a3bf = L.marker(
+                [37.112863669229526, -8.218085073796905],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_9b5170002454f3d71e8ed70875fe64af = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_cbe4fe7616359401bcb478a86759a3bf.setIcon(icon_9b5170002454f3d71e8ed70875fe64af);
+        
+    
+        var popup_e065e8eb271b1b5e9c663c227fb8483d = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_78a892460cb3901e2f384750d80678aa = $(`<div id="html_78a892460cb3901e2f384750d80678aa" style="width: 100.0%; height: 100.0%;">Incident ID: 0<br><br>Latest Update: 2017-06-09 16:30:00<br>Time Since Update: 0 days, 4 hours, 27 minutes<br>Incident Span: 6 days, 8 hours, 5 minutes<br><br>Contributor IDs: [61, 54, 196]<br>Contribution IDs: [61, 54, 196]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Faro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Albufeira: 83.3%<br> - Loulé: 16.7%<br><br>Distribution of Submitted Hazards:<br> - explosivo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 71.0%<br> - petroleo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 14.8%<br> - quimico:<br>&emsp;Submissions: 1<br>&emsp; Weight: 14.2%</div>`)[0];
+                popup_e065e8eb271b1b5e9c663c227fb8483d.setContent(html_78a892460cb3901e2f384750d80678aa);
+            
+        
+
+        marker_cbe4fe7616359401bcb478a86759a3bf.bindPopup(popup_e065e8eb271b1b5e9c663c227fb8483d)
+        ;
+
+        
+    
+    
+            var marker_8c487fa5662209c5072529cdd81afe20 = L.marker(
+                [38.569601, -8.901165299999999],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_3bb26bb3b4edc31853f4921ce0f80a5b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_8c487fa5662209c5072529cdd81afe20.setIcon(icon_3bb26bb3b4edc31853f4921ce0f80a5b);
+        
+    
+        var popup_44befafa51b7df305bcc8aaa9ac137ec = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_df541cdc29b810b3d2a96b0b4476b077 = $(`<div id="html_df541cdc29b810b3d2a96b0b4476b077" style="width: 100.0%; height: 100.0%;">Incident ID: 32<br><br>Latest Update: 2017-06-05 18:34:00<br>Time Since Update: 4 days, 2 hours, 23 minutes<br>Incident Span: 6 days, 8 hours, 2 minutes<br><br>Contributor IDs: [66, 88]<br>Contribution IDs: [66, 88]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Setúbal: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Palmela: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_44befafa51b7df305bcc8aaa9ac137ec.setContent(html_df541cdc29b810b3d2a96b0b4476b077);
+            
+        
+
+        marker_8c487fa5662209c5072529cdd81afe20.bindPopup(popup_44befafa51b7df305bcc8aaa9ac137ec)
+        ;
+
+        
+    
+    
+            var marker_bf8918fe54032c2493fdefc5fbf831a1 = L.marker(
+                [39.16472972450966, -8.940204783819292],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_ac60868d689a00bd0226ef0b53db500b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_bf8918fe54032c2493fdefc5fbf831a1.setIcon(icon_ac60868d689a00bd0226ef0b53db500b);
+        
+    
+        var popup_c0f24027c11e6854459bc0a52a82dbcd = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_0875430403d6e96340ad294c65ff82d8 = $(`<div id="html_0875430403d6e96340ad294c65ff82d8" style="width: 100.0%; height: 100.0%;">Incident ID: 52<br><br>Latest Update: 2017-06-07 09:16:00<br>Time Since Update: 2 days, 11 hours, 41 minutes<br>Incident Span: 6 days, 7 hours, 15 minutes<br><br>Contributor IDs: [60, 21]<br>Contribution IDs: [60, 177]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 59.4%<br> - Santarém: 40.6%<br><br>Distribution of Submitted Parishes:<br> - Alenquer: 59.4%<br> - Cartaxo: 40.6%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_c0f24027c11e6854459bc0a52a82dbcd.setContent(html_0875430403d6e96340ad294c65ff82d8);
+            
+        
+
+        marker_bf8918fe54032c2493fdefc5fbf831a1.bindPopup(popup_c0f24027c11e6854459bc0a52a82dbcd)
+        ;
+
+        
+    
+    
+            var marker_f84c69b90d4a58ffad8365ed79318863 = L.marker(
+                [41.207086510702645, -8.371579062023308],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_045e4dd959e14d8ce6d9b9af78b92440 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_f84c69b90d4a58ffad8365ed79318863.setIcon(icon_045e4dd959e14d8ce6d9b9af78b92440);
+        
+    
+        var popup_c4d195f51ec574a8f57cbf7c64e293c1 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_c8978ba4fdfe267560179379e245a3a8 = $(`<div id="html_c8978ba4fdfe267560179379e245a3a8" style="width: 100.0%; height: 100.0%;">Incident ID: 40<br><br>Latest Update: 2017-06-07 22:39:00<br>Time Since Update: 1 days, 22 hours, 18 minutes<br>Incident Span: 6 days, 6 hours, 52 minutes<br><br>Contributor IDs: [57, 46, 171, 153, 130, 121]<br>Contribution IDs: [57, 46, 171, 153, 136, 121]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Paredes: 61.5%<br> - Penafiel: 24.4%<br> - Valongo: 14.1%<br><br>Distribution of Submitted Hazards:<br> - ignicao:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_c4d195f51ec574a8f57cbf7c64e293c1.setContent(html_c8978ba4fdfe267560179379e245a3a8);
+            
+        
+
+        marker_f84c69b90d4a58ffad8365ed79318863.bindPopup(popup_c4d195f51ec574a8f57cbf7c64e293c1)
+        ;
+
+        
+    
+    
+            var marker_2f8eb93d898ac3dee4a20543db5d165e = L.marker(
+                [38.5241783, -8.893234099999999],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_7e76709e620ccd9d9bebebbf396dd9fd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_2f8eb93d898ac3dee4a20543db5d165e.setIcon(icon_7e76709e620ccd9d9bebebbf396dd9fd);
+        
+    
+        var popup_f389137ba795ae52f36a3753aa3fb1cd = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_2a86f508b95aae18ca98b8c80b605480 = $(`<div id="html_2a86f508b95aae18ca98b8c80b605480" style="width: 100.0%; height: 100.0%;">Incident ID: 33<br><br>Latest Update: 2017-06-07 17:43:00<br>Time Since Update: 2 days, 3 hours, 14 minutes<br>Incident Span: 6 days, 6 hours, 48 minutes<br><br>Contributor IDs: [55, 142]<br>Contribution IDs: [55, 142]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Setúbal: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Setúbal: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_f389137ba795ae52f36a3753aa3fb1cd.setContent(html_2a86f508b95aae18ca98b8c80b605480);
+            
+        
+
+        marker_2f8eb93d898ac3dee4a20543db5d165e.bindPopup(popup_f389137ba795ae52f36a3753aa3fb1cd)
+        ;
+
+        
+    
+    
+            var marker_1d6bc0bcaac75126085da744603d244e = L.marker(
+                [39.265478168575896, -9.159618379383945],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_ebbdc67b8e03ee1aad3ee5169de35f76 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_1d6bc0bcaac75126085da744603d244e.setIcon(icon_ebbdc67b8e03ee1aad3ee5169de35f76);
+        
+    
+        var popup_bb000f6c8da672e3d7f74596bddeab6e = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_d6d50c1b0a4712f3e896ccd60fbf0cbd = $(`<div id="html_d6d50c1b0a4712f3e896ccd60fbf0cbd" style="width: 100.0%; height: 100.0%;">Incident ID: 62<br><br>Latest Update: 2017-06-07 13:49:00<br>Time Since Update: 2 days, 7 hours, 8 minutes<br>Incident Span: 6 days, 6 hours, 7 minutes<br><br>Contributor IDs: [58, 167]<br>Contribution IDs: [58, 167]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Leiria: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Bombarral: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_bb000f6c8da672e3d7f74596bddeab6e.setContent(html_d6d50c1b0a4712f3e896ccd60fbf0cbd);
+            
+        
+
+        marker_1d6bc0bcaac75126085da744603d244e.bindPopup(popup_bb000f6c8da672e3d7f74596bddeab6e)
+        ;
+
+        
+    
+    
+            var marker_efb82133dfd80855baa150445865bca6 = L.marker(
+                [38.8308741, -9.1684512],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_b4a461d1bdcd16827be128a2c3228a6a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_efb82133dfd80855baa150445865bca6.setIcon(icon_b4a461d1bdcd16827be128a2c3228a6a);
+        
+    
+        var popup_584a570a0ca68ed4d66428205323e49d = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_070193fd362e9a1ded0cc5a40e30080c = $(`<div id="html_070193fd362e9a1ded0cc5a40e30080c" style="width: 100.0%; height: 100.0%;">Incident ID: 50<br><br>Latest Update: 2017-06-09 16:57:00<br>Time Since Update: 0 days, 4 hours, 0 minutes<br>Incident Span: 6 days, 6 hours, 1 minutes<br><br>Contributor IDs: [56, 200]<br>Contribution IDs: [56, 200]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Loures: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_584a570a0ca68ed4d66428205323e49d.setContent(html_070193fd362e9a1ded0cc5a40e30080c);
+            
+        
+
+        marker_efb82133dfd80855baa150445865bca6.bindPopup(popup_584a570a0ca68ed4d66428205323e49d)
+        ;
+
+        
+    
+    
+            var marker_0dd067f04a22dd7face7a096fa89e594 = L.marker(
+                [40.640496, -8.6537841],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_81c3260486a27bdeff8a9811b08ff946 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_0dd067f04a22dd7face7a096fa89e594.setIcon(icon_81c3260486a27bdeff8a9811b08ff946);
+        
+    
+        var popup_a61a2286d1e28028c852ae4dd0b188c7 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_4d0ae2e94540d3e066080f0b74a25c0e = $(`<div id="html_4d0ae2e94540d3e066080f0b74a25c0e" style="width: 100.0%; height: 100.0%;">Incident ID: 38<br><br>Latest Update: 2017-06-07 06:52:00<br>Time Since Update: 2 days, 14 hours, 5 minutes<br>Incident Span: 6 days, 5 hours, 40 minutes<br><br>Contributor IDs: [48, 181]<br>Contribution IDs: [48, 181]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Hazards:<br> - propagacao:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_a61a2286d1e28028c852ae4dd0b188c7.setContent(html_4d0ae2e94540d3e066080f0b74a25c0e);
+            
+        
+
+        marker_0dd067f04a22dd7face7a096fa89e594.bindPopup(popup_a61a2286d1e28028c852ae4dd0b188c7)
+        ;
+
+        
+    
+    
+            var marker_5553e3076898abeae999096adda58a58 = L.marker(
+                [38.86884421527225, -7.568534955818324],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_9c004aa13f392cff755b7f33f2756166 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_5553e3076898abeae999096adda58a58.setIcon(icon_9c004aa13f392cff755b7f33f2756166);
+        
+    
+        var popup_4d97bc6bda829a8acdb0ae0cdef17869 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_5180f6d2158acc815c32d5f320af8bb3 = $(`<div id="html_5180f6d2158acc815c32d5f320af8bb3" style="width: 100.0%; height: 100.0%;">Incident ID: 24<br><br>Latest Update: 2017-06-05 20:58:00<br>Time Since Update: 3 days, 23 hours, 59 minutes<br>Incident Span: 6 days, 4 hours, 58 minutes<br><br>Contributor IDs: [49, 83]<br>Contribution IDs: [49, 83]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Évora: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Estremoz: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_4d97bc6bda829a8acdb0ae0cdef17869.setContent(html_5180f6d2158acc815c32d5f320af8bb3);
+            
+        
+
+        marker_5553e3076898abeae999096adda58a58.bindPopup(popup_4d97bc6bda829a8acdb0ae0cdef17869)
+        ;
+
+        
+    
+    
+            var marker_acc59f371d3393d17202e91325583cd8 = L.marker(
+                [40.92850373509842, -8.500519499969801],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_17f445757ec9e6d80b88a097d7d5c38f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_acc59f371d3393d17202e91325583cd8.setIcon(icon_17f445757ec9e6d80b88a097d7d5c38f);
+        
+    
+        var popup_52bd80ac3463f955b49f0c6fad70eb4e = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_dc779249cfca3df8815a1ccf4835f117 = $(`<div id="html_dc779249cfca3df8815a1ccf4835f117" style="width: 100.0%; height: 100.0%;">Incident ID: 23<br><br>Latest Update: 2017-06-09 17:15:00<br>Time Since Update: 0 days, 3 hours, 42 minutes<br>Incident Span: 6 days, 4 hours, 44 minutes<br><br>Contributor IDs: [45, 25, 125, 194]<br>Contribution IDs: [45, 80, 125, 194]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Santa Maria da Feira: 55.0%<br> - São João da Madeira: 45.0%<br><br>Distribution of Submitted Hazards:<br> - queimada:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_52bd80ac3463f955b49f0c6fad70eb4e.setContent(html_dc779249cfca3df8815a1ccf4835f117);
+            
+        
+
+        marker_acc59f371d3393d17202e91325583cd8.bindPopup(popup_52bd80ac3463f955b49f0c6fad70eb4e)
+        ;
+
+        
+    
+    
+            var marker_de24c742461705ac75f242c4e6285382 = L.marker(
+                [40.48516949999999, -6.978558300000001],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_bfd995d1e13c6c7ee95486d5ca3cab6c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_de24c742461705ac75f242c4e6285382.setIcon(icon_bfd995d1e13c6c7ee95486d5ca3cab6c);
+        
+    
+        var popup_813c89bd8b8a7f5f8480b1b4783d8d15 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_65586b4d2bca2041e645a29f6b114c6c = $(`<div id="html_65586b4d2bca2041e645a29f6b114c6c" style="width: 100.0%; height: 100.0%;">Incident ID: 4<br><br>Latest Update: 2017-06-05 13:55:00<br>Time Since Update: 4 days, 7 hours, 2 minutes<br>Incident Span: 6 days, 4 hours, 32 minutes<br><br>Contributor IDs: [41, 30]<br>Contribution IDs: [41, 108]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Guarda: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Sabugal: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_813c89bd8b8a7f5f8480b1b4783d8d15.setContent(html_65586b4d2bca2041e645a29f6b114c6c);
+            
+        
+
+        marker_de24c742461705ac75f242c4e6285382.bindPopup(popup_813c89bd8b8a7f5f8480b1b4783d8d15)
+        ;
+
+        
+    
+    
+            var marker_955dbb5bdeb1eeacc5f1436e356df4db = L.marker(
+                [40.64242574307574, -7.938680125466932],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_5a958ec8e9747988055acad203f55d9d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_955dbb5bdeb1eeacc5f1436e356df4db.setIcon(icon_5a958ec8e9747988055acad203f55d9d);
+        
+    
+        var popup_b10b3805208e76c0bfc6cb3dc22d5e9b = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_bfde06b9cb6e9cd82ed42f586d14a513 = $(`<div id="html_bfde06b9cb6e9cd82ed42f586d14a513" style="width: 100.0%; height: 100.0%;">Incident ID: 13<br><br>Latest Update: 2017-06-07 16:00:00<br>Time Since Update: 2 days, 4 hours, 57 minutes<br>Incident Span: 6 days, 4 hours, 15 minutes<br><br>Contributor IDs: [43, 165, 146, 16, 155]<br>Contribution IDs: [43, 165, 163, 162, 155]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Viseu: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Viseu: 78.3%<br> - Tondela: 21.7%<br><br>Distribution of Submitted Hazards:<br> - ignicao:<br>&emsp;Submissions: 1<br>&emsp; Weight: 60.0%<br> - chamas:<br>&emsp;Submissions: 1<br>&emsp; Weight: 40.0%</div>`)[0];
+                popup_b10b3805208e76c0bfc6cb3dc22d5e9b.setContent(html_bfde06b9cb6e9cd82ed42f586d14a513);
+            
+        
+
+        marker_955dbb5bdeb1eeacc5f1436e356df4db.bindPopup(popup_b10b3805208e76c0bfc6cb3dc22d5e9b)
+        ;
+
+        
+    
+    
+            var marker_3216e2f212791ea7a8170377574c083b = L.marker(
+                [39.58771408862887, -8.421915947022852],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_6f25cf806368881485dabbcb8e3ccb37 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_3216e2f212791ea7a8170377574c083b.setIcon(icon_6f25cf806368881485dabbcb8e3ccb37);
+        
+    
+        var popup_c9b054e064b3fcdc16260c1f57dca8c1 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_aa25808f0e15732d9349b34c0c4b093c = $(`<div id="html_aa25808f0e15732d9349b34c0c4b093c" style="width: 100.0%; height: 100.0%;">Incident ID: 35<br><br>Latest Update: 2017-06-07 10:52:00<br>Time Since Update: 2 days, 10 hours, 5 minutes<br>Incident Span: 6 days, 2 hours, 33 minutes<br><br>Contributor IDs: [38, 99, 178, 77]<br>Contribution IDs: [38, 99, 178, 176]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Santarém: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Tomar: 66.7%<br> - Ourém: 33.3%<br><br>Distribution of Submitted Hazards:<br> - fertilizante:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_c9b054e064b3fcdc16260c1f57dca8c1.setContent(html_aa25808f0e15732d9349b34c0c4b093c);
+            
+        
+
+        marker_3216e2f212791ea7a8170377574c083b.bindPopup(popup_c9b054e064b3fcdc16260c1f57dca8c1)
+        ;
+
+        
+    
+    
+            var marker_968ad45fe840c1b50666c757125767f0 = L.marker(
+                [39.2363637, -8.686708100000002],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_adf4786b49654b3084bf34a4fd246d82 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_968ad45fe840c1b50666c757125767f0.setIcon(icon_adf4786b49654b3084bf34a4fd246d82);
+        
+    
+        var popup_048b0ab65d3a191524fa100b555b35a5 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_335fa86f6b666cf55f2f2cae63dab82c = $(`<div id="html_335fa86f6b666cf55f2f2cae63dab82c" style="width: 100.0%; height: 100.0%;">Incident ID: 61<br><br>Latest Update: 2017-06-09 19:01:00<br>Time Since Update: 0 days, 1 hours, 56 minutes<br>Incident Span: 6 days, 2 hours, 4 minutes<br><br>Contributor IDs: [37, 189]<br>Contribution IDs: [37, 189]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Santarém: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Santarém: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_048b0ab65d3a191524fa100b555b35a5.setContent(html_335fa86f6b666cf55f2f2cae63dab82c);
+            
+        
+
+        marker_968ad45fe840c1b50666c757125767f0.bindPopup(popup_048b0ab65d3a191524fa100b555b35a5)
+        ;
+
+        
+    
+    
+            var marker_f699b2e0b876632aba8208cc10721025 = L.marker(
+                [38.656846196692456, -9.054568992386121],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_ce8d422eacc79800a5f4f467ae34109b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_f699b2e0b876632aba8208cc10721025.setIcon(icon_ce8d422eacc79800a5f4f467ae34109b);
+        
+    
+        var popup_07b1f573b0393d904c5fb4882bf4b1f5 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_164ff4faef5c0ca2a42596c0637ee67f = $(`<div id="html_164ff4faef5c0ca2a42596c0637ee67f" style="width: 100.0%; height: 100.0%;">Incident ID: 44<br><br>Latest Update: 2017-06-07 19:44:00<br>Time Since Update: 2 days, 1 hours, 13 minutes<br>Incident Span: 6 days, 0 hours, 43 minutes<br><br>Contributor IDs: [0, 134]<br>Contribution IDs: [32, 134]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Setúbal: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Barreiro: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_07b1f573b0393d904c5fb4882bf4b1f5.setContent(html_164ff4faef5c0ca2a42596c0637ee67f);
+            
+        
+
+        marker_f699b2e0b876632aba8208cc10721025.bindPopup(popup_07b1f573b0393d904c5fb4882bf4b1f5)
+        ;
+
+        
+    
+    
+            var marker_f5b79ddf7426f211d618d0aa8f0cc528 = L.marker(
+                [40.1649599, -8.875103399999999],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_aedb9795ba87dad060f42d37f1c14b07 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_f5b79ddf7426f211d618d0aa8f0cc528.setIcon(icon_aedb9795ba87dad060f42d37f1c14b07);
+        
+    
+        var popup_eaf39521c6c3075cf935412b045a9d6b = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_fdb86e1a8e70649c998580b1a958003f = $(`<div id="html_fdb86e1a8e70649c998580b1a958003f" style="width: 100.0%; height: 100.0%;">Incident ID: 10<br><br>Latest Update: 2017-06-07 17:57:00<br>Time Since Update: 2 days, 3 hours, 0 minutes<br>Incident Span: 6 days, 0 hours, 10 minutes<br><br>Contributor IDs: [33, 145]<br>Contribution IDs: [33, 145]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Coimbra: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Figueira da Foz: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_eaf39521c6c3075cf935412b045a9d6b.setContent(html_fdb86e1a8e70649c998580b1a958003f);
+            
+        
+
+        marker_f5b79ddf7426f211d618d0aa8f0cc528.bindPopup(popup_eaf39521c6c3075cf935412b045a9d6b)
+        ;
+
+        
+    
+    
+            var marker_7b5bf9b3f56b699fda1aa0e80c5c6225 = L.marker(
+                [40.549286435132785, -8.67037764421707],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_c298a104d71756ce63dbd4c780a729b0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_7b5bf9b3f56b699fda1aa0e80c5c6225.setIcon(icon_c298a104d71756ce63dbd4c780a729b0);
+        
+    
+        var popup_38344493ae59e22e7ddc84710bab137f = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_4a5ace0416d8804ecbdabe175f87fc47 = $(`<div id="html_4a5ace0416d8804ecbdabe175f87fc47" style="width: 100.0%; height: 100.0%;">Incident ID: 39<br><br>Latest Update: 2017-06-05 17:05:00<br>Time Since Update: 4 days, 3 hours, 52 minutes<br>Incident Span: 5 days, 23 hours, 40 minutes<br><br>Contributor IDs: [30, 39]<br>Contribution IDs: [30, 92]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Vagos: 100.0%<br><br>Distribution of Submitted Hazards:<br> - urbana:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_38344493ae59e22e7ddc84710bab137f.setContent(html_4a5ace0416d8804ecbdabe175f87fc47);
+            
+        
+
+        marker_7b5bf9b3f56b699fda1aa0e80c5c6225.bindPopup(popup_38344493ae59e22e7ddc84710bab137f)
+        ;
+
+        
+    
+    
+            var marker_df56f6d1e85acaab17733d2940b43c27 = L.marker(
+                [41.124287942307475, -8.51629313481226],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_f56773f7147461e4876f9a5b857149c5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_df56f6d1e85acaab17733d2940b43c27.setIcon(icon_f56773f7147461e4876f9a5b857149c5);
+        
+    
+        var popup_8c4327fd0c61da4c3b5aa2acf8666fd4 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_3a039397e693ca18e8a39db80801184e = $(`<div id="html_3a039397e693ca18e8a39db80801184e" style="width: 100.0%; height: 100.0%;">Incident ID: 41<br><br>Latest Update: 2017-06-07 13:02:00<br>Time Since Update: 2 days, 7 hours, 55 minutes<br>Incident Span: 5 days, 23 hours, 21 minutes<br><br>Contributor IDs: [31, 160]<br>Contribution IDs: [31, 170]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Gondomar: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_8c4327fd0c61da4c3b5aa2acf8666fd4.setContent(html_3a039397e693ca18e8a39db80801184e);
+            
+        
+
+        marker_df56f6d1e85acaab17733d2940b43c27.bindPopup(popup_8c4327fd0c61da4c3b5aa2acf8666fd4)
+        ;
+
+        
+    
+    
+            var marker_5087368e974cc72f4b2a5316d5be13b8 = L.marker(
+                [41.099452400000004, -8.4999065],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_0cea8533b6e00c9652d9b91375c2e8fa = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_5087368e974cc72f4b2a5316d5be13b8.setIcon(icon_0cea8533b6e00c9652d9b91375c2e8fa);
+        
+    
+        var popup_e83206bcb6fad2917ccd1ae6ba9dc247 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_b2a9ad3b046f557f94780fa722e3af67 = $(`<div id="html_b2a9ad3b046f557f94780fa722e3af67" style="width: 100.0%; height: 100.0%;">Incident ID: 42<br><br>Latest Update: 2017-06-09 16:36:00<br>Time Since Update: 0 days, 4 hours, 21 minutes<br>Incident Span: 5 days, 22 hours, 33 minutes<br><br>Contributor IDs: [28, 173, 197]<br>Contribution IDs: [28, 173, 197]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Gondomar: 100.0%<br><br>Distribution of Submitted Hazards:<br> - populacao:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_e83206bcb6fad2917ccd1ae6ba9dc247.setContent(html_b2a9ad3b046f557f94780fa722e3af67);
+            
+        
+
+        marker_5087368e974cc72f4b2a5316d5be13b8.bindPopup(popup_e83206bcb6fad2917ccd1ae6ba9dc247)
+        ;
+
+        
+    
+    
+            var marker_9a84cd29da143ea8b885fa719e33983d = L.marker(
+                [41.52786720899891, -8.53468174781702],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_16bbe9d5ca4861590f3a98f79ce589a1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_9a84cd29da143ea8b885fa719e33983d.setIcon(icon_16bbe9d5ca4861590f3a98f79ce589a1);
+        
+    
+        var popup_666bd637e690a4b8edee91ba4cbd26f2 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_b5f1fd0094bd542ef5b626cb11c21838 = $(`<div id="html_b5f1fd0094bd542ef5b626cb11c21838" style="width: 100.0%; height: 100.0%;">Incident ID: 22<br><br>Latest Update: 2017-06-09 19:39:00<br>Time Since Update: 0 days, 1 hours, 18 minutes<br>Incident Span: 4 days, 11 hours, 12 minutes<br><br>Contributor IDs: [115, 104, 188]<br>Contribution IDs: [115, 154, 188]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Braga: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Barcelos: 55.8%<br> - Braga: 44.2%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_666bd637e690a4b8edee91ba4cbd26f2.setContent(html_b5f1fd0094bd542ef5b626cb11c21838);
+            
+        
+
+        marker_9a84cd29da143ea8b885fa719e33983d.bindPopup(popup_666bd637e690a4b8edee91ba4cbd26f2)
+        ;
+
+        
+    
+    
+            var marker_c6e50fb4e0ea181440d7a6ae0f52cf6a = L.marker(
+                [41.377148357540236, -8.194924983068605],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_ac74bb36bbb1c250216b69db4fec5808 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_c6e50fb4e0ea181440d7a6ae0f52cf6a.setIcon(icon_ac74bb36bbb1c250216b69db4fec5808);
+        
+    
+        var popup_7091329b71834d21c877dec308544972 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_fbfb172eeb6b865f2ea90c3be192483b = $(`<div id="html_fbfb172eeb6b865f2ea90c3be192483b" style="width: 100.0%; height: 100.0%;">Incident ID: 29<br><br>Latest Update: 2017-06-07 17:51:00<br>Time Since Update: 2 days, 3 hours, 6 minutes<br>Incident Span: 4 days, 9 hours, 25 minutes<br><br>Contributor IDs: [111, 148]<br>Contribution IDs: [111, 148]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 85.7%<br> - Braga: 14.3%<br><br>Distribution of Submitted Parishes:<br> - Felgueiras: 85.7%<br> - Fafe: 14.3%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_7091329b71834d21c877dec308544972.setContent(html_fbfb172eeb6b865f2ea90c3be192483b);
+            
+        
+
+        marker_c6e50fb4e0ea181440d7a6ae0f52cf6a.bindPopup(popup_7091329b71834d21c877dec308544972)
+        ;
+
+        
+    
+    
+            var marker_01328b8e43d8d49f7efe4511252e4f7d = L.marker(
+                [40.19014159020291, -8.120411957783306],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_1d1323b97d9d80b38dbc29381ba72790 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_01328b8e43d8d49f7efe4511252e4f7d.setIcon(icon_1d1323b97d9d80b38dbc29381ba72790);
+        
+    
+        var popup_0be7b2f2b7eb89b0ce2794af6d9cc993 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_874700a73131c5c999a1f2d54207925b = $(`<div id="html_874700a73131c5c999a1f2d54207925b" style="width: 100.0%; height: 100.0%;">Incident ID: 9<br><br>Latest Update: 2017-06-09 17:44:00<br>Time Since Update: 0 days, 3 hours, 13 minutes<br>Incident Span: 4 days, 8 hours, 14 minutes<br><br>Contributor IDs: [109, 135, 59]<br>Contribution IDs: [109, 149, 195]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Coimbra: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Arganil: 59.8%<br> - Miranda do Corvo: 40.2%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_0be7b2f2b7eb89b0ce2794af6d9cc993.setContent(html_874700a73131c5c999a1f2d54207925b);
+            
+        
+
+        marker_01328b8e43d8d49f7efe4511252e4f7d.bindPopup(popup_0be7b2f2b7eb89b0ce2794af6d9cc993)
+        ;
+
+        
+    
+    
+            var marker_b749bfdb774660772524d06a05fe7968 = L.marker(
+                [39.547426141733375, -7.878062140145984],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_41408a57420b4c40e4e96bafd5b8603c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_b749bfdb774660772524d06a05fe7968.setIcon(icon_41408a57420b4c40e4e96bafd5b8603c);
+        
+    
+        var popup_8b866af3839bbb1cf4c1b178daaee134 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_d2e3ae0a9790e57077cccc6008f8a242 = $(`<div id="html_d2e3ae0a9790e57077cccc6008f8a242" style="width: 100.0%; height: 100.0%;">Incident ID: 34<br><br>Latest Update: 2017-06-07 20:52:00<br>Time Since Update: 2 days, 0 hours, 5 minutes<br>Incident Span: 4 days, 7 hours, 31 minutes<br><br>Contributor IDs: [41, 128]<br>Contribution IDs: [107, 128]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Santarém: 57.1%<br> - Portalegre: 42.9%<br><br>Distribution of Submitted Parishes:<br> - Mação: 57.1%<br> - Nisa: 42.9%<br><br>Distribution of Submitted Hazards:<br> - fertilizante:<br>&emsp;Submissions: 1<br>&emsp; Weight: 66.7%<br> - chamas:<br>&emsp;Submissions: 1<br>&emsp; Weight: 33.3%</div>`)[0];
+                popup_8b866af3839bbb1cf4c1b178daaee134.setContent(html_d2e3ae0a9790e57077cccc6008f8a242);
+            
+        
+
+        marker_b749bfdb774660772524d06a05fe7968.bindPopup(popup_8b866af3839bbb1cf4c1b178daaee134)
+        ;
+
+        
+    
+    
+            var marker_70c3ad883595eb9f05a1dabca2cfb580 = L.marker(
+                [41.6127304287175, -7.4201592168642465],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_70ff860ae9e1073b1b39974a2139728c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_70c3ad883595eb9f05a1dabca2cfb580.setIcon(icon_70ff860ae9e1073b1b39974a2139728c);
+        
+    
+        var popup_6c0c0e0db8eea91f58e7a08e745323e1 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_94f98532b7554e6256d065c563f3bc2d = $(`<div id="html_94f98532b7554e6256d065c563f3bc2d" style="width: 100.0%; height: 100.0%;">Incident ID: 8<br><br>Latest Update: 2017-06-05 14:18:00<br>Time Since Update: 4 days, 6 hours, 39 minutes<br>Incident Span: 4 days, 6 hours, 52 minutes<br><br>Contributor IDs: [98, 102]<br>Contribution IDs: [98, 102]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Vila Real: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Valpaços: 63.6%<br> - Chaves: 36.4%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_6c0c0e0db8eea91f58e7a08e745323e1.setContent(html_94f98532b7554e6256d065c563f3bc2d);
+            
+        
+
+        marker_70c3ad883595eb9f05a1dabca2cfb580.bindPopup(popup_6c0c0e0db8eea91f58e7a08e745323e1)
+        ;
+
+        
+    
+    
+            var marker_f3722eba7f0b6c971969a210e8c0b362 = L.marker(
+                [38.757476500191544, -7.916616062302859],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_b3c2a8ece24f0c5c022d969252d07aaf = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_f3722eba7f0b6c971969a210e8c0b362.setIcon(icon_b3c2a8ece24f0c5c022d969252d07aaf);
+        
+    
+        var popup_ad4f59d0b5be50503510c5fe0f06f89c = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_a365c476e94908f5d4ace301536d4789 = $(`<div id="html_a365c476e94908f5d4ace301536d4789" style="width: 100.0%; height: 100.0%;">Incident ID: 25<br><br>Latest Update: 2017-06-07 17:44:00<br>Time Since Update: 2 days, 3 hours, 13 minutes<br>Incident Span: 4 days, 6 hours, 46 minutes<br><br>Contributor IDs: [104, 168, 146]<br>Contribution IDs: [104, 168, 146]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Évora: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Arraiolos: 81.2%<br> - Estremoz: 18.8%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_ad4f59d0b5be50503510c5fe0f06f89c.setContent(html_a365c476e94908f5d4ace301536d4789);
+            
+        
+
+        marker_f3722eba7f0b6c971969a210e8c0b362.bindPopup(popup_ad4f59d0b5be50503510c5fe0f06f89c)
+        ;
+
+        
+    
+    
+            var marker_03b6dc9545eb995656791d1d0ae03728 = L.marker(
+                [38.77125449999999, -9.291961378935333],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_8afcc56dfd8ca78c99f22e493fa317f0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_03b6dc9545eb995656791d1d0ae03728.setIcon(icon_8afcc56dfd8ca78c99f22e493fa317f0);
+        
+    
+        var popup_ba16625c2bcc61fd8e45e25386384eea = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_35289fc8c2b4a4d2a57d040d42988a88 = $(`<div id="html_35289fc8c2b4a4d2a57d040d42988a88" style="width: 100.0%; height: 100.0%;">Incident ID: 59<br><br>Latest Update: 2017-06-07 18:09:00<br>Time Since Update: 2 days, 2 hours, 48 minutes<br>Incident Span: 4 days, 6 hours, 17 minutes<br><br>Contributor IDs: [103, 135]<br>Contribution IDs: [103, 135]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Sintra: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_ba16625c2bcc61fd8e45e25386384eea.setContent(html_35289fc8c2b4a4d2a57d040d42988a88);
+            
+        
+
+        marker_03b6dc9545eb995656791d1d0ae03728.bindPopup(popup_ba16625c2bcc61fd8e45e25386384eea)
+        ;
+
+        
+    
+    
+            var marker_117715c485e918ef11f7ea598776df7b = L.marker(
+                [40.5446827, -8.321632099999999],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_7789f9b54caeace96f82f2f4a01457fa = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_117715c485e918ef11f7ea598776df7b.setIcon(icon_7789f9b54caeace96f82f2f4a01457fa);
+        
+    
+        var popup_f2c7564f52551a878ddfa976fc7962b7 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_5d9145f4872f8f1c21a2e0be1771dad4 = $(`<div id="html_5d9145f4872f8f1c21a2e0be1771dad4" style="width: 100.0%; height: 100.0%;">Incident ID: 18<br><br>Latest Update: 2017-06-05 15:34:00<br>Time Since Update: 4 days, 5 hours, 23 minutes<br>Incident Span: 4 days, 5 hours, 23 minutes<br><br>Contributor IDs: [97, 97]<br>Contribution IDs: [97, 97]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Águeda: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_f2c7564f52551a878ddfa976fc7962b7.setContent(html_5d9145f4872f8f1c21a2e0be1771dad4);
+            
+        
+
+        marker_117715c485e918ef11f7ea598776df7b.bindPopup(popup_f2c7564f52551a878ddfa976fc7962b7)
+        ;
+
+        
+    
+    
+            var marker_fd4fcd908af9b3a6860c711d3462f512 = L.marker(
+                [40.7794281, -7.103198559781845],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_c3a39ff66893e517cc5f11c59ba9b1f5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_fd4fcd908af9b3a6860c711d3462f512.setIcon(icon_c3a39ff66893e517cc5f11c59ba9b1f5);
+        
+    
+        var popup_fc488b3410f35db6501cdbc96c18f376 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_e634811460a8715cdcaa5d7725daa53c = $(`<div id="html_e634811460a8715cdcaa5d7725daa53c" style="width: 100.0%; height: 100.0%;">Incident ID: 5<br><br>Latest Update: 2017-06-09 15:11:00<br>Time Since Update: 0 days, 5 hours, 46 minutes<br>Incident Span: 4 days, 4 hours, 38 minutes<br><br>Contributor IDs: [93, 187]<br>Contribution IDs: [93, 201]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Guarda: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Pinhel: 100.0%<br><br>Distribution of Submitted Hazards:<br> - populacao:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_fc488b3410f35db6501cdbc96c18f376.setContent(html_e634811460a8715cdcaa5d7725daa53c);
+            
+        
+
+        marker_fd4fcd908af9b3a6860c711d3462f512.bindPopup(popup_fc488b3410f35db6501cdbc96c18f376)
+        ;
+
+        
+    
+    
+            var marker_1d0d2f7d0a36276957197e02d376fed3 = L.marker(
+                [38.0581042554586, -7.900235467282018],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_e14190a7b4c1ef4d8a3b7b09c85dc0e3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_1d0d2f7d0a36276957197e02d376fed3.setIcon(icon_e14190a7b4c1ef4d8a3b7b09c85dc0e3);
+        
+    
+        var popup_766e15a4caace5115f565420c4972d04 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_c4e078f1e798a601f171213d960a9204 = $(`<div id="html_c4e078f1e798a601f171213d960a9204" style="width: 100.0%; height: 100.0%;">Incident ID: 17<br><br>Latest Update: 2017-06-07 21:04:00<br>Time Since Update: 1 days, 23 hours, 53 minutes<br>Incident Span: 4 days, 2 hours, 56 minutes<br><br>Contributor IDs: [89, 28]<br>Contribution IDs: [89, 123]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Beja: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Beja: 100.0%<br><br>Distribution of Submitted Hazards:<br> - hospital:<br>&emsp;Submissions: 1<br>&emsp; Weight: 71.4%<br> - quimico:<br>&emsp;Submissions: 1<br>&emsp; Weight: 14.3%<br> - incendio:<br>&emsp;Submissions: 1<br>&emsp; Weight: 14.3%</div>`)[0];
+                popup_766e15a4caace5115f565420c4972d04.setContent(html_c4e078f1e798a601f171213d960a9204);
+            
+        
+
+        marker_1d0d2f7d0a36276957197e02d376fed3.bindPopup(popup_766e15a4caace5115f565420c4972d04)
+        ;
+
+        
+    
+    
+            var marker_d4633e6c20b5447bd1cd4c6b0585a3d5 = L.marker(
+                [39.28637684896513, -9.121788162706844],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_e676480e5a1f6615e324bb9678489b04 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_d4633e6c20b5447bd1cd4c6b0585a3d5.setIcon(icon_e676480e5a1f6615e324bb9678489b04);
+        
+    
+        var popup_b182f36949c6591c094b0eb65d57ef16 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_326de86c8e88a69f18d3d852fdc196a5 = $(`<div id="html_326de86c8e88a69f18d3d852fdc196a5" style="width: 100.0%; height: 100.0%;">Incident ID: 63<br><br>Latest Update: 2017-06-07 15:03:00<br>Time Since Update: 2 days, 5 hours, 54 minutes<br>Incident Span: 4 days, 0 hours, 30 minutes<br><br>Contributor IDs: [29, 159]<br>Contribution IDs: [82, 159]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 75.0%<br> - Santarém: 25.0%<br><br>Distribution of Submitted Parishes:<br> - Lourinhã: 75.0%<br> - Rio Maior: 25.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_b182f36949c6591c094b0eb65d57ef16.setContent(html_326de86c8e88a69f18d3d852fdc196a5);
+            
+        
+
+        marker_d4633e6c20b5447bd1cd4c6b0585a3d5.bindPopup(popup_b182f36949c6591c094b0eb65d57ef16)
+        ;
+
+        
+    
+    
+            var marker_7c7ce38bd0c5f50175eaf8cff1a02d25 = L.marker(
+                [41.19867939323001, -8.617548949740574],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_278772d0688bd31c9f2609e784e5366a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_7c7ce38bd0c5f50175eaf8cff1a02d25.setIcon(icon_278772d0688bd31c9f2609e784e5366a);
+        
+    
+        var popup_391dae733c6ab6e3a5cc756fde87aade = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_43d18590c920aec67240d980ca077f98 = $(`<div id="html_43d18590c920aec67240d980ca077f98" style="width: 100.0%; height: 100.0%;">Incident ID: 37<br><br>Latest Update: 2017-06-07 11:49:00<br>Time Since Update: 2 days, 9 hours, 8 minutes<br>Incident Span: 3 days, 23 hours, 46 minutes<br><br>Contributor IDs: [81, 79, 174]<br>Contribution IDs: [81, 79, 174]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Matosinhos: 100.0%<br><br>Distribution of Submitted Hazards:<br> - hospital:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_391dae733c6ab6e3a5cc756fde87aade.setContent(html_43d18590c920aec67240d980ca077f98);
+            
+        
+
+        marker_7c7ce38bd0c5f50175eaf8cff1a02d25.bindPopup(popup_391dae733c6ab6e3a5cc756fde87aade)
+        ;
+
+        
+    
+    
+            var marker_4b9ddaf013c068df26b66665d969b427 = L.marker(
+                [40.89124318909705, -7.846040768150935],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_ffcb20d2802b12de923e9a102ab8da74 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_4b9ddaf013c068df26b66665d969b427.setIcon(icon_ffcb20d2802b12de923e9a102ab8da74);
+        
+    
+        var popup_5d3c1356d7ed35ff119f32b1875e7a40 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_4c1d016db0e843e6cab01accf70c89db = $(`<div id="html_4c1d016db0e843e6cab01accf70c89db" style="width: 100.0%; height: 100.0%;">Incident ID: 14<br><br>Latest Update: 2017-06-07 17:38:00<br>Time Since Update: 2 days, 3 hours, 19 minutes<br>Incident Span: 2 days, 4 hours, 32 minutes<br><br>Contributor IDs: [156, 147]<br>Contribution IDs: [156, 147]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Viseu: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Castro Daire: 64.5%<br> - Moimenta da Beira: 35.5%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_5d3c1356d7ed35ff119f32b1875e7a40.setContent(html_4c1d016db0e843e6cab01accf70c89db);
+            
+        
+
+        marker_4b9ddaf013c068df26b66665d969b427.bindPopup(popup_5d3c1356d7ed35ff119f32b1875e7a40)
+        ;
+
+        
+    
+    
+            var marker_b926ed033c46838a6d18623e0686d4ae = L.marker(
+                [40.674568034976176, -7.388917678506523],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_703692806d5338291e552b222f2243be = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_b926ed033c46838a6d18623e0686d4ae.setIcon(icon_703692806d5338291e552b222f2243be);
+        
+    
+        var popup_9a0dfc48d7c87d874cacad534e70b1f5 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_1711b6ddf02b00925dabd702bee765bb = $(`<div id="html_1711b6ddf02b00925dabd702bee765bb" style="width: 100.0%; height: 100.0%;">Incident ID: 6<br><br>Latest Update: 2017-06-07 16:34:00<br>Time Since Update: 2 days, 4 hours, 23 minutes<br>Incident Span: 2 days, 4 hours, 27 minutes<br><br>Contributor IDs: [140, 158]<br>Contribution IDs: [157, 158]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Guarda: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Celorico da Beira: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_9a0dfc48d7c87d874cacad534e70b1f5.setContent(html_1711b6ddf02b00925dabd702bee765bb);
+            
+        
+
+        marker_b926ed033c46838a6d18623e0686d4ae.bindPopup(popup_9a0dfc48d7c87d874cacad534e70b1f5)
+        ;
+
+        
+    
+    
+            var marker_0220abdcf7bf7d1d0bdee2329fecd63a = L.marker(
+                [37.11749403648707, -7.690236281703837],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_12c03facd71d5faa1bdae53d15fd6d4a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_0220abdcf7bf7d1d0bdee2329fecd63a.setIcon(icon_12c03facd71d5faa1bdae53d15fd6d4a);
+        
+    
+        var popup_5c79c0994f6a8e62976f6790370745f0 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_dfdc013a0920053fbbface74cd82ebf8 = $(`<div id="html_dfdc013a0920053fbbface74cd82ebf8" style="width: 100.0%; height: 100.0%;">Incident ID: 1<br><br>Latest Update: 2017-06-09 20:57:00<br>Time Since Update: 0 days, 0 hours, 0 minutes<br>Incident Span: 2 days, 3 hours, 55 minutes<br><br>Contributor IDs: [143, 191, 187]<br>Contribution IDs: [143, 191, 187]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Faro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Tavira: 97.2%<br> - Olhão: 2.8%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_5c79c0994f6a8e62976f6790370745f0.setContent(html_dfdc013a0920053fbbface74cd82ebf8);
+            
+        
+
+        marker_0220abdcf7bf7d1d0bdee2329fecd63a.bindPopup(popup_5c79c0994f6a8e62976f6790370745f0)
+        ;
+
+        
+    
+    
+            var marker_a6c32c6763a842fd12b26f0e2306cc42 = L.marker(
+                [37.01627269999999, -7.935177100000001],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_1f640fe466b66f633d5c3baaa0cf9a6f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_a6c32c6763a842fd12b26f0e2306cc42.setIcon(icon_1f640fe466b66f633d5c3baaa0cf9a6f);
+        
+    
+        var popup_fc1a5bfc1361d455e54b913917453ce4 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_9cfea3b0588629040802e6d4dc93353b = $(`<div id="html_9cfea3b0588629040802e6d4dc93353b" style="width: 100.0%; height: 100.0%;">Incident ID: 2<br><br>Latest Update: 2017-06-09 12:17:00<br>Time Since Update: 0 days, 8 hours, 40 minutes<br>Incident Span: 2 days, 2 hours, 44 minutes<br><br>Contributor IDs: [137, 204]<br>Contribution IDs: [137, 204]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Faro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Faro: 100.0%<br><br>Distribution of Submitted Hazards:<br> - rescaldo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%</div>`)[0];
+                popup_fc1a5bfc1361d455e54b913917453ce4.setContent(html_9cfea3b0588629040802e6d4dc93353b);
+            
+        
+
+        marker_a6c32c6763a842fd12b26f0e2306cc42.bindPopup(popup_fc1a5bfc1361d455e54b913917453ce4)
+        ;
+
+        
+    
+    
+            var marker_edae88fa76351c98bb76a23db2525b4e = L.marker(
+                [39.22981187772774, -7.943115823198489],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_dbc3e1e45aa707ba3a659ed3b9f6b697 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_edae88fa76351c98bb76a23db2525b4e.setIcon(icon_dbc3e1e45aa707ba3a659ed3b9f6b697);
+        
+    
+        var popup_caef78ac691fe8da52988b1ba137e3fb = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_2f29ac82ab37b3deb262c6462a2019a5 = $(`<div id="html_2f29ac82ab37b3deb262c6462a2019a5" style="width: 100.0%; height: 100.0%;">Incident ID: 60<br><br>Latest Update: 2017-06-09 17:04:00<br>Time Since Update: 0 days, 3 hours, 53 minutes<br>Incident Span: 2 days, 2 hours, 25 minutes<br><br>Contributor IDs: [140, 193]<br>Contribution IDs: [140, 193]<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Portalegre: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Ponte de Sor: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_caef78ac691fe8da52988b1ba137e3fb.setContent(html_2f29ac82ab37b3deb262c6462a2019a5);
+            
+        
+
+        marker_edae88fa76351c98bb76a23db2525b4e.bindPopup(popup_caef78ac691fe8da52988b1ba137e3fb)
+        ;
+
+        
+    
+    
+            var marker_f720e48d3eb87bf540cb764878876e76 = L.marker(
+                [38.70156659999999, -9.341743399999999],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_8b54344bd68930d1be9cd5e944215658 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "beige", "prefix": "glyphicon"}
+            );
+            marker_f720e48d3eb87bf540cb764878876e76.setIcon(icon_8b54344bd68930d1be9cd5e944215658);
+        
+    
+        var popup_b38f1f871b7ae2177caa5b91aea54c8e = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_40651c8aa5abcc9cda2967912c206032 = $(`<div id="html_40651c8aa5abcc9cda2967912c206032" style="width: 100.0%; height: 100.0%;">Incident ID: 53<br><br>Latest Update: 2017-06-07 20:34:00<br>Time Since Update: 2 days, 0 hours, 23 minutes<br>Incident Span: 2 days, 1 hours, 18 minutes<br><br>Contributor IDs: [133, 132, 127]<br>Contribution IDs: [133, 132, 127]<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Cascais: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown</div>`)[0];
+                popup_b38f1f871b7ae2177caa5b91aea54c8e.setContent(html_40651c8aa5abcc9cda2967912c206032);
+            
+        
+
+        marker_f720e48d3eb87bf540cb764878876e76.bindPopup(popup_b38f1f871b7ae2177caa5b91aea54c8e)
+        ;
+
+        
+    
+    
+            var marker_797805ced5433080ac8a460fb7e8f80a = L.marker(
+                [37.5976, -8.6422],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_7a62974d3e623a0fd2eed59ae4ddef3e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_797805ced5433080ac8a460fb7e8f80a.setIcon(icon_7a62974d3e623a0fd2eed59ae4ddef3e);
+        
+    
+        var popup_f4fafbff6eb57f0b6073e585da3b4950 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_9ccb10147b84b8de01af1376b5450bb1 = $(`<div id="html_9ccb10147b84b8de01af1376b5450bb1" style="width: 100.0%; height: 100.0%;">Incident ID: -1<br><br>Latest Update: 2017-06-01 12:35:00<br>Time Since Update: 8 days, 8 hours, 22 minutes<br>Incident Span: 8 days, 8 hours, 22 minutes<br><br>Contributor IDs: 16<br>Contribution IDs: 18<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Beja: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Odemira: 100.0%<br><br>Distribution of Submitted Hazards:<br> - gasolina:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_f4fafbff6eb57f0b6073e585da3b4950.setContent(html_9ccb10147b84b8de01af1376b5450bb1);
+            
+        
+
+        marker_797805ced5433080ac8a460fb7e8f80a.bindPopup(popup_f4fafbff6eb57f0b6073e585da3b4950)
+        ;
+
+        
+    
+    
+            var marker_9f3aa75e598a942b380129a5e80bbe25 = L.marker(
+                [38.8005207, -9.2307698],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_6d7ba6b166e742dc92fa9351870c76f9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_9f3aa75e598a942b380129a5e80bbe25.setIcon(icon_6d7ba6b166e742dc92fa9351870c76f9);
+        
+    
+        var popup_44022180e00180054085254c939cd096 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_644795a02d455cd8f708c2f243e6e44d = $(`<div id="html_644795a02d455cd8f708c2f243e6e44d" style="width: 100.0%; height: 100.0%;">Incident ID: -2<br><br>Latest Update: 2017-06-01 13:05:00<br>Time Since Update: 8 days, 7 hours, 52 minutes<br>Incident Span: 8 days, 7 hours, 52 minutes<br><br>Contributor IDs: 16<br>Contribution IDs: 16<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Sintra: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_44022180e00180054085254c939cd096.setContent(html_644795a02d455cd8f708c2f243e6e44d);
+            
+        
+
+        marker_9f3aa75e598a942b380129a5e80bbe25.bindPopup(popup_44022180e00180054085254c939cd096)
+        ;
+
+        
+    
+    
+            var marker_ffe7c078cc8ab911ebd0dc8f6fe2c526 = L.marker(
+                [39.44956775, -7.913052599788992],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_51e3b30c9fdae22ce9ec3374b17e50fd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_ffe7c078cc8ab911ebd0dc8f6fe2c526.setIcon(icon_51e3b30c9fdae22ce9ec3374b17e50fd);
+        
+    
+        var popup_0014e81d64b0727eb1afc7978c18dd0f = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_830f8525d25b4ee8991d04d00f7e9a7a = $(`<div id="html_830f8525d25b4ee8991d04d00f7e9a7a" style="width: 100.0%; height: 100.0%;">Incident ID: -3<br><br>Latest Update: 2017-06-01 13:28:00<br>Time Since Update: 8 days, 7 hours, 29 minutes<br>Incident Span: 8 days, 7 hours, 29 minutes<br><br>Contributor IDs: 15<br>Contribution IDs: 15<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Portalegre: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Gavião: 100.0%<br><br>Distribution of Submitted Hazards:<br> - quimico:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_0014e81d64b0727eb1afc7978c18dd0f.setContent(html_830f8525d25b4ee8991d04d00f7e9a7a);
+            
+        
+
+        marker_ffe7c078cc8ab911ebd0dc8f6fe2c526.bindPopup(popup_0014e81d64b0727eb1afc7978c18dd0f)
+        ;
+
+        
+    
+    
+            var marker_9919ead3e99970fa7ea7ebae4c5a29d1 = L.marker(
+                [39.0531482, -7.4389355],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_c9b283d5a445958e88c8816fd9b2a7fc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_9919ead3e99970fa7ea7ebae4c5a29d1.setIcon(icon_c9b283d5a445958e88c8816fd9b2a7fc);
+        
+    
+        var popup_81e1ec5cd44db545cafedff667ad6317 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_34daa77c24d0be7565fc6d929e8f37c7 = $(`<div id="html_34daa77c24d0be7565fc6d929e8f37c7" style="width: 100.0%; height: 100.0%;">Incident ID: -4<br><br>Latest Update: 2017-06-01 13:33:00<br>Time Since Update: 8 days, 7 hours, 24 minutes<br>Incident Span: 8 days, 7 hours, 24 minutes<br><br>Contributor IDs: 17<br>Contribution IDs: 17<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Portalegre: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Monforte: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_81e1ec5cd44db545cafedff667ad6317.setContent(html_34daa77c24d0be7565fc6d929e8f37c7);
+            
+        
+
+        marker_9919ead3e99970fa7ea7ebae4c5a29d1.bindPopup(popup_81e1ec5cd44db545cafedff667ad6317)
+        ;
+
+        
+    
+    
+            var marker_f28641336283d67a9dd7eb92e2873428 = L.marker(
+                [38.72240025, -9.396909171649876],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_cb9977f6d191e6147e99c06a9d7bd546 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_f28641336283d67a9dd7eb92e2873428.setIcon(icon_cb9977f6d191e6147e99c06a9d7bd546);
+        
+    
+        var popup_46f370e5b6d511e4d7ed7ccdf809d882 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_3e4352a4edbde291219145054eed523f = $(`<div id="html_3e4352a4edbde291219145054eed523f" style="width: 100.0%; height: 100.0%;">Incident ID: -5<br><br>Latest Update: 2017-06-01 16:51:00<br>Time Since Update: 8 days, 4 hours, 6 minutes<br>Incident Span: 8 days, 4 hours, 6 minutes<br><br>Contributor IDs: 12<br>Contribution IDs: 12<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Cascais: 100.0%<br><br>Distribution of Submitted Hazards:<br> - rescaldo:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_46f370e5b6d511e4d7ed7ccdf809d882.setContent(html_3e4352a4edbde291219145054eed523f);
+            
+        
+
+        marker_f28641336283d67a9dd7eb92e2873428.bindPopup(popup_46f370e5b6d511e4d7ed7ccdf809d882)
+        ;
+
+        
+    
+    
+            var marker_ce61f9638e172474b91efd88bfd5becb = L.marker(
+                [38.75823225, -9.266679900628509],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_8b60f149ac7a00b1966732967c06b2ff = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_ce61f9638e172474b91efd88bfd5becb.setIcon(icon_8b60f149ac7a00b1966732967c06b2ff);
+        
+    
+        var popup_05f0b9fe11d8adf761897274954ab7b3 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_72e27b906d9c039630608ad4c45bd906 = $(`<div id="html_72e27b906d9c039630608ad4c45bd906" style="width: 100.0%; height: 100.0%;">Incident ID: -6<br><br>Latest Update: 2017-06-01 17:49:00<br>Time Since Update: 8 days, 3 hours, 8 minutes<br>Incident Span: 8 days, 3 hours, 8 minutes<br><br>Contributor IDs: 8<br>Contribution IDs: 8<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Sintra: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_05f0b9fe11d8adf761897274954ab7b3.setContent(html_72e27b906d9c039630608ad4c45bd906);
+            
+        
+
+        marker_ce61f9638e172474b91efd88bfd5becb.bindPopup(popup_05f0b9fe11d8adf761897274954ab7b3)
+        ;
+
+        
+    
+    
+            var marker_29f4e59b591cbc279e0a8b975f0d3a14 = L.marker(
+                [39.39154655, -9.03279334715808],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_ea114cc6554c04307e75652908e49565 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_29f4e59b591cbc279e0a8b975f0d3a14.setIcon(icon_ea114cc6554c04307e75652908e49565);
+        
+    
+        var popup_e6d38868239d64107f437600f0a5dbd6 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_b51e03f58ad7fee2eb59c8ee6fbd0f58 = $(`<div id="html_b51e03f58ad7fee2eb59c8ee6fbd0f58" style="width: 100.0%; height: 100.0%;">Incident ID: -7<br><br>Latest Update: 2017-06-03 01:39:00<br>Time Since Update: 6 days, 19 hours, 18 minutes<br>Incident Span: 6 days, 19 hours, 18 minutes<br><br>Contributor IDs: 77<br>Contribution IDs: 77<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Leiria: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Caldas da Rainha: 100.0%<br><br>Distribution of Submitted Hazards:<br> - quimico:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_e6d38868239d64107f437600f0a5dbd6.setContent(html_b51e03f58ad7fee2eb59c8ee6fbd0f58);
+            
+        
+
+        marker_29f4e59b591cbc279e0a8b975f0d3a14.bindPopup(popup_e6d38868239d64107f437600f0a5dbd6)
+        ;
+
+        
+    
+    
+            var marker_5751effb034a33ecd9bc3aa9e28bbae2 = L.marker(
+                [40.4284618, -8.7372138],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_b0a987203272447f4f8c3f7e1e9293f6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_5751effb034a33ecd9bc3aa9e28bbae2.setIcon(icon_b0a987203272447f4f8c3f7e1e9293f6);
+        
+    
+        var popup_9bcf2331365c88ae4ef8ccbbbe03176a = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_9fa5f057837181d8f008ded0306c8eae = $(`<div id="html_9fa5f057837181d8f008ded0306c8eae" style="width: 100.0%; height: 100.0%;">Incident ID: -8<br><br>Latest Update: 2017-06-03 16:41:00<br>Time Since Update: 6 days, 4 hours, 16 minutes<br>Incident Span: 6 days, 4 hours, 16 minutes<br><br>Contributor IDs: 5<br>Contribution IDs: 44<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Coimbra: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Mira: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_9bcf2331365c88ae4ef8ccbbbe03176a.setContent(html_9fa5f057837181d8f008ded0306c8eae);
+            
+        
+
+        marker_5751effb034a33ecd9bc3aa9e28bbae2.bindPopup(popup_9bcf2331365c88ae4ef8ccbbbe03176a)
+        ;
+
+        
+    
+    
+            var marker_b481d3dbae2e582837c622341b377a33 = L.marker(
+                [40.6106763, -8.5362531],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_fc375d6ceb33edb7d6a93b65e643a722 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_b481d3dbae2e582837c622341b377a33.setIcon(icon_fc375d6ceb33edb7d6a93b65e643a722);
+        
+    
+        var popup_f14b530c49c6a393894eec322e2bc430 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_24110fef18d853b14839a3defb7a296b = $(`<div id="html_24110fef18d853b14839a3defb7a296b" style="width: 100.0%; height: 100.0%;">Incident ID: -9<br><br>Latest Update: 2017-06-03 16:50:00<br>Time Since Update: 6 days, 4 hours, 7 minutes<br>Incident Span: 6 days, 4 hours, 7 minutes<br><br>Contributor IDs: 42<br>Contribution IDs: 42<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Aveiro: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_f14b530c49c6a393894eec322e2bc430.setContent(html_24110fef18d853b14839a3defb7a296b);
+            
+        
+
+        marker_b481d3dbae2e582837c622341b377a33.bindPopup(popup_f14b530c49c6a393894eec322e2bc430)
+        ;
+
+        
+    
+    
+            var marker_c361cb791378940f45e242397de2ed50 = L.marker(
+                [39.45624495, -9.180932897705262],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_77a2547839eff9493e0808046229730d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_c361cb791378940f45e242397de2ed50.setIcon(icon_77a2547839eff9493e0808046229730d);
+        
+    
+        var popup_127d0bf25ad7b358862da5a8cd9954e5 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_08c02b11010ef49789247b87b12a090a = $(`<div id="html_08c02b11010ef49789247b87b12a090a" style="width: 100.0%; height: 100.0%;">Incident ID: -10<br><br>Latest Update: 2017-06-03 18:10:00<br>Time Since Update: 6 days, 2 hours, 47 minutes<br>Incident Span: 6 days, 2 hours, 47 minutes<br><br>Contributor IDs: 39<br>Contribution IDs: 39<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Leiria: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Caldas da Rainha: 100.0%<br><br>Distribution of Submitted Hazards:<br> - populacao:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_127d0bf25ad7b358862da5a8cd9954e5.setContent(html_08c02b11010ef49789247b87b12a090a);
+            
+        
+
+        marker_c361cb791378940f45e242397de2ed50.bindPopup(popup_127d0bf25ad7b358862da5a8cd9954e5)
+        ;
+
+        
+    
+    
+            var marker_75c20194bdbef940397af7f7f9d87f77 = L.marker(
+                [41.05879005, -8.590010656971135],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_5ca2773ccc9c8cc205c0b6aceff1da21 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_75c20194bdbef940397af7f7f9d87f77.setIcon(icon_5ca2773ccc9c8cc205c0b6aceff1da21);
+        
+    
+        var popup_f471b98ac1cbca0b2954a77adf89c511 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_3abcab09f89f9de7b7790e2805df2d1c = $(`<div id="html_3abcab09f89f9de7b7790e2805df2d1c" style="width: 100.0%; height: 100.0%;">Incident ID: -11<br><br>Latest Update: 2017-06-03 18:26:00<br>Time Since Update: 6 days, 2 hours, 31 minutes<br>Incident Span: 6 days, 2 hours, 31 minutes<br><br>Contributor IDs: 36<br>Contribution IDs: 36<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Vila Nova de Gaia: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_f471b98ac1cbca0b2954a77adf89c511.setContent(html_3abcab09f89f9de7b7790e2805df2d1c);
+            
+        
+
+        marker_75c20194bdbef940397af7f7f9d87f77.bindPopup(popup_f471b98ac1cbca0b2954a77adf89c511)
+        ;
+
+        
+    
+    
+            var marker_7596e6801779ef54e3fbfc0c4ed4f528 = L.marker(
+                [41.3618035, -8.464571740460656],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_72dc8cb6caf611e9e8e4f41e31967632 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_7596e6801779ef54e3fbfc0c4ed4f528.setIcon(icon_72dc8cb6caf611e9e8e4f41e31967632);
+        
+    
+        var popup_4694ec73fa4060e9d08ca4f8640054e2 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_f356596194f19bc48e4a79a38ffc2573 = $(`<div id="html_f356596194f19bc48e4a79a38ffc2573" style="width: 100.0%; height: 100.0%;">Incident ID: -12<br><br>Latest Update: 2017-06-05 07:10:00<br>Time Since Update: 4 days, 13 hours, 47 minutes<br>Incident Span: 4 days, 13 hours, 47 minutes<br><br>Contributor IDs: 117<br>Contribution IDs: 117<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Santo Tirso: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_4694ec73fa4060e9d08ca4f8640054e2.setContent(html_f356596194f19bc48e4a79a38ffc2573);
+            
+        
+
+        marker_7596e6801779ef54e3fbfc0c4ed4f528.bindPopup(popup_4694ec73fa4060e9d08ca4f8640054e2)
+        ;
+
+        
+    
+    
+            var marker_5bc563e7f773098bf8544e3af3dedfa9 = L.marker(
+                [37.963407450000005, -8.588958762176103],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_cef57f71a402f2e386e5075f1a60c503 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_5bc563e7f773098bf8544e3af3dedfa9.setIcon(icon_cef57f71a402f2e386e5075f1a60c503);
+        
+    
+        var popup_538af352a9593d135a2371a2c66695da = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_0f02444bcff24731c1d6ea7840ba790a = $(`<div id="html_0f02444bcff24731c1d6ea7840ba790a" style="width: 100.0%; height: 100.0%;">Incident ID: -13<br><br>Latest Update: 2017-06-05 08:34:00<br>Time Since Update: 4 days, 12 hours, 23 minutes<br>Incident Span: 4 days, 12 hours, 23 minutes<br><br>Contributor IDs: 116<br>Contribution IDs: 116<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Setúbal: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Santiago do Cacém: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_538af352a9593d135a2371a2c66695da.setContent(html_0f02444bcff24731c1d6ea7840ba790a);
+            
+        
+
+        marker_5bc563e7f773098bf8544e3af3dedfa9.bindPopup(popup_538af352a9593d135a2371a2c66695da)
+        ;
+
+        
+    
+    
+            var marker_8708799fce004f4463e8c5e013dfe106 = L.marker(
+                [41.8803257, -8.523255293554344],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_802fb7bfcae57197d49510cc15555396 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_8708799fce004f4463e8c5e013dfe106.setIcon(icon_802fb7bfcae57197d49510cc15555396);
+        
+    
+        var popup_1c4d9880778ca362741f470717a8c290 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_7b4bd39c2f39cdba79f251dc636eeef0 = $(`<div id="html_7b4bd39c2f39cdba79f251dc636eeef0" style="width: 100.0%; height: 100.0%;">Incident ID: -14<br><br>Latest Update: 2017-06-05 10:28:00<br>Time Since Update: 4 days, 10 hours, 29 minutes<br>Incident Span: 4 days, 10 hours, 29 minutes<br><br>Contributor IDs: 114<br>Contribution IDs: 114<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Viana do Castelo: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Paredes de Coura: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_1c4d9880778ca362741f470717a8c290.setContent(html_7b4bd39c2f39cdba79f251dc636eeef0);
+            
+        
+
+        marker_8708799fce004f4463e8c5e013dfe106.bindPopup(popup_1c4d9880778ca362741f470717a8c290)
+        ;
+
+        
+    
+    
+            var marker_510fff463d6fc19216b715a2093e9aef = L.marker(
+                [42.0764373, -8.4535912],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_c15c39173a4cb5c5516ceced7b6f997e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_510fff463d6fc19216b715a2093e9aef.setIcon(icon_c15c39173a4cb5c5516ceced7b6f997e);
+        
+    
+        var popup_a462f9165e9a81144e8b56450cbeb694 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_6ea27427b3f16d5de570f0a5103fc3fd = $(`<div id="html_6ea27427b3f16d5de570f0a5103fc3fd" style="width: 100.0%; height: 100.0%;">Incident ID: -15<br><br>Latest Update: 2017-06-05 11:32:00<br>Time Since Update: 4 days, 9 hours, 25 minutes<br>Incident Span: 4 days, 9 hours, 25 minutes<br><br>Contributor IDs: 84<br>Contribution IDs: 112<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Viana do Castelo: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Monção: 100.0%<br><br>Distribution of Submitted Hazards:<br> - incendio:<br>&emsp;Submissions: 1<br>&emsp; Weight: 100.0%<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_a462f9165e9a81144e8b56450cbeb694.setContent(html_6ea27427b3f16d5de570f0a5103fc3fd);
+            
+        
+
+        marker_510fff463d6fc19216b715a2093e9aef.bindPopup(popup_a462f9165e9a81144e8b56450cbeb694)
+        ;
+
+        
+    
+    
+            var marker_c84de660415a44a0fe6f2755738a4415 = L.marker(
+                [41.21704075, -8.675064594639554],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_625e89680a7157927c879b25621432a2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_c84de660415a44a0fe6f2755738a4415.setIcon(icon_625e89680a7157927c879b25621432a2);
+        
+    
+        var popup_e6bb53c824bab587de96b344167e7a91 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_f7a27ac2a5ffd9086e79ab19c14f30dd = $(`<div id="html_f7a27ac2a5ffd9086e79ab19c14f30dd" style="width: 100.0%; height: 100.0%;">Incident ID: -16<br><br>Latest Update: 2017-06-05 13:18:00<br>Time Since Update: 4 days, 7 hours, 39 minutes<br>Incident Span: 4 days, 7 hours, 39 minutes<br><br>Contributor IDs: 105<br>Contribution IDs: 105<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Matosinhos: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_e6bb53c824bab587de96b344167e7a91.setContent(html_f7a27ac2a5ffd9086e79ab19c14f30dd);
+            
+        
+
+        marker_c84de660415a44a0fe6f2755738a4415.bindPopup(popup_e6bb53c824bab587de96b344167e7a91)
+        ;
+
+        
+    
+    
+            var marker_b99ce472fd2e556b7b622b48445fe2af = L.marker(
+                [38.7124971, -9.271300382407272],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_e0cf67701a0b053f04777c4a74ead656 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_b99ce472fd2e556b7b622b48445fe2af.setIcon(icon_e0cf67701a0b053f04777c4a74ead656);
+        
+    
+        var popup_e3d896182714e166a9f4621e62932774 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_b332d63fcb0ff61afa5d25ede6551b21 = $(`<div id="html_b332d63fcb0ff61afa5d25ede6551b21" style="width: 100.0%; height: 100.0%;">Incident ID: -17<br><br>Latest Update: 2017-06-05 16:01:00<br>Time Since Update: 4 days, 4 hours, 56 minutes<br>Incident Span: 4 days, 4 hours, 56 minutes<br><br>Contributor IDs: 94<br>Contribution IDs: 94<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Lisboa: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Oeiras: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_e3d896182714e166a9f4621e62932774.setContent(html_b332d63fcb0ff61afa5d25ede6551b21);
+            
+        
+
+        marker_b99ce472fd2e556b7b622b48445fe2af.bindPopup(popup_e3d896182714e166a9f4621e62932774)
+        ;
+
+        
+    
+    
+            var marker_31ddd1abf93952923105ed973ca165a3 = L.marker(
+                [40.2008959, -7.3756137],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_65b37a28d19bf3bedbed147a4906014d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_31ddd1abf93952923105ed973ca165a3.setIcon(icon_65b37a28d19bf3bedbed147a4906014d);
+        
+    
+        var popup_26e29910666f26d86855aacb67775c2d = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_5bdc8721a606b71358981185054890b9 = $(`<div id="html_5bdc8721a606b71358981185054890b9" style="width: 100.0%; height: 100.0%;">Incident ID: -18<br><br>Latest Update: 2017-06-05 16:22:00<br>Time Since Update: 4 days, 4 hours, 35 minutes<br>Incident Span: 4 days, 4 hours, 35 minutes<br><br>Contributor IDs: 95<br>Contribution IDs: 95<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Castelo Branco: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Fundão: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_26e29910666f26d86855aacb67775c2d.setContent(html_5bdc8721a606b71358981185054890b9);
+            
+        
+
+        marker_31ddd1abf93952923105ed973ca165a3.bindPopup(popup_26e29910666f26d86855aacb67775c2d)
+        ;
+
+        
+    
+    
+            var marker_bdee16184f8bd63b93b81c864a8784c4 = L.marker(
+                [39.8446856, -8.601581],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_621274967f98c8594637c44977d00b28 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_bdee16184f8bd63b93b81c864a8784c4.setIcon(icon_621274967f98c8594637c44977d00b28);
+        
+    
+        var popup_4844f3324ca1ad8cd38561e04cc194e3 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_ee1dd17d78b74233130298d600f7a429 = $(`<div id="html_ee1dd17d78b74233130298d600f7a429" style="width: 100.0%; height: 100.0%;">Incident ID: -19<br><br>Latest Update: 2017-06-05 16:23:00<br>Time Since Update: 4 days, 4 hours, 34 minutes<br>Incident Span: 4 days, 4 hours, 34 minutes<br><br>Contributor IDs: 96<br>Contribution IDs: 96<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Leiria: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Pombal: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_4844f3324ca1ad8cd38561e04cc194e3.setContent(html_ee1dd17d78b74233130298d600f7a429);
+            
+        
+
+        marker_bdee16184f8bd63b93b81c864a8784c4.bindPopup(popup_4844f3324ca1ad8cd38561e04cc194e3)
+        ;
+
+        
+    
+    
+            var marker_a04094bb12465bbcfc725c72cd1248ea = L.marker(
+                [38.8760308, -7.1737348],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_dae2cfe01c5659021ab6f4f5218a2b92 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_a04094bb12465bbcfc725c72cd1248ea.setIcon(icon_dae2cfe01c5659021ab6f4f5218a2b92);
+        
+    
+        var popup_46b9acb4dd129af39f9e3935eee7db7a = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_67c4afcc6a9d604df3d09a4fa9774528 = $(`<div id="html_67c4afcc6a9d604df3d09a4fa9774528" style="width: 100.0%; height: 100.0%;">Incident ID: -20<br><br>Latest Update: 2017-06-05 19:57:00<br>Time Since Update: 4 days, 1 hours, 0 minutes<br>Incident Span: 4 days, 1 hours, 0 minutes<br><br>Contributor IDs: 86<br>Contribution IDs: 86<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Portalegre: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Elvas: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_46b9acb4dd129af39f9e3935eee7db7a.setContent(html_67c4afcc6a9d604df3d09a4fa9774528);
+            
+        
+
+        marker_a04094bb12465bbcfc725c72cd1248ea.bindPopup(popup_46b9acb4dd129af39f9e3935eee7db7a)
+        ;
+
+        
+    
+    
+            var marker_522ae1d8e9d97b7fb4b4230e0b623fba = L.marker(
+                [38.7020061, -7.4038313],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_fc4711e87b7d50f911fab8a0272940e3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_522ae1d8e9d97b7fb4b4230e0b623fba.setIcon(icon_fc4711e87b7d50f911fab8a0272940e3);
+        
+    
+        var popup_a9281693e74f7e19b6f41fbe1315e160 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_c270a77ab7c39720dabdbfca97f4bfe5 = $(`<div id="html_c270a77ab7c39720dabdbfca97f4bfe5" style="width: 100.0%; height: 100.0%;">Incident ID: -21<br><br>Latest Update: 2017-06-05 20:24:00<br>Time Since Update: 4 days, 0 hours, 33 minutes<br>Incident Span: 4 days, 0 hours, 33 minutes<br><br>Contributor IDs: 84<br>Contribution IDs: 84<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Évora: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Alandroal: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_a9281693e74f7e19b6f41fbe1315e160.setContent(html_c270a77ab7c39720dabdbfca97f4bfe5);
+            
+        
+
+        marker_522ae1d8e9d97b7fb4b4230e0b623fba.bindPopup(popup_a9281693e74f7e19b6f41fbe1315e160)
+        ;
+
+        
+    
+    
+            var marker_0ad91f1ec719608d684fdc494ca21061 = L.marker(
+                [39.8593297, -7.371979179331566],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_5a7c9e36021db72b9e5ae57ae0e599c6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_0ad91f1ec719608d684fdc494ca21061.setIcon(icon_5a7c9e36021db72b9e5ae57ae0e599c6);
+        
+    
+        var popup_abae460c4bb82ee1968a9906a9201c79 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_4b438e2670f5e11ad87b5025ffc603a6 = $(`<div id="html_4b438e2670f5e11ad87b5025ffc603a6" style="width: 100.0%; height: 100.0%;">Incident ID: -22<br><br>Latest Update: 2017-06-07 09:34:00<br>Time Since Update: 2 days, 11 hours, 23 minutes<br>Incident Span: 2 days, 11 hours, 23 minutes<br><br>Contributor IDs: 40<br>Contribution IDs: 179<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Castelo Branco: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Castelo Branco: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_abae460c4bb82ee1968a9906a9201c79.setContent(html_4b438e2670f5e11ad87b5025ffc603a6);
+            
+        
+
+        marker_0ad91f1ec719608d684fdc494ca21061.bindPopup(popup_abae460c4bb82ee1968a9906a9201c79)
+        ;
+
+        
+    
+    
+            var marker_c4f59d7d7a29145c8e8d99bec8986148 = L.marker(
+                [38.1173878, -8.283465156343713],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_9d722d4f940b894c6902794ea6f99673 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_c4f59d7d7a29145c8e8d99bec8986148.setIcon(icon_9d722d4f940b894c6902794ea6f99673);
+        
+    
+        var popup_d51a2c010a81a573a23571c58525f597 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_2b270c7749677ab752c66ea4f9f065c8 = $(`<div id="html_2b270c7749677ab752c66ea4f9f065c8" style="width: 100.0%; height: 100.0%;">Incident ID: -23<br><br>Latest Update: 2017-06-07 13:43:00<br>Time Since Update: 2 days, 7 hours, 14 minutes<br>Incident Span: 2 days, 7 hours, 14 minutes<br><br>Contributor IDs: 169<br>Contribution IDs: 169<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Beja: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Ferreira do Alentejo: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_d51a2c010a81a573a23571c58525f597.setContent(html_2b270c7749677ab752c66ea4f9f065c8);
+            
+        
+
+        marker_c4f59d7d7a29145c8e8d99bec8986148.bindPopup(popup_d51a2c010a81a573a23571c58525f597)
+        ;
+
+        
+    
+    
+            var marker_30cb5093f13ee4c3325b98edd1d93fdf = L.marker(
+                [38.5623884, -7.9118644],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_24787ab98b55f917e182e6807aef2b4a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_30cb5093f13ee4c3325b98edd1d93fdf.setIcon(icon_24787ab98b55f917e182e6807aef2b4a);
+        
+    
+        var popup_a665d9f16d946bd0cb61c747f7661d5f = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_8ffc04cc41c10cb6f2f3def30219b2d8 = $(`<div id="html_8ffc04cc41c10cb6f2f3def30219b2d8" style="width: 100.0%; height: 100.0%;">Incident ID: -24<br><br>Latest Update: 2017-06-07 16:36:00<br>Time Since Update: 2 days, 4 hours, 21 minutes<br>Incident Span: 2 days, 4 hours, 21 minutes<br><br>Contributor IDs: 150<br>Contribution IDs: 150<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Évora: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Évora: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_a665d9f16d946bd0cb61c747f7661d5f.setContent(html_8ffc04cc41c10cb6f2f3def30219b2d8);
+            
+        
+
+        marker_30cb5093f13ee4c3325b98edd1d93fdf.bindPopup(popup_a665d9f16d946bd0cb61c747f7661d5f)
+        ;
+
+        
+    
+    
+            var marker_869b45660ab860803b954a1a7cbfd466 = L.marker(
+                [40.4426833, -8.4359581],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_bb6e81d457eb25b7eb474d7df085723c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_869b45660ab860803b954a1a7cbfd466.setIcon(icon_bb6e81d457eb25b7eb474d7df085723c);
+        
+    
+        var popup_a26de552b833129855cb211cbfda1a7b = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_2a9a57b4dd2ba544caea71d972c7e2fc = $(`<div id="html_2a9a57b4dd2ba544caea71d972c7e2fc" style="width: 100.0%; height: 100.0%;">Incident ID: -25<br><br>Latest Update: 2017-06-07 17:51:00<br>Time Since Update: 2 days, 3 hours, 6 minutes<br>Incident Span: 2 days, 3 hours, 6 minutes<br><br>Contributor IDs: 144<br>Contribution IDs: 144<br><br>Fire: Unknown<br>Smoke: Confirmed<br><br>Distribution of Submitted Districts:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Anadia: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_a26de552b833129855cb211cbfda1a7b.setContent(html_2a9a57b4dd2ba544caea71d972c7e2fc);
+            
+        
+
+        marker_869b45660ab860803b954a1a7cbfd466.bindPopup(popup_a26de552b833129855cb211cbfda1a7b)
+        ;
+
+        
+    
+    
+            var marker_bc90ec75d0f247b18d31b73a8e258c4b = L.marker(
+                [41.3363471, -8.5585061],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_bad273d7f402979332bfd87269a5a142 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_bc90ec75d0f247b18d31b73a8e258c4b.setIcon(icon_bad273d7f402979332bfd87269a5a142);
+        
+    
+        var popup_b385c821b2c8ae14d9d491268b82ad61 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_b49c7cae2c3b49abbea3c1dd9934d71d = $(`<div id="html_b49c7cae2c3b49abbea3c1dd9934d71d" style="width: 100.0%; height: 100.0%;">Incident ID: -26<br><br>Latest Update: 2017-06-07 18:14:00<br>Time Since Update: 2 days, 2 hours, 43 minutes<br>Incident Span: 2 days, 2 hours, 43 minutes<br><br>Contributor IDs: 141<br>Contribution IDs: 141<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Porto: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Trofa: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_b385c821b2c8ae14d9d491268b82ad61.setContent(html_b49c7cae2c3b49abbea3c1dd9934d71d);
+            
+        
+
+        marker_bc90ec75d0f247b18d31b73a8e258c4b.bindPopup(popup_b385c821b2c8ae14d9d491268b82ad61)
+        ;
+
+        
+    
+    
+            var marker_08657bb1a90efba32f2ab55b034f5310 = L.marker(
+                [40.50472645, -8.559422984896361],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_b5cc3019a12c2e079f011bc6834230ac = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_08657bb1a90efba32f2ab55b034f5310.setIcon(icon_b5cc3019a12c2e079f011bc6834230ac);
+        
+    
+        var popup_ad92f339ec5bbccedb85bf17338c6001 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_69c7db22899f7025d3fdc08776bbad25 = $(`<div id="html_69c7db22899f7025d3fdc08776bbad25" style="width: 100.0%; height: 100.0%;">Incident ID: -27<br><br>Latest Update: 2017-06-07 23:33:00<br>Time Since Update: 1 days, 21 hours, 24 minutes<br>Incident Span: 1 days, 21 hours, 24 minutes<br><br>Contributor IDs: 63<br>Contribution IDs: 120<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Oliveira do Bairro: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_ad92f339ec5bbccedb85bf17338c6001.setContent(html_69c7db22899f7025d3fdc08776bbad25);
+            
+        
+
+        marker_08657bb1a90efba32f2ab55b034f5310.bindPopup(popup_ad92f339ec5bbccedb85bf17338c6001)
+        ;
+
+        
+    
+    
+            var marker_2777e50a65883e4174783f2b73f6c552 = L.marker(
+                [40.75077, -8.6129271],
+                {}
+            ).addTo(marker_cluster_66215120233b3658c2d6cfa98ae1ce16);
+        
+    
+            var icon_b4f49df8b0a33f577460f876c1e8d306 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_2777e50a65883e4174783f2b73f6c552.setIcon(icon_b4f49df8b0a33f577460f876c1e8d306);
+        
+    
+        var popup_01083a6b59184612d28e7d5b639d4c16 = L.popup({"maxWidth": 400});
+
+        
+            
+                var html_7d96693131f9fcf65e1539389eb83161 = $(`<div id="html_7d96693131f9fcf65e1539389eb83161" style="width: 100.0%; height: 100.0%;">Incident ID: -28<br><br>Latest Update: 2017-06-09 16:30:00<br>Time Since Update: 0 days, 4 hours, 27 minutes<br>Incident Span: 0 days, 4 hours, 27 minutes<br><br>Contributor IDs: 198<br>Contribution IDs: 198<br><br>Fire: Unknown<br>Smoke: Unknown<br><br>Distribution of Submitted Districts:<br> - Aveiro: 100.0%<br><br>Distribution of Submitted Parishes:<br> - Estarreja: 100.0%<br><br>Distribution of Incident Hazards: <br>Unknown<br><br>WARNING: <br>Isolated Incident - May be inaccurate</div>`)[0];
+                popup_01083a6b59184612d28e7d5b639d4c16.setContent(html_7d96693131f9fcf65e1539389eb83161);
+            
+        
+
+        marker_2777e50a65883e4174783f2b73f6c552.bindPopup(popup_01083a6b59184612d28e7d5b639d4c16)
+        ;
+
+        
+    
+</script>
+</html>
