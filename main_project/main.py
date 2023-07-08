@@ -817,9 +817,20 @@ def plot_folium2(data, map_name):
         # Create the formatted string for inactivity
         inactivity_string = f"{days} days, {hours} hours, {minutes} minutes"
 
+        # if too many IDs are added on top of the rest of the text, the popup message will likely overflow and close itself.
+        # comment the if's if you want to print all IDs regardless
+        user_ids = event.get('user_ids')
+        sub_ids = event.get('sub_ids')
+        if isinstance(user_ids, list) and len(user_ids) > 15:
+            user_ids = user_ids[:15]
+            user_ids[-1] = "..."
+        if isinstance(sub_ids, list) and len(sub_ids) > 15:
+            sub_ids = sub_ids[:15]
+            sub_ids[-1] = "..."
+
         # Create the popup message with the updated event data
         popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Time Since Update: {inactivity_string}<br>Incident Span: " \
-                     f"{age_string}<br><br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
+                     f"{age_string}<br><br>Contributor IDs: {user_ids}<br>Contribution IDs: {sub_ids}"
 
         # Display "Has Fire" and "Has Smoke"
         has_fire = "Confirmed" if event.get('fire_verified') else "Unknown"
@@ -872,7 +883,6 @@ def plot_folium2(data, map_name):
             # if isolated event
             popup_text += '<br><br>WARNING: <br>Isolated Incident - May be inaccurate'
             color = 'black'
-
         else:
             # if extremely hazardous event
             if event.get('event_hazard_level') == 3:
@@ -890,6 +900,7 @@ def plot_folium2(data, map_name):
             elif event.get('event_hazard_level') == 0 and ASSIGN_GREEN:
                 color = 'green'
 
+            # there shouldnt be a case where this else is reached
             else:
                 color = 'beige'
 
@@ -1013,9 +1024,20 @@ def plot_folium_iterative(datasets, map_name):
             # Create the formatted string for inactivity
             inactivity_string = f"{days} days, {hours} hours, {minutes} minutes"
 
+            # if too many IDs are added on top of the rest of the text, the popup message will likely overflow and close itself.
+            # comment the if's if you want to print all IDs regardless
+            user_ids = event.get('user_ids')
+            sub_ids = event.get('sub_ids')
+            if isinstance(user_ids, list) and len(user_ids) > 15:
+                user_ids = user_ids[:15]
+                user_ids[-1] = "..."
+            if isinstance(sub_ids, list) and len(sub_ids) > 15:
+                sub_ids = sub_ids[:15]
+                sub_ids[-1] = "..."
+
             # Create the popup message with the updated event data
             popup_text = f"Incident ID: {event.get('event_id')}<br><br>Latest Update: {event.get('date_latest')}<br>Time Since Update: {inactivity_string}<br>Incident Span: " \
-                         f"{age_string}<br><br>Contributor IDs: {event.get('user_ids')}<br>Contribution IDs: {event.get('sub_ids')}"
+                         f"{age_string}<br><br>Contributor IDs: {user_ids}<br>Contribution IDs: {sub_ids}"
 
             # Display "Has Fire" and "Has Smoke"
             has_fire = "Confirmed" if event.get('fire_verified') else "Unknown"
