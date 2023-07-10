@@ -353,7 +353,8 @@ def fuse_cluster_submissions(cluster_id, cluster_members):
 
         # Calculate the decay weight for the current submission
         time_decay = handle_time_decay(date)
-        weight = time_decay * (user_rating / 20)
+        rating_decay = handle_user_rating_weight(user_rating)
+        weight = time_decay * rating_decay
 
         # Weights to be used for the coordinate fusion
         haversine_weights.append(weight)
@@ -435,7 +436,8 @@ def handle_noise_submissions(cluster_members, fused_clusters):
 
         # Calculate the decay weight for the current submission
         time_decay = handle_time_decay(date)
-        weight = time_decay * (user_rating / 20)
+        rating_decay = handle_user_rating_weight(user_rating)
+        weight = time_decay * rating_decay
 
         fused_districts = defaultdict(lambda: {"counter": 0, "percentage": 0})
         fused_parishes = defaultdict(lambda: {"counter": 0, "percentage": 0})
@@ -489,6 +491,18 @@ def handle_noise_submissions(cluster_members, fused_clusters):
 
 
 ########## AUX functions for Data Fusion ##########
+
+
+# TODO simple functions that converts format [1, 20] to [0,1] 
+def handle_user_rating_weight(user_rating):
+    # Formula A (Low decay) --> 15/20 = 0.775  10/20 = 0.75 5/20 = 0.5 ...
+    # result = ((user_rating - 1) / (20 - 1)) * (1 - 0.05) + 0.05
+    # Formula B (Standard decay) --> 15/20 = 0.75  10/20 = 0.5 5/20 = 0.25 ...
+    result = user_rating / 20
+    # Formula C (High decay) --> 15/20 = 0.55  10/20 = 0.25 5/20 = 0.1 ...
+    # result = ((user_rating - 1) / (20 - 1))**2 * (1 - 0.05) + 0.05
+    
+    return result
 
 
 """
